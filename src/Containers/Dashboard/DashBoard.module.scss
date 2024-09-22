@@ -1,41 +1,5 @@
 .dashboard{ 
     @apply w-full flex flex-col;
 
-    &__main{
-        @apply flex w-full min-h-[80vh] my-5;
-
-        &--event{
-            @apply w-1/4 pr-5;
-        }
-
-        &--attendance{
-            @apply w-1/2;
-        }
-
-        &--notes{
-            @apply w-1/4 pl-5;
-        }
-    }
-
-    &__top-section{
-        @apply flex justify-between m-2; 
-
-        &--buttons{
-            button{
-                @apply mx-2 px-2 border border-sky-400 rounded-sm;
-            }
-        }
-
-        &--capacity{
-            @apply p-0;
-        }
-
-        &--button-placeholder {
-            @apply h-10;
-        }
-    }
-
-    &__title{
-        @apply text-3xl flex justify-center py-2;
-    }
+    
 }
