@@ -1,0 +1,19 @@
+.container {
+    @apply flex justify-center
+}
+
+.userEvents {
+    @apply border w-full max-w-[500px] h-screen my-10;
+
+    &--header {
+        @apply flex justify-center items-center w-full border-b p-4
+    }
+
+    &--body{
+        @apply flex w-full flex-col;
+
+        &__item {
+            @apply flex;
+        }
+    }
+}

@@ -1,0 +1,7 @@
+.app-shell{
+    @apply w-full flex flex-col min-h-screen justify-between;
+
+    &__outlet{
+        @apply max-w-5xl m-auto w-full min-h-screen;
+    }
+}

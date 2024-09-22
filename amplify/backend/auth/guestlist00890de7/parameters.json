@@ -1,0 +1,25 @@
+{
+  "authSelections": "userPoolOnly",
+  "resourceName": "guestlist00890de7",
+  "serviceType": "imported",
+  "region": "us-west-2",
+  "usernameAttributes": [
+    "email"
+  ],
+  "requiredAttributes": [
+    "name",
+    "email"
+  ],
+  "passwordPolicyMinLength": 8,
+  "passwordPolicyCharacters": [
+    "Requires Lowercase",
+    "Requires Uppercase",
+    "Requires Numbers",
+    "Requires Symbols"
+  ],
+  "mfaConfiguration": "OFF",
+  "autoVerifiedAttributes": [
+    "email"
+  ],
+  "mfaTypes": []
+}

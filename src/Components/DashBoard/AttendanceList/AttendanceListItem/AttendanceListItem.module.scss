@@ -1,0 +1,16 @@
+.attendance-list-item{
+    @apply flex justify-between items-center w-full p-5;
+
+    &__attendance-details{
+        @apply flex items-center;
+    }
+
+    &__sharing-details{
+        @apply flex-col flex items-center pr-5;
+    }
+
+    &__profile-details{
+        @apply flex items-center;
+    }
+    
+}

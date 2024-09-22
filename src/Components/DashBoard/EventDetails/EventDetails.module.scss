@@ -1,0 +1,11 @@
+.event-details{
+    @apply w-full p-4;
+
+    span{
+        @apply flex;
+
+        p {
+            @apply mr-2;
+        }
+    }
+}

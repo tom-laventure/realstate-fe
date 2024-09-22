@@ -1,0 +1,13 @@
+.navbar {
+    @apply flex justify-between p-10 border-b;
+
+    &__buttons{
+        button{
+            @apply mx-4 font-bold;
+        }
+    }
+
+    &__sign-in{
+        @apply fixed w-full h-screen flex justify-center items-center bg-opacity-30 bg-black top-0 left-0 bottom-0;
+    }
+}

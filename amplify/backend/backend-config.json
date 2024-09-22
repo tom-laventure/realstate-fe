@@ -1,0 +1,11 @@
+{
+  "auth": {
+    "guestlist00890de7": {
+      "service": "Cognito",
+      "serviceType": "imported",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false
+    }
+  }
+}
