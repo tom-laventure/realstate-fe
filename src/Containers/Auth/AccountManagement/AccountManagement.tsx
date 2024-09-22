@@ -1,4 +1,4 @@
-import { Auth } from 'aws-amplify';
+
 import React, { useEffect } from 'react';
 
 const AccountManagement = () => {
@@ -6,10 +6,7 @@ const AccountManagement = () => {
         getAttributes()
     }, [])
     const getAttributes = async () => {
-        const user = await Auth.currentAuthenticatedUser();
-    
-        const { attributes } = user;
-        console.log(attributes)
+
     }
     
 

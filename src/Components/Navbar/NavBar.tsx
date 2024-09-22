@@ -2,12 +2,11 @@ import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import AppButton from '../Common/Buttons/AppButton'
 import classes from './Navbar.module.scss'
-import { useAuthenticator, Authenticator } from '@aws-amplify/ui-react';
 import { useAppSelector } from '../../Store/Hooks/useDispatch';
 
 
 const Navbar = () => {
-	const { signOut } = useAuthenticator((context) => [context.signOut])
+	const { signOut } = {signOut: () => {}}
 	const {userId} = useAppSelector(state => state.account)
 	const [displaySignIn, setDisplaySignIn] = useState(false)
 
@@ -33,7 +32,6 @@ const Navbar = () => {
 				</Link>
 				<AppButton click={changeAuthState}>{userId ? 'Sign Out' : 'Sign In'}</AppButton>
 			</div>
-			{displaySignIn ? <Authenticator variation='modal' signUpAttributes={['name']} /> : ''}
 		</div>
 	)
 }

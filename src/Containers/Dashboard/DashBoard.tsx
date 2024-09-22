@@ -1,7 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import AttendanceList from '../../Components/DashBoard/AttendanceList/AttendanceList';
-import EventDetails from '../../Components/DashBoard/EventDetails/EventDetails';
-import NoteSection from '../../Components/DashBoard/NoteSection/NoteSection';
 import classes from './DashBoard.module.scss'
 import AppButton from '../../Components/Common/Buttons/AppButton';
 import { useParams } from 'react-router-dom';
@@ -10,7 +7,6 @@ import useFetchEvent from '../../Store/Hooks/useFetchEvent';
 import { useRemoveAttendance, useAddAttendance } from '../../Store/Hooks/useChangeAttendance';
 import { useAppSelector } from '../../Store/Hooks/useDispatch';
 import { useQueryClient } from '@tanstack/react-query';
-import JoinDinner from '../../Components/DashBoard/JoinEvent/JoinEvent';
 
 const Dashboard = () => {
 	const [eventDetails, setEventDetails] = useState<event>({
@@ -52,15 +48,6 @@ const Dashboard = () => {
 						{eventDetails.details.eventName}
 					</div>
 					<div className={classes['dashboard__main']}>
-						<div className={classes['dashboard__main--event']}>
-							<EventDetails eventDetails={eventDetails.details} />
-						</div>
-						<div className={classes['dashboard__main--attendance']}>
-							<AttendanceList attendance={eventDetails.attendance} />
-						</div>
-						<div className={classes['dashboard__main--notes']}>
-							<NoteSection />
-						</div>
 					</div>
 				</>}
 		</div>
@@ -103,7 +90,6 @@ const Dashboard = () => {
 				<AppButton click={changeAttendance}>Leave Event</AppButton>
 				<AppButton>Add a Plus One</AppButton>
 			</>}
-			<JoinDinner eventName={eventDetails.details.eventName}/>
 		</>
 	}
 
