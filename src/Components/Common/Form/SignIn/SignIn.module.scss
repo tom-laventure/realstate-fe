@@ -1,0 +1,11 @@
+.signin {
+    @apply max-w-md m-4;
+
+    &--header {
+        @apply flex justify-center w-full pb-2 text-lg font-semibold;
+    }
+
+    &--input {
+        @apply my-2;
+    }
+}

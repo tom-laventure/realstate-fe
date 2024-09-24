@@ -1,13 +1,21 @@
-import { useQuery } from "@tanstack/react-query"
-import signIn, {body} from "Assets/API/SignIn";
+import { useMutation, UseMutationResult } from "@tanstack/react-query"
+import signIn, { body } from "Assets/API/Auth/SignIn";
 
-const useSignIn = (params: body) => {
-    const { isError, data, error, isLoading } = useQuery({
-        queryKey: ['signin'],
-        queryFn: () => signIn(params)
-      })
 
-      return [isError, isLoading, data, error]
+const useSignIn = () => {
+
+  const { isLoading, mutate } = useMutation({
+    mutationFn: (params: body) => signIn(params),
+    onSuccess: (data) => {
+      if (data) {
+        const authorizationHeader = data.headers;
+        console.log(authorizationHeader['authorization']);
+      }
+    }
+  })
+
+
+  return { isLoading, mutate }
 }
 
 

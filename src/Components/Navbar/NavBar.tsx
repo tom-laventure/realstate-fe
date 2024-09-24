@@ -24,9 +24,6 @@ const Navbar = () => {
 				</Link>
 			</div>
 			<div className={classes['navbar__buttons']}>
-				<Link to="/create-event">
-					<AppButton>Create Event</AppButton>
-				</Link>
 				<Link to="/account">
 					<AppButton>Account</AppButton>
 				</Link>

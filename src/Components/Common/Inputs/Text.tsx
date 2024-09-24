@@ -27,7 +27,7 @@ const Text = ({
 }: textPropTypes) => {
 	return (
 		<TextField 
-			className={classes['text-field']}
+			className={`${classes['text-field']}`}
 			type={type}
 			label={label} 
 			onChange={onChange} 

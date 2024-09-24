@@ -13,8 +13,10 @@ const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
 	<QueryClientProvider client={queryClient}>
 		<StoreProvider>
-			<RouterProvider router={router} />
-			<ReactQueryDevtools initialIsOpen={false} />
+			<>
+				<RouterProvider router={router} />
+				<ReactQueryDevtools initialIsOpen={false} />
+			</>
 		</StoreProvider>
 	</QueryClientProvider>
 )

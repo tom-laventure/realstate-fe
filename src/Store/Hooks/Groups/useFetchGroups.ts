@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query"
 import fetchGroups from "Assets/API/Groups/fetchGroups"
+import { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 
 
@@ -8,10 +9,13 @@ const useFetchGroups = () => {
 
     const { isLoading, isError, data, isSuccess } = useQuery({
         queryKey: ['fetchGroups'],
-        queryFn: () => fetchGroups()
+        queryFn: () => fetchGroups(),
+        retry: false
     })
-    console.log(data)
-    if (isError) navigate('/')
+    
+    useEffect(() => {
+        if (isError) navigate('/login')
+    }, [isError])
 
     return [isLoading, data, isSuccess]
 }
