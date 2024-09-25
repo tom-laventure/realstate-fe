@@ -14,10 +14,10 @@ const SignIn = () => {
   const { register, handleSubmit, formState: { errors } } = useForm<SignInFormInputs>();
 
   const onSubmit: SubmitHandler<SignInFormInputs> = (formData) => {
-    const temp = mutate({
+    mutate({
         user: formData
     })
-    console.log(temp)
+
   };
 
   return (

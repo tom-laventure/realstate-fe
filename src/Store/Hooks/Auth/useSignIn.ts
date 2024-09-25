@@ -9,7 +9,8 @@ const useSignIn = () => {
     onSuccess: (data) => {
       if (data) {
         const authorizationHeader = data.headers;
-        console.log(authorizationHeader['authorization']);
+
+        if (authorizationHeader['authorization']) localStorage.setItem('authToken', authorizationHeader['authorization'])
       }
     }
   })

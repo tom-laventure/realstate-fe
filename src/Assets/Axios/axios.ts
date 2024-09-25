@@ -6,5 +6,13 @@ const instance = axios.create({
 	// headers: {'X-Custom-Header': ''}
 });
 
+instance.interceptors.request.use((config) => {
+	const token = localStorage.getItem('authToken')
+	if(token) config.headers['Authorization'] = token
+	return config
+}, e => {
+	return Promise.reject(e)
+})
+
 
 export default instance
