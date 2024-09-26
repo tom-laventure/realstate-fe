@@ -1,13 +1,13 @@
 import { useMutation } from "@tanstack/react-query"
-import signIn, { body } from "Assets/API/Auth/SignIn";
+import signUp, { body } from "Assets/API/Auth/SignUp";
 import { useNavigate } from "react-router-dom";
 
 
-const useSignIn = () => {
+const useSignUp = () => {
   const navigate = useNavigate()
 
   const { isLoading, mutate } = useMutation({
-    mutationFn: (params: body) => signIn(params),
+    mutationFn: (params: body) => signUp(params),
     onSuccess: (data) => {
       if (data) {
         const authorizationHeader = data.headers;
@@ -23,4 +23,4 @@ const useSignIn = () => {
 }
 
 
-export default useSignIn
+export default useSignUp
