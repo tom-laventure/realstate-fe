@@ -1,19 +1,13 @@
-import React, { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import React from 'react'
+import { Link } from 'react-router-dom'
 import AppButton from '../Common/Buttons/AppButton'
 import classes from './Navbar.module.scss'
-import { useAppSelector } from '../../Store/Hooks/useDispatch';
+import useSignOut from 'Store/Hooks/Auth/useSignOut'
+
 
 
 const Navbar = () => {
-	const { signOut } = {signOut: () => {}}
-	const {userId} = useAppSelector(state => state.account)
-	const [displaySignIn, setDisplaySignIn] = useState(false)
-
-	const changeAuthState = () => {
-		if (userId) signOut()
-		else setDisplaySignIn(!displaySignIn)
-	}
+	const { mutate: signout } = useSignOut()
 
 
 	return (
@@ -27,7 +21,7 @@ const Navbar = () => {
 				<Link to="/account">
 					<AppButton>Account</AppButton>
 				</Link>
-				<AppButton click={changeAuthState}>{userId ? 'Sign Out' : 'Sign In'}</AppButton>
+				<AppButton click={() => signout()}>{'Sign Out'}</AppButton>
 			</div>
 		</div>
 	)

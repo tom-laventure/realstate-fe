@@ -8,7 +8,7 @@ const instance = axios.create({
 
 instance.interceptors.request.use((config) => {
 	const token = localStorage.getItem('authToken')
-	if(token) config.headers['Authorization'] = token
+	if (token) config.headers['Authorization'] = token
 	return config
 }, e => {
 	return Promise.reject(e)

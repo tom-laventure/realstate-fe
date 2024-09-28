@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import classes from './DashBoard.module.scss'
-import { useQueryClient } from '@tanstack/react-query';
 import useFetchGroups from 'Store/Hooks/Groups/useFetchGroups';
+import GroupsDashboard from 'Components/DashBoard/Groups/GroupsDashboard';
 
 const Dashboard = () => {
-	const queryClient = useQueryClient()
-	const [isLoading, data, isSuccess] = useFetchGroups()
+	const [isLoading] = useFetchGroups()
 
 	return (
 		<div className={classes.dashboard}>
-
+			<GroupsDashboard />
 		</div>
 	);
 
