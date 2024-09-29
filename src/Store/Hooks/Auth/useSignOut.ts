@@ -8,7 +8,7 @@ const useSignOut = () => {
 
     const { isLoading, mutate } = useMutation({
         mutationFn: () => signOut(),
-        onSuccess: () => {
+        onSettled: () => {
             localStorage.removeItem('authToken')
             navigate('/login')
         }

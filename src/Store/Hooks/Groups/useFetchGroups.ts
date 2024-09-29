@@ -12,7 +12,7 @@ const useFetchGroups = () => {
 
     const { isLoading, isError, data, isSuccess } = useQuery({
         queryKey: ['fetchGroups'],
-        staleTime: 5,
+        staleTime: 10,
         queryFn: () => fetchGroups(),
         retry: false,
         onSuccess: (data) => {

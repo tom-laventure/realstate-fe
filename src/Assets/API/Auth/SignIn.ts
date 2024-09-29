@@ -10,7 +10,10 @@ interface body {
     user: params
 }
 
-const signIn = async (body: body) => instance.post(`login`, body)
+const signIn = async (body: body) => {
+    localStorage.removeItem('authToken')
+    return instance.post(`login`, body)
+}
 
 export { body }
 export default signIn
