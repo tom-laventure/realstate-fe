@@ -1,0 +1,7 @@
+.groups-dashboard {
+    @apply w-full max-w-lg border h-full;
+}
+
+.group {
+    @apply min-h-[100px] border-b flex justify-around items-center cursor-pointer;
+}

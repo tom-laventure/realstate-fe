@@ -16,8 +16,8 @@ const useFetchGroups = () => {
         queryFn: () => fetchGroups(),
         retry: false,
         onSuccess: (data) => {
-            console.log(data.data)
-            // dispatch(setGroups())
+            const groups = data.data
+            dispatch(setGroups(groups.data))
         }
     })
 
@@ -25,7 +25,7 @@ const useFetchGroups = () => {
         if (isError) navigate('/login')
     }, [isError])
 
-    return [isLoading, data, isSuccess]
+    return {isLoading, data, isSuccess}
 }
 
 export default useFetchGroups

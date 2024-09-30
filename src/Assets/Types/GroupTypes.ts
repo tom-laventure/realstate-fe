@@ -1,5 +1,8 @@
 interface group {
-    name: string
+    id?: number,
+    attributes: {
+        name: string
+    }
 }
 
 

@@ -13,7 +13,7 @@ const useSignIn = () => {
         const authorizationHeader = data.headers;
 
         if (authorizationHeader['authorization']) localStorage.setItem('authToken', authorizationHeader['authorization'])
-        // navigate('/')
+        navigate('/')
       }
     }
   })

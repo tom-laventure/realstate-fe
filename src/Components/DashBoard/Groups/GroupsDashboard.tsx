@@ -8,22 +8,24 @@ type Props = {
 
 type groupProps = {
     name: string;
+    members?: number
 }
 
 const GroupsDashboard = ({ groups }: Props) => {
     return (
-        <div className={classes.container}>
+        <div className={classes['groups-dashboard']}>
             {groups && groups.map((group, index) => {
-                return <Group key={index} name={group.name} />
+                return <Group key={index} name={group.attributes.name} />
             })}
         </div>
     )
 }
 
-const Group = ({ name }: groupProps) => {
+const Group = ({ name, members = 1 }: groupProps) => {
     return (
-        <div>
-            {name}
+        <div className={classes['group']}>
+            <div className={classes['group--name']}>Group name: {name}</div>
+            <div className={classes['group--members']}>Members in group: {members}</div>
         </div>
     )
 }
