@@ -1,22 +1,22 @@
 import { useQuery } from "@tanstack/react-query"
-import fetchGroups from "Assets/API/Groups/fetchGroups"
+import fetchEstate from "Assets/API/Estates/fetchEstates"
 import { useEffect } from "react"
 import { useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
-import { setGroups } from "Store/Reducers/groups"
 
 
-const useFetchEstate = () => {
+const useFetchEstates = (id: string | undefined) => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
     const { isLoading, isError, data, isSuccess } = useQuery({
-        queryKey: ['fetchGroups'],
+        queryKey: ['fetchGroups', id],
+        enabled: !!id,
         staleTime: 10,
-        queryFn: () => fetchGroups(),
+        queryFn: () => fetchEstate(id),
         retry: false,
         onSuccess: (data) => {
-
+            console.log(data)
         }
     })
 
@@ -24,7 +24,7 @@ const useFetchEstate = () => {
         if (isError) navigate('/login')
     }, [isError])
 
-    return {isLoading, data, isSuccess}
+    return { isLoading, data, isSuccess }
 }
 
-export default useFetchEstate
+export default useFetchEstates

@@ -3,7 +3,7 @@ import { createBrowserRouter } from 'react-router-dom'
 import AppShell from 'Components/Common/Shells/AppShell'
 import AccountManagement from 'Containers/Auth/AccountManagement/AccountManagement'
 import GroupDashBoard from 'Containers/Dashboard/Groups/GroupDashBoard'
-import EstateDashboard from 'Containers/Dashboard/Estate/EstateDashboard'
+import EstatesDashboard from 'Containers/Dashboard/Estate/EstatesDashboard'
 import ErrorPage from 'Containers/ErrorPage/ErrorPage'
 import AuthenticateUser from 'Containers/Auth/AuthenticateUser/AuthenticateUser'
 
@@ -26,8 +26,8 @@ const router = createBrowserRouter([
 				path: "login"
 			},
 			{
-				element: <EstateDashboard />,
-				path: "estate/:id"
+				element: <EstatesDashboard />,
+				path: "estates/:id"
 			}
 		]
 	},

@@ -5,6 +5,6 @@ interface estateFetch {
 
 }
 
-const fetchEstates = async (id: number) => instance.get<estateFetch>(`v1/estate/${id}`)
+const fetchEstates = async (id: string | undefined) => instance.get<estateFetch>(`v1/estates?group_id=${id}`)
 
 export default fetchEstates

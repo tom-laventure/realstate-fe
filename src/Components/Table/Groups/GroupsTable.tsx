@@ -27,7 +27,7 @@ const Group = ({ name, members = 1, id }: groupProps) => {
     const navigate = useNavigate()
 
     const goToGroup = (id: number|undefined) => {
-        navigate(`/estate/${id}`)
+        navigate(`/estates/${id}`)
     }
 
     return (
