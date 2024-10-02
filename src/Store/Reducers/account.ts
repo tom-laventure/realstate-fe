@@ -2,12 +2,14 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 export interface accountType {
 	name: string,
-	userId: string
+	id: string,
+	account_id?: string
 }
 
 const initialState: accountType = {
 	name: '',
-	userId: ''
+	id: '',
+	account_id: undefined
 }
 
 const accountSlice = createSlice({
@@ -15,8 +17,7 @@ const accountSlice = createSlice({
 	initialState,
 	reducers: {
 		updateUser: (state, action: PayloadAction<accountType>) => {
-			state.name = action.payload.name,
-			state.userId = action.payload.userId
+			state = action.payload
 		}
 	}
 })

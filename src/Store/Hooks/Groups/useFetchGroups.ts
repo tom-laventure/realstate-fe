@@ -3,7 +3,7 @@ import fetchGroups from "Assets/API/Groups/fetchGroups"
 import { useEffect } from "react"
 import { useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
-import { setGroups } from "Store/Reducers/groups"
+import { setGroupState } from "Store/Reducers/groups"
 
 
 const useFetchGroups = () => {
@@ -17,7 +17,8 @@ const useFetchGroups = () => {
         retry: false,
         onSuccess: (data) => {
             const groups = data.data
-            dispatch(setGroups(groups))
+
+            dispatch(setGroupState(groups))
         }
     })
 
