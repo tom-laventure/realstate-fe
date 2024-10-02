@@ -3,6 +3,7 @@ import fetchEstate from "Assets/API/Estates/fetchEstates"
 import { useEffect } from "react"
 import { useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
+import { setEstates } from "Store/Reducers/estates"
 
 
 const useFetchEstates = (id: string | undefined) => {
@@ -16,7 +17,8 @@ const useFetchEstates = (id: string | undefined) => {
         queryFn: () => fetchEstate(id),
         retry: false,
         onSuccess: (data) => {
-            
+            const estates = data.data
+            dispatch(setEstates(estates))
         }
     })
 

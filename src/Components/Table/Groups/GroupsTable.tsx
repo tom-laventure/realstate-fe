@@ -1,17 +1,19 @@
 import React from 'react'
 import classes from './GroupsTable.module.scss'
 import { group } from 'Assets/Types/GroupType'
-import { useNavigate } from 'react-router-dom';
+import { NavigateFunction, useNavigate } from 'react-router-dom';
 
 type Props = {
     groups?: group[];
 }
 
 const GroupsTable = ({ groups }: Props) => {
+    const navigate = useNavigate()
+
     return (
         <div className={classes['groups-table']}>
             {groups && groups.map((group, index) => {
-                return <Group key={index} name={group.name} id={group.id} />
+                return <Group key={index} name={group.name} id={group.id} navigate={navigate} />
             })}
         </div>
     )
@@ -20,12 +22,11 @@ const GroupsTable = ({ groups }: Props) => {
 type groupProps = {
     name: string;
     members?: number,
-    id?: number
+    id?: number,
+    navigate: NavigateFunction
 }
 
-const Group = ({ name, members = 1, id }: groupProps) => {
-    const navigate = useNavigate()
-
+const Group = ({ name, members = 1, id, navigate }: groupProps) => {
     const goToGroup = (id: number|undefined) => {
         navigate(`/estates/${id}`)
     }

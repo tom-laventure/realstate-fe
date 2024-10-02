@@ -1,20 +1,24 @@
 import accountReducer, { accountState, accountType } from './account';
+import estatesReducer, { estateType, estateState } from './estates';
 import groupsReducer, { groupState, groupType } from './groups';
 import { configureStore } from '@reduxjs/toolkit'
 
 export interface stateType {
 	account: accountType,
-	groups: groupType
+	groups: groupType,
+	estates: estateType
 }
 
 const reducer = {
 	account: accountReducer,
-	groups: groupsReducer
+	groups: groupsReducer,
+	estates: estatesReducer
 }
 
 const preloadedState: stateType = {
 	account: accountState,
-	groups: groupState
+	groups: groupState,
+	estates: estateState
 }
 
 

@@ -10,7 +10,7 @@ const initialState: groupType = {
 }
 
 const groupsSlice = createSlice({
-    name: 'account',
+    name: 'groups',
     initialState,
     reducers: {
         setGroups: (state, action: PayloadAction<group[]>) => {

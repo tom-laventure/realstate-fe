@@ -1,10 +1,6 @@
+import estate from 'Assets/Types/EstateType';
 import instance from '../../Axios/axios';
-import { group } from '../../Types/GroupType';
 
-interface estateFetch {
-
-}
-
-const fetchEstates = async (id: string | undefined) => instance.get<estateFetch>(`v1/estates?group_id=${id}`)
+const fetchEstates = async (id: string | undefined) => instance.get<estate[]>(`v1/estates?group_id=${id}`)
 
 export default fetchEstates

@@ -4,6 +4,7 @@ import AppShell from 'Components/Common/Shells/AppShell'
 import AccountManagement from 'Containers/Auth/AccountManagement/AccountManagement'
 import GroupDashBoard from 'Containers/Dashboard/Groups/GroupDashBoard'
 import EstatesDashboard from 'Containers/Dashboard/Estate/EstatesDashboard'
+import EstateView from 'Containers/View/Estate/EstateView'
 import ErrorPage from 'Containers/ErrorPage/ErrorPage'
 import AuthenticateUser from 'Containers/Auth/AuthenticateUser/AuthenticateUser'
 
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
 			{
 				element: <AuthenticateUser />,
 				path: "login"
+			},
+			{
+				element: <EstateView />,
+				path: "estates/:id/selected/:index"
 			},
 			{
 				element: <EstatesDashboard />,
