@@ -28,7 +28,7 @@ type groupProps = {
 
 const Group = ({ name, members = 1, id, navigate }: groupProps) => {
     const goToGroup = (id: number|undefined) => {
-        navigate(`/estates/${id}`)
+        navigate(`/estates`)
     }
 
     return (
