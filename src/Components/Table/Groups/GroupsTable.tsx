@@ -1,6 +1,6 @@
 import React from 'react'
 import classes from './GroupsTable.module.scss'
-import { group } from 'Assets/Types/GroupTypes'
+import { group } from 'Assets/Types/GroupType'
 import { useNavigate } from 'react-router-dom';
 
 type Props = {
@@ -11,7 +11,7 @@ const GroupsTable = ({ groups }: Props) => {
     return (
         <div className={classes['groups-table']}>
             {groups && groups.map((group, index) => {
-                return <Group key={index} name={group.attributes.name} id={group.id} />
+                return <Group key={index} name={group.name} id={group.id} />
             })}
         </div>
     )

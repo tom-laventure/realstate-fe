@@ -16,7 +16,7 @@ const useFetchEstates = (id: string | undefined) => {
         queryFn: () => fetchEstate(id),
         retry: false,
         onSuccess: (data) => {
-            console.log(data)
+            
         }
     })
 

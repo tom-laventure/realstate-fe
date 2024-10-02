@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { group } from 'Assets/Types/GroupTypes'
+import { group } from 'Assets/Types/GroupType'
 
 export interface groupType {
     userGroups: group[]

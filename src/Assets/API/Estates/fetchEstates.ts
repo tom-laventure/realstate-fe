@@ -1,5 +1,5 @@
 import instance from '../../Axios/axios';
-import { group } from '../../Types/GroupTypes';
+import { group } from '../../Types/GroupType';
 
 interface estateFetch {
 

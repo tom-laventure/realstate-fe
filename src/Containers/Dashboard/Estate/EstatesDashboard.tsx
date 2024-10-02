@@ -8,7 +8,9 @@ const EstatesDashboard = () => {
     const { } = useFetchEstates(id)
 
     return (
-        <div></div>
+        <div>
+            <EstatesDashboard />
+        </div>
     )
 }
 
