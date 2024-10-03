@@ -3,7 +3,7 @@ import estate from 'Assets/Types/EstateType'
 
 export interface estateType {
     userEstates: estate[],
-    selectedEstate: number | undefined
+    selectedEstate?: estate
 }
 
 const initialState: estateType = {
@@ -18,7 +18,7 @@ const estatesSlice = createSlice({
         setEstates: (state, action: PayloadAction<estate[]>) => {
             state.userEstates = action.payload
         },
-        setSelectedEstate: (state, action: PayloadAction<number>) => {
+        setSelectedEstate: (state, action: PayloadAction<estate>) => {
             state.selectedEstate = action.payload
         }
     }

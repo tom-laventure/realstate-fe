@@ -5,7 +5,8 @@ interface estate {
     header: string,
     link: string,
     ratings?: rating[]
-    comments?: comment[]
+    comments?: comment[],
+    id: number
 }
 
 export default estate

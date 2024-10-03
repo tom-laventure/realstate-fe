@@ -11,7 +11,7 @@ const useFetchEstates = (id: string | undefined) => {
     const dispatch = useDispatch()
 
     const { isLoading, isError, data, isSuccess } = useQuery({
-        queryKey: ['fetchGroups', id],
+        queryKey: ['fetchEstates', id],
         enabled: !!id,
         staleTime: 10,
         queryFn: () => fetchEstate(id),

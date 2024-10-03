@@ -17,7 +17,6 @@ const useSignIn = () => {
         const user = data?.data?.user
 
         if (authorizationHeader['authorization']) localStorage.setItem('authToken', authorizationHeader['authorization'])
-        console.log(data.data)
         dispatch(updateUser(user))
 
         navigate('/')

@@ -12,18 +12,16 @@ interface Props {
 const EstateTable = ({ estates }: Props) => {
     const location = useLocation()
     const navigate = useNavigate()
-    const dispatch = useAppDispatch()
 
     const estateClicked = (id: number) => {
-        dispatch(setSelectedEstate(id))
-        navigate(`${location.pathname}/selected`)
+        navigate(`${location.pathname}/selected/${id}`)
     }
 
 
     return (
         <div className={classes['estates-table']}>
             {estates && estates?.map((estate, index) => {
-                return <Estates header={estate.header} key={index} click={() => estateClicked(index)} />
+                return <Estates header={estate.header} key={index} click={() => estateClicked(estate.id)} />
             })}
         </div>
     )
