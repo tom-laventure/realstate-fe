@@ -4,8 +4,8 @@ import rating from "./EstateRatingType"
 interface estate {
     header: string,
     link: string,
-    ratings?: rating[]
-    comments?: comment[],
+    estate_ratings?: rating[]
+    estate_comments?: comment[],
     id: number
 }
 

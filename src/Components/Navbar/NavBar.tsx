@@ -18,9 +18,6 @@ const Navbar = () => {
 				</Link>
 			</div>
 			<div className={classes['navbar__buttons']}>
-				<Link to="/account">
-					<AppButton>Account</AppButton>
-				</Link>
 				<AppButton click={() => signout()}>{'Sign Out'}</AppButton>
 			</div>
 		</div>

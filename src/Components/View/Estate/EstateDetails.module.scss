@@ -1,0 +1,11 @@
+.estate-details {
+    @apply flex w-full flex-col mt-8 mx-10;
+
+    &--header {
+        @apply text-2xl flex w-full justify-center;
+    }
+
+    &--info {
+        @apply mt-10 flex justify-around w-full
+    }
+}
