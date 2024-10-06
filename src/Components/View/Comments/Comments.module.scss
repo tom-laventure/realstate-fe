@@ -1,7 +1,25 @@
 .comment-container {
     @apply h-full min-h-[400px] border p-5;
+
+    &--header {
+        @apply text-2xl mb-5
+    }
 }
 
 .comment {
-    
+    @apply flex flex-col w-full;
+
+    &--addition {
+        @apply flex justify-between w-full items-center;
+    }
+
+    &--buttons {
+        button {
+            @apply text-[10px];
+        }
+    }
+
+    &--owner {
+        @apply text-[10px];
+    }
 }

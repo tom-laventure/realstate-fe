@@ -1,8 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import AppButton from '../Common/Buttons/AppButton'
 import classes from './Navbar.module.scss'
 import useSignOut from 'Store/Hooks/Auth/useSignOut'
+import { Button } from '@mui/material'
 
 
 
@@ -14,11 +14,11 @@ const Navbar = () => {
 		<div className={classes.navbar}>
 			<div className={classes['navbar__buttons']}>
 				<Link to="/">
-					<AppButton>Home</AppButton>
+					<Button>Home</Button>
 				</Link>
 			</div>
 			<div className={classes['navbar__buttons']}>
-				<AppButton click={() => signout()}>{'Sign Out'}</AppButton>
+				<Button onClick={() => signout()}>Sign Out</Button>
 			</div>
 		</div>
 	)
