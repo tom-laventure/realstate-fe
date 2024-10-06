@@ -1,0 +1,21 @@
+.comment-form {
+    &--control {
+        @apply w-full;
+    }
+
+    &--input-container {
+        @apply flex w-full;
+    }
+
+    &--comment-input {
+        @apply w-full;
+    }
+
+    &--comment-select {
+        @apply w-full max-w-full;
+    }
+
+    &--button-container {
+        @apply flex justify-center mt-5;
+    }
+}

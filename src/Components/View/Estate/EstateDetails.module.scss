@@ -8,4 +8,8 @@
     &--info {
         @apply mt-10 flex justify-around w-full
     }
+
+    &--comments {
+        @apply w-full max-w-lg;
+    }
 }

@@ -3,7 +3,6 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import classes from './SignIn.module.scss';
 import { Button, FormControl, TextField } from '@mui/material';
 import useSignIn from 'Store/Hooks/Auth/useSignIn';
-import { Link } from 'react-router-dom';
 
 interface SignInFormInputs {
     email: string;

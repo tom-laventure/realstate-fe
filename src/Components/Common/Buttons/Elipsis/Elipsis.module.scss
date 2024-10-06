@@ -2,7 +2,7 @@
     @apply rounded-sm cursor-pointer p-1 h-auto flex items-center;
 
     &--menu-item {
-        @apply text-sm;
+        font-size: small !important;
     }
 }
 

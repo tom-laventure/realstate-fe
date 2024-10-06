@@ -9,7 +9,7 @@ interface Props {
 }
 
 const Comments = ({ comments }: Props) => {
-    console.log(comments)
+
     return (
         <div className={classes['comment-container']}>
             <div className={classes['comment-container--header']}>Comments:</div>

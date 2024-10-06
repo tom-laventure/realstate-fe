@@ -1,7 +1,8 @@
 interface comment {
     comment_owner: string,
     comment: string,
-    id: number
+    id: number,
+    type: string
 }
 
 export default comment
