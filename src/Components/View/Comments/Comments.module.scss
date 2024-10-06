@@ -22,4 +22,8 @@
     &--owner {
         @apply text-[10px];
     }
+
+    &--elipsis {
+        @apply flex justify-end w-full;
+    }
 }

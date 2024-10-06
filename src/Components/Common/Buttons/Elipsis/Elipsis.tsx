@@ -2,9 +2,7 @@ import React, { useState } from 'react';
 import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
-import { AccessAlarm, ThreeDRotation } from '@mui/icons-material';
-
+import classes from './Elipsis.module.scss'
 
 const EllipsisMenu = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -30,14 +28,14 @@ const EllipsisMenu = () => {
 
   return (
     <>
-      <IconButton
+      <div
+        className={classes['elipsis-menu']}
         aria-label="more"
         aria-controls="ellipsis-menu"
-        aria-haspopup="true"
         onClick={handleClick}
       >
         ...
-      </IconButton>
+      </div>
 
       <Menu
         id="ellipsis-menu"
@@ -45,9 +43,10 @@ const EllipsisMenu = () => {
         open={open}
         onClose={handleClose}
         keepMounted
+        
       >
-        <MenuItem onClick={handleEdit}>Edit</MenuItem>
-        <MenuItem onClick={handleDelete}>Delete</MenuItem>
+        <MenuItem className={classes['elipsis-menu--menu-item']} onClick={handleEdit}>Edit</MenuItem>
+        <MenuItem className={classes['elipsis-menu--menu-item']} onClick={handleDelete}>Delete</MenuItem>
       </Menu>
     </>
   );
