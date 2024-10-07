@@ -1,7 +1,9 @@
 import { Button, FormControl, FormHelperText, MenuItem, Select, TextField } from '@mui/material'
 import React from 'react'
-import { useForm } from 'react-hook-form'
+import { SubmitHandler, useForm } from 'react-hook-form'
 import classes from './CommentForm.module.scss'
+import usePostComments from 'Store/Hooks/Comments/usePostComment'
+import { useAppSelector } from 'Store/Hooks/useDispatch'
 
 
 interface CommentFormInterface {
@@ -10,14 +12,26 @@ interface CommentFormInterface {
 }
 
 const CommentForm = () => {
-    const { register } = useForm<CommentFormInterface>()
+    const { register, handleSubmit } = useForm<CommentFormInterface>()
+    const { mutate } = usePostComments()
+    const estateId = useAppSelector(state => state.estates.selectedEstate?.id)
 
-    const submit = () => {
+    const onSubmit: SubmitHandler<CommentFormInterface> = (formData) => {
+        if (!estateId) return
 
+        const body = {
+            comment: formData.comment,
+            comment_type: formData.type,
+            estate_id: estateId
+        }
+
+        mutate(body)
     }
 
     return (
-        <form >
+        <form
+            onSubmit={handleSubmit(onSubmit)}
+        >
             <FormControl className={classes['comment-form--control']}>
                 <div className={classes['comment-form--input-container']}>
                     <TextField
@@ -26,24 +40,29 @@ const CommentForm = () => {
                         type="text"
                         multiline
                         {...register('comment', {
+                            required: 'A comment is required',
                             minLength: {
-                                value: 2,
-                                message: ''
+                                value: 1,
+                                message: 'a comment is required'
                             }
                         })}
                     />
                     <div className='w-full max-w-fit'>
-                        <Select defaultValue="neutral" className={classes['comment-form--comment-select']}>
+                        <Select
+                            defaultValue="neutral"
+                            className={classes['comment-form--comment-select']}
+                            {...register('type')}
+                        >
                             <MenuItem value="neutral">Neutral</MenuItem>
                             <MenuItem value="like">Something I like</MenuItem>
                             <MenuItem value="dislike">Something I dislike</MenuItem>
                             <MenuItem value="work">Would need work</MenuItem>
                         </Select>
-                        <FormHelperText>What kind of comment is this?</FormHelperText>
+                        <FormHelperText>What type of comment is this?</FormHelperText>
                     </div>
                 </div>
                 <div className={classes['comment-form--button-container']}>
-                    <Button variant="contained" onSubmit={() => submit()}>Submit Comment</Button>
+                    <Button variant="contained" type='submit'>Submit Comment</Button>
                 </div>
             </FormControl>
         </form>

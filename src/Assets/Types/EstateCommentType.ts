@@ -1,8 +1,8 @@
 interface comment {
-    comment_owner: string,
+    comment_owner?: string,
     comment: string,
-    id: number,
-    type: string
+    estate_id: number,
+    comment_type: string
 }
 
 export default comment
