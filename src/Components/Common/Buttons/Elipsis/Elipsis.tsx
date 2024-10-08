@@ -3,7 +3,17 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import classes from './Elipsis.module.scss'
 
-const EllipsisMenu = () => {
+
+type elipsisFunction = {
+  func: (closeElipsis: () => void) => void,
+  label: string
+}
+
+interface Props {
+  functionArray: elipsisFunction[]
+}
+
+const EllipsisMenu = ({ functionArray }: Props) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
@@ -13,16 +23,6 @@ const EllipsisMenu = () => {
 
   const handleClose = () => {
     setAnchorEl(null);
-  };
-
-  const handleEdit = () => {
-    console.log('Edit clicked');
-    handleClose();
-  };
-
-  const handleDelete = () => {
-    console.log('Delete clicked');
-    handleClose();
   };
 
   return (
@@ -42,10 +42,11 @@ const EllipsisMenu = () => {
         open={open}
         onClose={handleClose}
         keepMounted
-        
+
       >
-        <MenuItem className={classes['elipsis-menu--menu-item']} onClick={handleEdit}>Edit</MenuItem>
-        <MenuItem className={classes['elipsis-menu--menu-item']} onClick={handleDelete}>Delete</MenuItem>
+        {functionArray && functionArray.map((el, index) => {
+          return <MenuItem className={classes['elipsis-menu--menu-item']} key={index} onClick={() => el.func(handleClose)}>{el.label}</MenuItem>
+        })}
       </Menu>
     </>
   );

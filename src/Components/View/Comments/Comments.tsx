@@ -9,13 +9,32 @@ interface Props {
 }
 
 const Comments = ({ comments }: Props) => {
+    const editFunction = (closeElipsis: () => void) => {
+        closeElipsis()
+    }
+
+    const deleteFunction = (closeElipsis: () => void) => {
+        closeElipsis()
+    }
+
+    const functionArray = [
+        {
+            label: 'edit',
+            func: editFunction
+        },
+        {
+            label: 'delete',
+            func: deleteFunction
+        }
+    ]
+
 
     return (
         <div className={classes['comment-container']}>
             <div className={classes['comment-container--header']}>Comments:</div>
             {comments && comments.map((comment, index) => {
                 return <div key={index} className={classes['comment']}>
-                    <div className={classes['comment--elipsis']}><EllipsisMenu /></div>
+                    <div className={classes['comment--elipsis']}><EllipsisMenu functionArray={functionArray} /></div>
                     <div className={classes['comment--text']}>{comment.comment}</div>
                     <div className={classes['comment--addition']}>
                         <div className={classes['comment--owner']}>{comment.comment_owner}</div>

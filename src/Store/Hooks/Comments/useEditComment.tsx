@@ -1,22 +1,21 @@
 import { useMutation, useQuery } from "@tanstack/react-query"
-import postComment from "Assets/API/Comments/postComment"
+import editComment from "Assets/API/Comments/editComment"
 import comment from "Assets/Types/EstateCommentType"
 import { useEffect } from "react"
 import { useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
-import { addComment } from "Store/Reducers/estates"
+import { replaceComment } from "Store/Reducers/estates"
 
 
-const usePostComments = () => {
+const useEditComments = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
-
     const { isLoading, mutate, isError } = useMutation({
-        mutationFn: (body: comment) => postComment(body),
+        mutationFn: (body: comment) => editComment(body),
         retry: false,
         onSuccess: (data) => {
             const comment = data.data
-            dispatch(addComment(comment))
+            dispatch(replaceComment(comment))
         }
     })
 
@@ -27,4 +26,4 @@ const usePostComments = () => {
     return { isLoading, mutate }
 }
 
-export default usePostComments
+export default useEditComments

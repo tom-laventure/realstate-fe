@@ -1,6 +1,5 @@
 import { useMutation, useQuery } from "@tanstack/react-query"
-import postComment from "Assets/API/Comments/postComment"
-import comment from "Assets/Types/EstateCommentType"
+import deleteComment from "Assets/API/Comments/deleteComment"
 import { useEffect } from "react"
 import { useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
@@ -12,7 +11,7 @@ const usePostComments = () => {
     const navigate = useNavigate()
 
     const { isLoading, mutate, isError } = useMutation({
-        mutationFn: (body: comment) => postComment(body),
+        mutationFn: (id: number) => deleteComment(id),
         retry: false,
         onSuccess: (data) => {
             const comment = data.data
