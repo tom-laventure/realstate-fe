@@ -1,5 +1,5 @@
 .comment-container {
-    @apply h-full min-h-[400px] border border-b-0 p-5;
+    @apply min-h-[400px] border border-b-0 p-5 h-fit;
 
     &--header {
         @apply text-2xl mb-5

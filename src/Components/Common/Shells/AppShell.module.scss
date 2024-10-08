@@ -1,7 +1,7 @@
 .app-shell{
-    @apply w-full flex flex-col min-h-screen justify-between;
+    @apply w-full flex flex-col justify-between;
 
     &__outlet{
-        @apply max-w-5xl m-auto w-full min-h-screen;
+        @apply max-w-5xl m-auto w-full;
     }
 }
