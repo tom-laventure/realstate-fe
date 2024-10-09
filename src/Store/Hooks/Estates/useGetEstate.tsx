@@ -1,10 +1,9 @@
 import { useQuery } from "@tanstack/react-query"
-import fetchEstate from "Assets/API/Estates/fetchEstates"
 import getEstate from "Assets/API/Estates/getEstate"
 import { useEffect } from "react"
 import { useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
-import { setEstates, setSelectedEstate } from "Store/Reducers/estates"
+import { setSelectedEstate } from "Store/Reducers/estates"
 import { useAppSelector } from "../useDispatch"
 
 
@@ -15,7 +14,7 @@ const useGetEstate = (id: string | undefined, estateId: string | undefined) => {
 
     const { isLoading, isError, data, isSuccess } = useQuery({
         queryKey: ['fetchEstates', estateId],
-        enabled: !!id && !!estateId && !selectedEstate,
+        enabled: !!id && !!estateId,
         staleTime: 10,
         queryFn: () => getEstate(id, estateId),
         retry: false,

@@ -5,15 +5,16 @@ import classes from './Elipsis.module.scss'
 
 
 type elipsisFunction = {
-  func: (closeElipsis: () => void) => void,
+  func: (...args: any[]) => void,
   label: string
 }
 
 interface Props {
-  functionArray: elipsisFunction[]
+  functionArray: elipsisFunction[],
+  id?: number
 }
 
-const EllipsisMenu = ({ functionArray }: Props) => {
+const EllipsisMenu = ({ functionArray, id }: Props) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
@@ -45,7 +46,7 @@ const EllipsisMenu = ({ functionArray }: Props) => {
 
       >
         {functionArray && functionArray.map((el, index) => {
-          return <MenuItem className={classes['elipsis-menu--menu-item']} key={index} onClick={() => el.func(handleClose)}>{el.label}</MenuItem>
+          return <MenuItem className={classes['elipsis-menu--menu-item']} key={index} onClick={() => el.func(handleClose, id)}>{el.label}</MenuItem>
         })}
       </Menu>
     </>

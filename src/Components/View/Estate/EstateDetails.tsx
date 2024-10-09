@@ -19,7 +19,7 @@ const EstateDetails = ({ estate }: Props) => {
         <div>Full listing: <a href={estate.link}>{estate.link}</a></div>
 
         <div className={classes['estate-details--comments']}>
-          <Comments comments={estate.estate_comments} />
+          <Comments comments={estate.estate_comments} estateId={estate.id} />
           <CommentForm />
         </div>
       </div>

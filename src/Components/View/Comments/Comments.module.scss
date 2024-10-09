@@ -26,4 +26,8 @@
     &--elipsis {
         @apply flex justify-end w-full;
     }
+
+    &--pop-up {
+        @apply flex flex-col items-center p-10;
+    }
 }

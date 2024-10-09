@@ -1,21 +1,25 @@
 import { useMutation, useQuery } from "@tanstack/react-query"
-import deleteComment from "Assets/API/Comments/deleteComment"
+import deleteComment, { DeleteCommentProps } from "Assets/API/Comments/deleteComment"
 import { useEffect } from "react"
 import { useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
-import { addComment } from "Store/Reducers/estates"
+import { setComments } from "Store/Reducers/estates"
 
+interface UseDeleteCommentProps {
+    complete?: () => void
+}
 
-const usePostComments = () => {
+const useDeleteComment = ({ complete }: UseDeleteCommentProps) => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
     const { isLoading, mutate, isError } = useMutation({
-        mutationFn: (id: number) => deleteComment(id),
+        mutationFn: (body: DeleteCommentProps) => deleteComment(body),
         retry: false,
         onSuccess: (data) => {
             const comment = data.data
-            dispatch(addComment(comment))
+            dispatch(setComments(comment))
+            if (complete) complete()
         }
     })
 
@@ -26,4 +30,4 @@ const usePostComments = () => {
     return { isLoading, mutate }
 }
 
-export default usePostComments
+export default useDeleteComment

@@ -4,12 +4,16 @@ import estate from 'Assets/Types/EstateType'
 
 export interface estateType {
     userEstates: estate[],
-    selectedEstate?: estate
+    selectedEstate: estate
 }
 
 const initialState: estateType = {
     userEstates: [],
-    selectedEstate: undefined
+    selectedEstate: {
+        header: '',
+        id: -1,
+        link: ''
+    }
 }
 
 const estatesSlice = createSlice({
@@ -33,12 +37,12 @@ const estatesSlice = createSlice({
                 state.selectedEstate.estate_comments[index] = action.payload;
             }
         },
-        deleteComment: (state, action: PayloadAction<number>) => {
-            state.selectedEstate?.estate_comments?.splice(action.payload)
+        setComments: (state, action: PayloadAction<comment[]>) => {
+            state.selectedEstate.estate_comments = action.payload
         },
     }
 })
 
-export const { setEstates, setSelectedEstate, addComment, replaceComment } = estatesSlice.actions
+export const { setEstates, setSelectedEstate, addComment, replaceComment, setComments } = estatesSlice.actions
 export { initialState as estateState }
 export default estatesSlice.reducer
