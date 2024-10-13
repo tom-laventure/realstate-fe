@@ -1,0 +1,13 @@
+.subcomment-container {
+    @apply min-h-[400px] border border-b-0 p-5 h-fit;
+
+    &--header {
+        @apply text-2xl mb-5
+    }
+}
+
+.subcomment {
+    &--comments {
+        @apply flex flex-col;
+    }
+}

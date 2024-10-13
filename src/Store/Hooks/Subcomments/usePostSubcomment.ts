@@ -1,26 +1,26 @@
-import { useMutation, useQuery } from "@tanstack/react-query"
-import postComment from "Assets/API/Comments/postComment"
-import comment from "Assets/Types/EstateCommentType"
+import { useMutation } from "@tanstack/react-query"
+import postSubComment from "Assets/API/SubComments/postSubcomment"
+import subcomment from "Assets/Types/EstateSubCommentType"
 import { useEffect } from "react"
 import { useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import { addComment } from "Store/Reducers/estates"
 
-interface UsePostCommentsProps {
+interface UsePostSubcommentsProps {
     complete: () => void
 }
 
 
-const usePostComments = ({complete}: UsePostCommentsProps) => {
+const usePostSubcomments = ({complete}: UsePostSubcommentsProps) => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
     const { isLoading, mutate, isError } = useMutation({
-        mutationFn: (body: comment) => postComment(body),
+        mutationFn: (body: subcomment) => postSubComment(body),
         retry: false,
         onSuccess: (data) => {
             const comment = data.data
-            dispatch(addComment(comment))
+            // dispatch()
             complete()
         }
     })
@@ -32,4 +32,4 @@ const usePostComments = ({complete}: UsePostCommentsProps) => {
     return { isLoading, mutate }
 }
 
-export default usePostComments
+export default usePostSubcomments

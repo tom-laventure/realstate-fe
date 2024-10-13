@@ -39,7 +39,7 @@ const estatesSlice = createSlice({
         },
         setComments: (state, action: PayloadAction<comment[]>) => {
             state.selectedEstate.estate_comments = action.payload
-        },
+        }
     }
 })
 

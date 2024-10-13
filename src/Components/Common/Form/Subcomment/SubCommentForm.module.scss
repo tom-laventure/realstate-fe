@@ -1,0 +1,13 @@
+.comment-form {
+    &--input-container {
+        @apply w-full flex
+    }
+
+    &--comment-input {
+        width: 100% !important;
+    }
+
+    &--control {
+        @apply w-full;
+    }
+}

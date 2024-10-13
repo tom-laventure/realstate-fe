@@ -6,17 +6,17 @@ import usePostComments from 'Store/Hooks/Comments/usePostComment'
 import { useAppSelector } from 'Store/Hooks/useDispatch'
 
 
-interface CommentFormInterface {
+interface EditCommentFormInterface {
     comment: string,
     type: string
 }
 
-const CommentForm = () => {
-    const { register, handleSubmit, reset } = useForm<CommentFormInterface>()
+const EditCommentForm = () => {
+    const { register, handleSubmit, reset } = useForm<EditCommentFormInterface>()
     const { mutate } = usePostComments({complete: () => reset()})
     const estateId = useAppSelector(state => state.estates.selectedEstate?.id)
 
-    const onSubmit: SubmitHandler<CommentFormInterface> = (formData) => {
+    const onSubmit: SubmitHandler<EditCommentFormInterface> = (formData) => {
         if (!estateId) return
 
         const body = {
@@ -69,4 +69,4 @@ const CommentForm = () => {
     )
 }
 
-export default CommentForm
+export default EditCommentForm

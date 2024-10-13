@@ -4,13 +4,13 @@ import MenuItem from '@mui/material/MenuItem';
 import classes from './Elipsis.module.scss'
 
 
-type elipsisFunction = {
+type elipsisFunctionType = {
   func: (...args: any[]) => void,
   label: string
 }
 
 interface Props {
-  functionArray: elipsisFunction[],
+  functionArray: elipsisFunctionType[],
   id?: number
 }
 
@@ -53,4 +53,5 @@ const EllipsisMenu = ({ functionArray, id }: Props) => {
   );
 };
 
+export {elipsisFunctionType}
 export default EllipsisMenu;
