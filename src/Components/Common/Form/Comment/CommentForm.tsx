@@ -13,7 +13,7 @@ interface CommentFormInterface {
 
 const CommentForm = () => {
     const { register, handleSubmit, reset } = useForm<CommentFormInterface>()
-    const { mutate } = usePostComments({complete: () => reset()})
+    const { mutate } = usePostComments({ complete: () => reset() })
     const estateId = useAppSelector(state => state.estates.selectedEstate?.id)
 
     const onSubmit: SubmitHandler<CommentFormInterface> = (formData) => {
