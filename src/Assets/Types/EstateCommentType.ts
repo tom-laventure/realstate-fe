@@ -6,7 +6,7 @@ interface comment {
     estate_id: number,
     comment_type: string,
     id?: number,
-    subcomments: subcomment
+    subcomments?: subcomment
 }
 
 export default comment

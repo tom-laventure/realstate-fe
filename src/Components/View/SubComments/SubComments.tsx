@@ -7,6 +7,8 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useNavigate, useParams } from 'react-router-dom'
 import useFetchSubComments from 'Store/Hooks/Subcomments/useFetchSubcomments'
 import { useAppSelector } from 'Store/Hooks/useDispatch'
+import subcomment from 'Assets/Types/EstateSubCommentType'
+import EllipsisMenu from 'Components/Common/Buttons/Elipsis/Elipsis'
 
 
 const SubComments = () => {
@@ -31,16 +33,26 @@ const SubComments = () => {
             <div className={classes['subcomment--comments']}>
                 {selectedComment && <Comment comment={selectedComment} functionArray={[]} />}
                 {subcomments.map((el, index) => {
-                    return <SubComment comment={el} key={index} />
+                    return <SubComment subcomment={el} key={index} />
                 })}
             </div>
         </div>
     )
 }
 
-const SubComment = () => {
+interface SubcommentProps {
+    subcomment: subcomment
+}
+
+const SubComment = ({ subcomment }: SubcommentProps) => {
     return (
-        <></>
+        <div className={classes['subcomment--comment']}>
+            <div className={classes['subcomment--comment__elipsis']}><EllipsisMenu functionArray={[]} id={subcomment.id} /></div>
+            <div className={classes['subcomment--comment__text']}>{subcomment.comment}</div>
+            <div className={classes['subcomment--comment__addition']}>
+                <div className={classes['subcomment--comment__owner']}>{subcomment.comment_owner}</div>
+            </div>
+        </div>
     )
 }
 

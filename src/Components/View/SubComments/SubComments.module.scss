@@ -10,4 +10,30 @@
     &--comments {
         @apply flex flex-col;
     }
+
+    &--comment {
+        @apply flex flex-col w-full;
+
+        &__addition {
+            @apply flex justify-between w-full items-center;
+        }
+
+        &__buttons {
+            button {
+                @apply text-[10px];
+            }
+        }
+
+        &__owner {
+            @apply text-[10px];
+        }
+
+        &__elipsis {
+            @apply flex justify-end w-full;
+        }
+
+        &__pop-up {
+            @apply flex flex-col items-center p-10;
+        }
+    }
 }
