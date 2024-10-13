@@ -47,7 +47,7 @@ interface SubcommentProps {
 const SubComment = ({ subcomment }: SubcommentProps) => {
     return (
         <div className={classes['subcomment--comment']}>
-            <div className={classes['subcomment--comment__elipsis']}><EllipsisMenu functionArray={[]} id={subcomment.id} /></div>
+            <div className={classes['subcomment--comment__elipsis']}>{subcomment.is_author && <EllipsisMenu functionArray={[]} id={subcomment.id} />}</div>
             <div className={classes['subcomment--comment__text']}>{subcomment.comment}</div>
             <div className={classes['subcomment--comment__addition']}>
                 <div className={classes['subcomment--comment__owner']}>{subcomment.comment_owner}</div>

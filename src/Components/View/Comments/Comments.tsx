@@ -97,7 +97,7 @@ interface CommentsArrayProps {
 const Comment = ({ comment, functionArray, openSubComment }: CommentsArrayProps) => {
     return (
         <div className={classes['comment']}>
-            <div className={classes['comment--elipsis']}><EllipsisMenu functionArray={functionArray} id={comment.id} /></div>
+            <div className={classes['comment--elipsis']}>{comment.is_author && <EllipsisMenu functionArray={functionArray} id={comment.id} />}</div>
             <div className={classes['comment--text']}>{comment.comment}</div>
             <div className={classes['comment--addition']}>
                 <div className={classes['comment--owner']}>{comment.comment_owner}</div>
