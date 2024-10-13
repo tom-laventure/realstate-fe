@@ -4,13 +4,14 @@ import subcomment from "Assets/Types/EstateSubCommentType"
 import { useEffect } from "react"
 import { useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
+import { setSubcomments } from "Store/Reducers/subcomments"
 
 interface UsePostSubcommentsProps {
     complete: () => void
 }
 
 
-const usePostSubcomments = ({complete}: UsePostSubcommentsProps) => {
+const usePostSubcomments = ({ complete }: UsePostSubcommentsProps) => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
@@ -18,8 +19,8 @@ const usePostSubcomments = ({complete}: UsePostSubcommentsProps) => {
         mutationFn: (body: subcomment) => postSubComment(body),
         retry: false,
         onSuccess: (data) => {
-            const comment = data.data
-            // dispatch()
+            const comments = data.data
+            dispatch(setSubcomments(comments))
             complete()
         }
     })
