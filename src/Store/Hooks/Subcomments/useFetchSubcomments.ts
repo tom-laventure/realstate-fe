@@ -3,9 +3,10 @@ import fetchSubComments from "Assets/API/SubComments/fetchSubcomments"
 import { useEffect } from "react"
 import { useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
+import { setSubcomments } from "Store/Reducers/subcomments"
 
 
-const useFetchSubComments = (id: string) => {
+const useFetchSubComments = (id: string | undefined) => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
@@ -17,13 +18,9 @@ const useFetchSubComments = (id: string) => {
         retry: false,
         onSuccess: (data) => {
             const subcomments = data.data
-            // dispatch(setEstates(estates))
+            dispatch(setSubcomments(subcomments))
         }
     })
-
-    useEffect(() => {
-        if (isError) navigate('/login')
-    }, [isError])
 
     return { isLoading, data, isSuccess }
 }

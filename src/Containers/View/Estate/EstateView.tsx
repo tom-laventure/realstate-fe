@@ -9,9 +9,7 @@ type Props = {}
 
 const EstateView = (props: Props) => {
     const params = useParams()
-    const navigate = useNavigate()
-    const { selectedEstate } = useGetEstate(params.id, params.index)
-
+    const { selectedEstate } = useGetEstate(params.estate_id, params.selected_id)
 
     return (
         <div className={classes['estate-view']}>

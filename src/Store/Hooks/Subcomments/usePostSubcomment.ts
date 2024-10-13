@@ -24,10 +24,6 @@ const usePostSubcomments = ({complete}: UsePostSubcommentsProps) => {
         }
     })
 
-    useEffect(() => {
-        if (isError) navigate('/login')
-    }, [isError])
-
     return { isLoading, mutate }
 }
 

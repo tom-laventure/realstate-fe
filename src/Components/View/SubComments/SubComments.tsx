@@ -1,31 +1,47 @@
 import comment from 'Assets/Types/EstateCommentType'
-import React from 'react'
+import React, { useEffect } from 'react'
 import classes from './SubComments.module.scss'
 import { Comment } from '../Comments/Comments'
 import { Button } from '@mui/material'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { useNavigate, useParams } from 'react-router-dom'
+import useFetchSubComments from 'Store/Hooks/Subcomments/useFetchSubcomments'
+import { useAppSelector } from 'Store/Hooks/useDispatch'
 
 
-type SubCommentsProps = {
-    selectedComment: comment,
-    setSelectedComment: (comment: comment | undefined) => void
-}
+const SubComments = () => {
+    const { estate_id, selected_id, comment_id } = useParams()
+    const selectedComment = useAppSelector((state) => state.estates.selectedEstate.estate_comments?.find(el => el.id == comment_id))
+    const subcomments = useAppSelector((state) => state.subcomments.subcomments)
+    const navigate = useNavigate()
 
-const SubComments = ({ selectedComment, setSelectedComment }: SubCommentsProps) => {
+    const { } = useFetchSubComments(comment_id)
+
+
+
+    const goBack = () => {
+        navigate(`/estates/${estate_id}/selected/${selected_id}`)
+    }
+
     return (
         <div className={classes['subcomment-container']}>
             <div>
-                <Button onClick={() => setSelectedComment(undefined)}><ArrowBackIcon color='action' fontSize='small' /> </Button>Reply:
+                <Button onClick={() => goBack()}><ArrowBackIcon color='action' fontSize='small' /> </Button>Reply:
             </div>
             <div className={classes['subcomment--comments']}>
-                <Comment comment={selectedComment} functionArray={[]} />
+                {selectedComment && <Comment comment={selectedComment} functionArray={[]} />}
+                {subcomments.map((el, index) => {
+                    return <SubComment comment={el} key={index} />
+                })}
             </div>
         </div>
     )
 }
 
 const SubComment = () => {
-
+    return (
+        <></>
+    )
 }
 
 export default SubComments

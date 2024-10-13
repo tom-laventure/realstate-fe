@@ -5,26 +5,25 @@ import classes from './SubCommentForm.module.scss'
 import usePostComments from 'Store/Hooks/Comments/usePostComment'
 import { useAppSelector } from 'Store/Hooks/useDispatch'
 import usePostSubcomments from 'Store/Hooks/Subcomments/usePostSubcomment'
+import { useParams } from 'react-router-dom'
 
 
 interface SubcommentFormInterface {
     comment: string
 }
 
-interface SubCommentFormProps {
-    selectedCommentId?: number
-}
 
-const SubCommentForm = ({ selectedCommentId }: SubCommentFormProps) => {
+const SubCommentForm = () => {
+    const { comment_id } = useParams()
     const { register, handleSubmit, reset } = useForm<SubcommentFormInterface>()
     const { mutate } = usePostSubcomments({ complete: () => reset() })
 
     const onSubmit: SubmitHandler<SubcommentFormInterface> = (formData) => {
-        if (!selectedCommentId) return
+        if (!comment_id) return
 
         const body = {
             comment: formData.comment,
-            estate_comment_id: selectedCommentId
+            estate_comment_id: comment_id
         }
 
         mutate(body)

@@ -5,18 +5,20 @@ import { Button } from '@mui/material'
 import EllipsisMenu, { elipsisFunctionType } from 'Components/Common/Buttons/Elipsis/Elipsis'
 import useDeleteComment from 'Store/Hooks/Comments/useDeleteComment'
 import PopupContainer from 'Components/Common/Popups/PopupContainer'
-import deleteComment from 'Assets/API/Comments/deleteComment'
+import { useLocation, useNavigate } from 'react-router-dom'
+import subcomment from 'Assets/Types/EstateSubCommentType'
 
 interface Props {
     comments?: comment[],
-    estateId: number,
-    openSubComment: (comment: comment) => void
+    estateId: number
 }
 
-const Comments = ({ comments, estateId, openSubComment }: Props) => {
+const Comments = ({ comments, estateId }: Props) => {
     // const { editComment: mutate } = useEditComments()
     const [confirmPopup, setConfirmPopup] = useState(0)
     const { mutate: deleteComment } = useDeleteComment({ complete: () => setConfirmPopup(0) })
+    const navigate = useNavigate()
+    const location = useLocation()
 
     const editFunction = (closeElipsis: () => void, id: number) => {
 
@@ -34,6 +36,12 @@ const Comments = ({ comments, estateId, openSubComment }: Props) => {
             commentId: confirmPopup
         })
 
+    }
+
+    const openSubComment = (id?: number) => {
+        if (!id) return
+
+        navigate(`${location.pathname}/comment/${id}`)
     }
 
     const functionArray = [
@@ -83,7 +91,7 @@ const Comments = ({ comments, estateId, openSubComment }: Props) => {
 interface CommentsArrayProps {
     comment: comment,
     functionArray: elipsisFunctionType[],
-    openSubComment?: (comment: comment) => void
+    openSubComment?: (id?: number) => void
 }
 
 const Comment = ({ comment, functionArray, openSubComment }: CommentsArrayProps) => {
@@ -93,7 +101,7 @@ const Comment = ({ comment, functionArray, openSubComment }: CommentsArrayProps)
             <div className={classes['comment--text']}>{comment.comment}</div>
             <div className={classes['comment--addition']}>
                 <div className={classes['comment--owner']}>{comment.comment_owner}</div>
-                {openSubComment && <Button onClick={() => openSubComment(comment)} className={classes['comment--reply']}>Reply</Button>}
+                {openSubComment && <Button onClick={() => openSubComment(comment.id)} className={classes['comment--reply']}>Reply</Button>}
             </div>
         </div>
     )

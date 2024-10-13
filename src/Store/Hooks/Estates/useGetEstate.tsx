@@ -25,10 +25,6 @@ const useGetEstate = (id: string | undefined, estateId: string | undefined) => {
         }
     })
 
-    useEffect(() => {
-        if (isError) navigate('/login')
-    }, [isError])
-
     return { isLoading, data, isSuccess, selectedEstate }
 }
 

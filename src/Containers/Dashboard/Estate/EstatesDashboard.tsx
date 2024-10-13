@@ -7,8 +7,8 @@ import { useAppSelector } from 'Store/Hooks/useDispatch'
 
 const EstatesDashboard = () => {
     const estates = useAppSelector(state => state.estates.userEstates)
-    const { id } = useParams()
-    const { isLoading } = useFetchEstates(id)
+    const { estate_id } = useParams()
+    const { isLoading } = useFetchEstates(estate_id)
 
     return (
         <div className={classes['estate-dashboard']}>

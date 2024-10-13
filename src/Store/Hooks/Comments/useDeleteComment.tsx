@@ -23,10 +23,6 @@ const useDeleteComment = ({ complete }: UseDeleteCommentProps) => {
         }
     })
 
-    useEffect(() => {
-        if (isError) navigate('/login')
-    }, [isError])
-
     return { isLoading, mutate }
 }
 

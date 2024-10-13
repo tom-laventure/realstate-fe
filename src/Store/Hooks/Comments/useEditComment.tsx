@@ -19,10 +19,6 @@ const useEditComments = () => {
         }
     })
 
-    useEffect(() => {
-        if (isError) navigate('/login')
-    }, [isError])
-
     return { isLoading, mutate }
 }
 

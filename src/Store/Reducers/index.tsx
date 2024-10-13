@@ -1,28 +1,33 @@
 import accountReducer, { accountState, accountType } from './account';
 import estatesReducer, { estateType, estateState } from './estates';
 import groupsReducer, { groupState, groupType } from './groups';
+import subcommentReducer, { subcommentState, subcommentType } from './subcomments';
 import { configureStore } from '@reduxjs/toolkit'
 
 export interface stateType {
 	account: accountType,
 	groups: groupType,
-	estates: estateType
+	estates: estateType,
+	subcomments: subcommentType
 }
+
 
 const reducer = {
 	account: accountReducer,
 	groups: groupsReducer,
-	estates: estatesReducer
+	estates: estatesReducer,
+	subcomments: subcommentReducer
 }
 
 const preloadedState: stateType = {
 	account: accountState,
 	groups: groupState,
-	estates: estateState
+	estates: estateState,
+	subcomments: subcommentState
 }
 
 
-const StoreContext = configureStore({reducer, preloadedState})
+const StoreContext = configureStore({ reducer, preloadedState })
 
 export default StoreContext
 export type DispatchType = typeof StoreContext.dispatch

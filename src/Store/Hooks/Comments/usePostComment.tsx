@@ -25,10 +25,6 @@ const usePostComments = ({complete}: UsePostCommentsProps) => {
         }
     })
 
-    useEffect(() => {
-        if (isError) navigate('/login')
-    }, [isError])
-
     return { isLoading, mutate }
 }
 
