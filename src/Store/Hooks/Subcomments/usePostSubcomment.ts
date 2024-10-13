@@ -4,7 +4,6 @@ import subcomment from "Assets/Types/EstateSubCommentType"
 import { useEffect } from "react"
 import { useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
-import { addComment } from "Store/Reducers/estates"
 
 interface UsePostSubcommentsProps {
     complete: () => void
