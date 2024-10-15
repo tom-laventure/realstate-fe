@@ -7,6 +7,8 @@ import useDeleteComment from 'Store/Hooks/Comments/useDeleteComment'
 import PopupContainer from 'Components/Common/Popups/PopupContainer'
 import { useLocation, useNavigate } from 'react-router-dom'
 import subcomment from 'Assets/Types/EstateSubCommentType'
+import { useDispatch } from 'react-redux'
+import { editComment } from 'Store/Reducers/comments'
 
 interface Props {
     comments?: comment[],
@@ -19,14 +21,15 @@ const Comments = ({ comments, estateId }: Props) => {
     const { mutate: deleteComment } = useDeleteComment({ complete: () => setConfirmPopup(0) })
     const navigate = useNavigate()
     const location = useLocation()
+    const dishpatch = useDispatch()
 
-    const editFunction = (closeElipsis: () => void, id: number) => {
-
+    const editFunction = (closeElipsis: () => void, comment: comment) => {
+        dishpatch(editComment(comment))
         closeElipsis()
     }
 
-    const deleteFunction = (closeElipsis: () => void, id: number) => {
-        setConfirmPopup(id)
+    const deleteFunction = (closeElipsis: () => void, comment: comment) => {
+        if (comment.id) setConfirmPopup(comment.id)
         closeElipsis()
     }
 
@@ -94,10 +97,22 @@ interface CommentsArrayProps {
     openSubComment?: (id?: number) => void
 }
 
+
+interface CommentColorType {
+    [key: string]: string
+}
+
+const commentColor: CommentColorType = {
+    neutral: classes['comment--neutral'],
+    like: classes['comment--like'],
+    dislike: classes['comment--dislike'],
+    work: classes['comment--work'],
+}
+
 const Comment = ({ comment, functionArray, openSubComment }: CommentsArrayProps) => {
     return (
-        <div className={classes['comment']}>
-            <div className={classes['comment--elipsis']}>{comment.is_author && <EllipsisMenu functionArray={functionArray} id={comment.id} />}</div>
+        <div className={`${classes['comment']} ${commentColor[comment.comment_type]}`}>
+            <div className={classes['comment--elipsis']}>{comment.is_author && <EllipsisMenu functionArray={functionArray} item={comment} />}</div>
             <div className={classes['comment--text']}>{comment.comment}</div>
             <div className={classes['comment--addition']}>
                 <div className={classes['comment--owner']}>{comment.comment_owner}</div>

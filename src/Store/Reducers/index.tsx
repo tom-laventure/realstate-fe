@@ -1,4 +1,5 @@
 import accountReducer, { accountState, accountType } from './account';
+import commentReducer, { commentType, commentState } from './comments';
 import estatesReducer, { estateType, estateState } from './estates';
 import groupsReducer, { groupState, groupType } from './groups';
 import subcommentReducer, { subcommentState, subcommentType } from './subcomments';
@@ -8,7 +9,8 @@ export interface stateType {
 	account: accountType,
 	groups: groupType,
 	estates: estateType,
-	subcomments: subcommentType
+	subcomments: subcommentType,
+	comments: commentType
 }
 
 
@@ -16,14 +18,16 @@ const reducer = {
 	account: accountReducer,
 	groups: groupsReducer,
 	estates: estatesReducer,
-	subcomments: subcommentReducer
+	subcomments: subcommentReducer,
+	comments: commentReducer
 }
 
 const preloadedState: stateType = {
 	account: accountState,
 	groups: groupState,
 	estates: estateState,
-	subcomments: subcommentState
+	subcomments: subcommentState,
+	comments: commentState
 }
 
 

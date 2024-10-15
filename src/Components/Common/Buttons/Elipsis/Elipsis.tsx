@@ -11,10 +11,10 @@ type elipsisFunctionType = {
 
 interface Props {
   functionArray: elipsisFunctionType[],
-  id?: number
+  item?: any
 }
 
-const EllipsisMenu = ({ functionArray, id }: Props) => {
+const EllipsisMenu = ({ functionArray, item }: Props) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
@@ -46,12 +46,12 @@ const EllipsisMenu = ({ functionArray, id }: Props) => {
 
       >
         {functionArray && functionArray.map((el, index) => {
-          return <MenuItem className={classes['elipsis-menu--menu-item']} key={index} onClick={() => el.func(handleClose, id)}>{el.label}</MenuItem>
+          return <MenuItem className={classes['elipsis-menu--menu-item']} key={index} onClick={() => el.func(handleClose, item)}>{el.label}</MenuItem>
         })}
       </Menu>
     </>
   );
 };
 
-export {elipsisFunctionType}
+export { elipsisFunctionType }
 export default EllipsisMenu;

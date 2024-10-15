@@ -7,7 +7,7 @@
 }
 
 .comment {
-    @apply flex flex-col w-full;
+    @apply flex flex-col w-full rounded-lg my-2 p-5 relative;
 
     &--addition {
         @apply flex justify-between w-full items-center;
@@ -19,15 +19,35 @@
         }
     }
 
+    &--text {
+        @apply break-words;
+    }
+
     &--owner {
         @apply text-[10px];
     }
 
     &--elipsis {
-        @apply flex justify-end w-full;
+        @apply flex justify-end w-full absolute top-0 right-2;
     }
 
     &--pop-up {
         @apply flex flex-col items-center p-10;
+    }
+
+    &--neutral {
+        @apply bg-gray-300;
+    }
+
+    &--like {
+        @apply bg-green-300;
+    }
+
+    &--dislike {
+        @apply bg-red-300;
+    }
+
+    &--work {
+        @apply bg-blue-300;
     }
 }
