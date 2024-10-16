@@ -7,6 +7,7 @@ import { useAppSelector } from 'Store/Hooks/useDispatch'
 import comment from 'Assets/Types/EstateCommentType'
 import { useDispatch } from 'react-redux'
 import { editComment } from 'Store/Reducers/comments'
+import useEditComments from 'Store/Hooks/Comments/useEditComment'
 
 
 interface CommentFormInterface {
@@ -16,30 +17,39 @@ interface CommentFormInterface {
 
 const CommentForm = () => {
     const [editForm, setEditForm] = useState(false)
-    const editComment = useAppSelector(state => state.comments.editComment)
+    const dispatch = useDispatch()
+    const editCommentState = useAppSelector(state => state.comments.editComment)
     const { register, handleSubmit, reset } = useForm<CommentFormInterface>({
         defaultValues: {
             comment: '',
             type: 'neutral'
         }
     })
-    const { mutate } = usePostComments({ complete: () => reset() })
+    const { mutate: submitPostComment } = usePostComments({ complete: () => reset() })
+    const { mutate: submitEditComment } = useEditComments({
+        complete: () => {
+            reset()
+            setEditForm(false)
+        }
+    })
     const estateId = useAppSelector(state => state.estates.selectedEstate?.id)
 
     useEffect(() => {
-        if (editComment) {
-            console.log(editComment)
+        if (editCommentState) {
             setEditForm(true)
             reset({
-                comment: editComment.comment,
-                type: editComment.comment_type
+                comment: editCommentState.comment,
+                type: editCommentState.comment_type
             })
         }
         else {
             setEditForm(false)
-            reset()
+            reset({
+                comment: '',
+                type: 'neutral'
+            })
         }
-    }, [editComment])
+    }, [editCommentState])
 
     const onSubmit: SubmitHandler<CommentFormInterface> = (formData) => {
         if (!estateId) return
@@ -47,10 +57,21 @@ const CommentForm = () => {
         const body = {
             comment: formData.comment,
             comment_type: formData.type,
-            estate_id: estateId
+            estate_id: estateId,
+            id: editCommentState?.id
         }
 
-        mutate(body)
+        if (editComment) {
+            submitEditComment(body)
+            dispatch(editComment(undefined))
+        } else {
+            submitPostComment(body)
+        }
+
+        reset({
+            comment: '',
+            type: 'neutral'
+        })
     }
 
     return (
@@ -58,7 +79,7 @@ const CommentForm = () => {
             onSubmit={handleSubmit(onSubmit)}
         >
             <FormControl className={classes['comment-form--control']}>
-                {editForm && editComment ? <EditComment register={register} comment={editComment} /> : <PostComment register={register} />}
+                {editForm && editCommentState ? <EditComment register={register} comment={editCommentState} /> : <PostComment register={register} />}
             </FormControl>
         </form>
     )
@@ -100,7 +121,7 @@ const PostComment = ({ register }: PostCommentProps) => {
                 </div>
             </div>
             <div className={classes['comment-form--button-container']}>
-                <Button variant="contained" type='submit'>Edit Comment</Button>
+                <Button variant="contained" type='submit'>Submit Comment</Button>
             </div>
         </>
     )
@@ -115,8 +136,6 @@ interface EditCommentProps {
 const EditComment = ({ register, comment }: EditCommentProps) => {
     const dispatch = useDispatch()
 
-
-
     const cancelEdit = () => {
         dispatch(editComment(undefined))
     }
@@ -128,7 +147,6 @@ const EditComment = ({ register, comment }: EditCommentProps) => {
                     label="Edit Comment"
                     type="text"
                     multiline
-                    defaultValue={comment.comment}
                     {...register('comment', {
                         required: 'A comment is required',
                         minLength: {
@@ -151,8 +169,8 @@ const EditComment = ({ register, comment }: EditCommentProps) => {
                     <FormHelperText>What type of comment is this?</FormHelperText>
                 </div>
             </div>
-            <div className={classes['comment-form--button-container']}>
-                <Button variant="contained" type='submit'>Submit Comment</Button>
+            <div className={classes['comment-form--button-container__edit']}>
+                <Button variant="contained" type='submit'>Edit Comment</Button>
                 <Button onClick={() => cancelEdit()} variant="contained" >Cancel</Button>
             </div>
         </>

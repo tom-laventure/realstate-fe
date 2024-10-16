@@ -4,10 +4,14 @@ import comment from "Assets/Types/EstateCommentType"
 import { useEffect } from "react"
 import { useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
-import { replaceComment } from "Store/Reducers/estates"
+import { setComments } from "Store/Reducers/estates"
 
 
-const useEditComments = () => {
+interface UseEditCommentsProps {
+    complete: () => void
+}
+
+const useEditComments = ({ complete }: UseEditCommentsProps) => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const { isLoading, mutate, isError } = useMutation({
@@ -15,7 +19,8 @@ const useEditComments = () => {
         retry: false,
         onSuccess: (data) => {
             const comment = data.data
-            dispatch(replaceComment(comment))
+            dispatch(setComments(comment))
+            complete()
         }
     })
 

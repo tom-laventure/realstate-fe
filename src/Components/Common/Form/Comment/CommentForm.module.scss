@@ -17,5 +17,9 @@
 
     &--button-container {
         @apply flex justify-center mt-5;
+
+        &__edit {
+            @apply flex justify-around w-full mt-5;
+        }
     }
 }
