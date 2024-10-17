@@ -1,7 +1,9 @@
 interface group {
     id?: number,
-    name: string
+    name: string,
+    members: [],
+    activeListings: number
 }
 
 
-export {group}
+export { group }
