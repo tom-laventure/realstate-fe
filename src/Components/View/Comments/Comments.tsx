@@ -98,24 +98,40 @@ interface CommentsArrayProps {
 }
 
 
-interface CommentColorType {
-    [key: string]: string
+interface CommentDetailsType {
+    [key: string]: {
+        color: string,
+        text: string
+    }
 }
 
-const commentColor: CommentColorType = {
-    neutral: classes['comment--neutral'],
-    like: classes['comment--like'],
-    dislike: classes['comment--dislike'],
-    work: classes['comment--work'],
+const commentDetails: CommentDetailsType = {
+    neutral: {
+        color: classes['comment--neutral'],
+        text: 'Nuetral'
+    },
+    like: {
+        color: classes['comment--like'],
+        text: 'Something I like'
+    },
+    dislike: {
+        color: classes['comment--dislike'],
+        text: 'Something I dislike'
+    },
+    work: {
+        color: classes['comment--work'],
+        text: 'Would need work'
+    },
 }
+
 
 const Comment = ({ comment, functionArray, openSubComment }: CommentsArrayProps) => {
     return (
-        <div className={`${classes['comment']} ${commentColor[comment.comment_type]}`}>
+        <div className={`${classes['comment']} ${commentDetails[comment.comment_type].color}`}>
             <div className={classes['comment--elipsis']}>{comment.is_author && <EllipsisMenu functionArray={functionArray} item={comment} />}</div>
             <div className={classes['comment--text']}>{comment.comment}</div>
             <div className={classes['comment--addition']}>
-                <div className={classes['comment--owner']}>{comment.comment_owner}</div>
+                <div className={classes['comment--owner']}>{comment.comment_owner} - {commentDetails[comment.comment_type].text}</div>
                 {openSubComment && <Button onClick={() => openSubComment(comment.id)} className={classes['comment--reply']}>Reply</Button>}
             </div>
         </div>
