@@ -6,6 +6,7 @@ import CommentForm from 'Components/Common/Form/Comment/CommentForm'
 import SubComments from '../SubComments/SubComments'
 import SubCommentForm from 'Components/Common/Form/Subcomment/SubCommentForm'
 import { Route, Routes, useLocation } from 'react-router-dom'
+import Ratings from '../Ratings/Ratings'
 
 type Props = {
   estate: estate
@@ -18,8 +19,10 @@ const EstateDetails = ({ estate }: Props) => {
         {estate.header}
       </div>
       <div className={classes['estate-details--info']}>
-        <div>Full listing: <a href={estate.link}>{estate.link}</a></div>
-
+        <div>
+          <div>Full listing: <a href={estate.link}>{estate.link}</a></div>
+          <Ratings />
+        </div>
         <div className={classes['estate-details--comments']}>
           <Routes>
             <Route path="comment/:comment_id" element={<SelectedCommenView />} />

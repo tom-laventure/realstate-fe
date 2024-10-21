@@ -1,7 +1,7 @@
 interface rating {
-    comment_owner: string,
+    rating_owner?: string,
     rating: string,
-    id: number
+    id?: number
 }
 
 export default rating

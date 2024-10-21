@@ -1,7 +1,9 @@
 .groups-table {
-    @apply w-full max-w-lg border h-full;
+    @apply w-full max-w-lg border;
 }
 
 .group {
-    @apply min-h-[100px] border-b flex justify-around items-center cursor-pointer;
+    &--row {
+        @apply border-b flex justify-around items-center cursor-pointer;
+    }
 }

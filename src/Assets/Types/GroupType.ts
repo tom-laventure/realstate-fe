@@ -1,8 +1,10 @@
+import users from "./UserType"
+
 interface group {
     id?: number,
     name: string,
-    members: [],
-    activeListings: number
+    users: users[],
+    active_listings: number
 }
 
 

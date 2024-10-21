@@ -1,5 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { EditRatingResponse } from 'Assets/API/Ratings/editRating'
 import comment from 'Assets/Types/EstateCommentType'
+import rating from 'Assets/Types/EstateRatingType'
 import estate from 'Assets/Types/EstateType'
 
 export interface estateType {
@@ -12,7 +14,9 @@ const initialState: estateType = {
     selectedEstate: {
         header: '',
         id: -1,
-        link: ''
+        link: '',
+        estate_ratings: [],
+        user_rating: undefined
     }
 }
 
@@ -31,10 +35,14 @@ const estatesSlice = createSlice({
         },
         setComments: (state, action: PayloadAction<comment[]>) => {
             state.selectedEstate.estate_comments = action.payload
-        }
+        },
+        setRatings: (state, action: PayloadAction<EditRatingResponse>) => {
+            state.selectedEstate.estate_ratings = action.payload.estate_ratings
+            state.selectedEstate.user_rating = action.payload.user_rating
+        },
     }
 })
 
-export const { setEstates, setSelectedEstate, addComment, setComments } = estatesSlice.actions
+export const { setEstates, setSelectedEstate, addComment, setComments, setRatings } = estatesSlice.actions
 export { initialState as estateState }
 export default estatesSlice.reducer
