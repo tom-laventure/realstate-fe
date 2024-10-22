@@ -1,3 +1,11 @@
 .ratings {
-    @apply m-3
+    @apply m-3;
+
+    &__popup {
+        @apply flex w-full justify-between p-2 items-center;
+
+        &--name {
+            @apply mr-1 text-sm;
+        }
+    }
 }

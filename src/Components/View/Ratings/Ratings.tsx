@@ -1,6 +1,6 @@
 import React, { MouseEvent, useEffect, useMemo, useState } from 'react'
 import classes from './Ratings.module.scss'
-import { Button, Rating } from '@mui/material'
+import { Button, Popover, Rating } from '@mui/material'
 import { useAppSelector } from 'Store/Hooks/useDispatch'
 import usePostRatings from 'Store/Hooks/Ratings/usePostRating'
 import { useParams } from 'react-router-dom'
@@ -23,7 +23,10 @@ const Ratings = () => {
 
   return (
     <div className={classes['ratings']}>
-      <ExistingRatings currentRating={avgRating} />
+      <ExistingRatings
+        currentRating={avgRating}
+        userRatings={ratings}
+      />
       {
         userHasRated && !editRating ?
           <UserRating
@@ -40,19 +43,57 @@ const Ratings = () => {
 }
 
 interface ExistingRatings {
-  currentRating: number
+  currentRating: number,
+  userRatings: rating[]
 }
 
 
-const ExistingRatings = ({ currentRating }: ExistingRatings) => {
+const ExistingRatings = ({ currentRating, userRatings }: ExistingRatings) => {
+  const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
+
+  const handlePopoverOpen = (event: React.MouseEvent<HTMLElement>) => {
+    console.log(open)
+    setAnchorEl(event.currentTarget)
+  };
+
+  const handlePopoverClose = () => {
+    console.log('close')
+    setAnchorEl(null)
+  };
+
+  const open = Boolean(anchorEl)
+
+
+
+  const ratingList = userRatings.map((rating, index) => {
+    return <div key={index} className={classes['ratings__popup']}>
+      <span className={classes['ratings__popup--name']}>{rating.rating_owner}</span> <Rating size='small' value={+rating.rating} max={10} disabled />
+    </div>
+  })
 
 
   return (
-    <div>
+    <div
+      aria-owns={open ? 'mouse-over-popover' : undefined}
+      aria-haspopup="true"
+      onMouseEnter={handlePopoverOpen}
+      onMouseLeave={handlePopoverClose}
+    >
       <div>
         Current Average Rating:
       </div>
       <Rating value={currentRating} disabled precision={.5} max={10} />
+      <div>{currentRating}/10</div>
+      <Popover
+        open={open}
+        anchorEl={anchorEl}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'center',
+        }}
+      >
+        {ratingList}
+      </Popover>
     </div>
   )
 }
@@ -110,6 +151,7 @@ const UserRating = ({ ratingValue, editRating }: UserRatingProps) => {
         Your Rating:
       </div>
       <Rating value={+ratingValue} precision={.5} max={10} disabled />
+      {ratingValue}/10
       <div>
         <Button onClick={editRating} size='small'>edit rating</Button>
       </div>
