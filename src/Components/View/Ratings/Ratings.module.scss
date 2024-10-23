@@ -8,4 +8,9 @@
             @apply mr-1 text-sm;
         }
     }
+
+    &--rating-container {
+        @apply flex items-center ;
+    }
+
 }

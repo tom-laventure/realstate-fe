@@ -1,11 +1,13 @@
 import React, { MouseEvent, useEffect, useMemo, useState } from 'react'
 import classes from './Ratings.module.scss'
-import { Button, Popover, Rating } from '@mui/material'
+import { Button, Popover, Rating, Typography } from '@mui/material'
 import { useAppSelector } from 'Store/Hooks/useDispatch'
 import usePostRatings from 'Store/Hooks/Ratings/usePostRating'
 import { useParams } from 'react-router-dom'
 import rating from 'Assets/Types/EstateRatingType'
 import UseEditRating from 'Store/Hooks/Ratings/useEditRating'
+import MouseHoverPopover from 'Components/Common/Popups/MouseHoverPopover'
+
 
 const Ratings = () => {
   const [avgRating, setAvgRating] = useState<number>(0)
@@ -49,21 +51,6 @@ interface ExistingRatings {
 
 
 const ExistingRatings = ({ currentRating, userRatings }: ExistingRatings) => {
-  const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
-
-  const handlePopoverOpen = (event: React.MouseEvent<HTMLElement>) => {
-    console.log(open)
-    setAnchorEl(event.currentTarget)
-  };
-
-  const handlePopoverClose = () => {
-    console.log('close')
-    setAnchorEl(null)
-  };
-
-  const open = Boolean(anchorEl)
-
-
 
   const ratingList = userRatings.map((rating, index) => {
     return <div key={index} className={classes['ratings__popup']}>
@@ -71,29 +58,17 @@ const ExistingRatings = ({ currentRating, userRatings }: ExistingRatings) => {
     </div>
   })
 
+  const rating = `${currentRating}/10`
 
   return (
-    <div
-      aria-owns={open ? 'mouse-over-popover' : undefined}
-      aria-haspopup="true"
-      onMouseEnter={handlePopoverOpen}
-      onMouseLeave={handlePopoverClose}
-    >
+    <div>
       <div>
         Current Average Rating:
       </div>
-      <Rating value={currentRating} disabled precision={.5} max={10} />
-      <div>{currentRating}/10</div>
-      <Popover
-        open={open}
-        anchorEl={anchorEl}
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'center',
-        }}
-      >
-        {ratingList}
-      </Popover>
+      <div className={classes['ratings--rating-container']}>
+        <Rating value={currentRating} disabled precision={.5} max={10} />
+        <MouseHoverPopover label={rating}><>{ratingList}</></MouseHoverPopover>
+      </div>
     </div>
   )
 }
@@ -150,8 +125,10 @@ const UserRating = ({ ratingValue, editRating }: UserRatingProps) => {
       <div>
         Your Rating:
       </div>
-      <Rating value={+ratingValue} precision={.5} max={10} disabled />
-      {ratingValue}/10
+      <div className={classes['ratings--rating-container']}>
+        <Rating value={+ratingValue} precision={.5} max={10} disabled />
+        <div>{ratingValue}/10</div>
+      </div>
       <div>
         <Button onClick={editRating} size='small'>edit rating</Button>
       </div>
