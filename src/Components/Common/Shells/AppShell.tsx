@@ -1,10 +1,10 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 import Footer from '../../Footer/Footer';
 import Navbar from '../../Navbar/NavBar';
 import classes from './AppShell.module.scss'
 import { useAppDispatch, useAppSelector } from '../../../Store/Hooks/useDispatch';
-import { updateUser } from '../../../Store/Reducers/account';
+
 
 const AppShell = () => {
 	const dispatch = useAppDispatch()
@@ -13,7 +13,7 @@ const AppShell = () => {
 
 	}, [])
 
-	return ( 
+	return (
 		<div className={classes['app-shell']}>
 			<Navbar />
 			<div className={classes['app-shell__outlet']}>
@@ -23,5 +23,5 @@ const AppShell = () => {
 		</div>
 	);
 }
- 
+
 export default AppShell;

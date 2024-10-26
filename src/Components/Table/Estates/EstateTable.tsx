@@ -1,9 +1,12 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import classes from './EstateTable.module.scss'
 import estate from 'Assets/Types/EstateType'
 import { Location, NavigateFunction, useLocation, useNavigate } from 'react-router-dom'
 import { useAppDispatch } from 'Store/Hooks/useDispatch'
 import { setSelectedEstate } from 'Store/Reducers/estates'
+import { Button, Rating, Table, TableBody, TableCell, TableHead, TableRow, Tooltip } from '@mui/material'
+import rating from 'Assets/Types/EstateRatingType'
+import comment from 'Assets/Types/EstateCommentType'
 
 interface Props {
     estates?: estate[]
@@ -20,9 +23,20 @@ const EstateTable = ({ estates }: Props) => {
 
     return (
         <div className={classes['estates-table']}>
-            {estates && estates?.map((estate, index) => {
-                return <Estates header={estate.header} key={index} click={() => estateClicked(estate.id)} />
-            })}
+            <Table>
+                <TableHead>
+                    <TableRow>
+                        <TableCell>Property Label</TableCell>
+                        <TableCell>Average Property Rating</TableCell>
+                    </TableRow>
+
+                </TableHead>
+                <TableBody>
+                    {estates && estates?.map((estate, index) => {
+                        return <Estates header={estate.header} rating={estate.estate_ratings} key={index} click={() => estateClicked(estate.id)} />
+                    })}
+                </TableBody>
+            </Table>
         </div>
     )
 }
@@ -30,14 +44,29 @@ const EstateTable = ({ estates }: Props) => {
 
 interface EstateProps {
     header: string,
-    click: () => void
+    click: () => void,
+    rating?: rating[]
 }
 
-const Estates = ({ header, click }: EstateProps) => {
+const Estates = ({ header, click, rating }: EstateProps) => {
+    const [avgRating, setAvgRating] = useState(0)
+
+    useEffect(() => {
+        if (!rating) return
+        const ratingSum = rating.reduce((prevRating, currentRating) => prevRating + +currentRating.rating, 0)
+        const avg = ratingSum / rating.length
+
+        setAvgRating(avg)
+    }, [rating])
+
+
     return (
-        <div className={classes['estate']} onClick={click}>
-            <div>{header}</div>
-        </div>
+        <TableRow className={classes['estate']} onClick={click}>
+            <TableCell>{header}</TableCell>
+            <TableCell>
+                <Tooltip title={avgRating}><Button><Rating disabled value={avgRating} max={10} precision={.5} /></Button></Tooltip>
+            </TableCell>
+        </TableRow>
     )
 
 }

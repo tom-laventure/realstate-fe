@@ -7,6 +7,7 @@ import SubComments from '../SubComments/SubComments'
 import SubCommentForm from 'Components/Common/Form/Subcomment/SubCommentForm'
 import { Route, Routes, useLocation } from 'react-router-dom'
 import Ratings from '../Ratings/Ratings'
+import SideNav from 'Components/Navbar/SideNav/SideNav'
 
 type Props = {
   estate: estate
@@ -15,6 +16,7 @@ type Props = {
 const EstateDetails = ({ estate }: Props) => {
   return (
     <div className={classes['estate-details']}>
+      <SideNav />
       <div className={classes['estate-details--header']}>
         {estate.header}
       </div>
@@ -30,7 +32,7 @@ const EstateDetails = ({ estate }: Props) => {
           </Routes>
         </div>
       </div>
-    </div>
+    </div >
   )
 }
 

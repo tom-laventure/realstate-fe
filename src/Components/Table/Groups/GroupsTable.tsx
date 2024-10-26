@@ -18,9 +18,11 @@ const GroupsTable = ({ groups }: Props) => {
     return (
         <Table className={classes['groups-table']}>
             <TableHead>
-                <TableCell>Group Name</TableCell>
-                <TableCell>Users in Group</TableCell>
-                <TableCell>Active Listings</TableCell>
+                <TableRow>
+                    <TableCell>Group Name</TableCell>
+                    <TableCell>Active Listings</TableCell>
+                    <TableCell>Users in Group</TableCell>
+                </TableRow>
             </TableHead>
             <TableBody>
                 {groups && groups.map((group, index) => {
@@ -46,10 +48,10 @@ const Group = ({ name, members = [], activeListings = 0, click }: groupProps) =>
     return (
         <TableRow className={classes['group--row']} onClick={() => click()}>
             <TableCell className={classes['group--name']}>{name}</TableCell>
+            <TableCell className={classes['group--active-listings']}>{activeListings}</TableCell>
             <TableCell className={classes['group--members']}>
                 <Tooltip title={memberNames}><Button>{members.length}</Button></Tooltip>
             </TableCell>
-            <TableCell className={classes['group--active-listings']}>{activeListings}</TableCell>
         </TableRow >
     )
 }

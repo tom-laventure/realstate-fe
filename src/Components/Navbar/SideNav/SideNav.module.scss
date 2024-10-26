@@ -1,0 +1,9 @@
+.side-nav {
+    @apply w-60 border flex flex-col;
+}
+
+.navigation-link {
+    &--active {
+        @apply text-black;
+    }
+}

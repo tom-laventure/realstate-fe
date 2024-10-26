@@ -2,6 +2,6 @@
     @apply w-full flex flex-col min-h-screen;
 
     &__outlet {
-        @apply max-w-5xl mx-auto w-full h-fit min-h-screen;
+        @apply mx-auto w-full h-fit min-h-screen;
     }
 }
