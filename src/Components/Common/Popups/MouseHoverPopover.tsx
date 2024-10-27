@@ -19,7 +19,7 @@ function MouseHoverPopover({ label, children }: MouseHoverPopoverProps) {
   };
 
   const open = Boolean(anchorEl);
-  console.log(label)
+
 
   return (
     <div>

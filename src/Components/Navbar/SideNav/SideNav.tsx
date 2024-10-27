@@ -1,8 +1,9 @@
 import React from 'react'
 import classes from './SideNav.module.scss'
 import { useAppSelector } from 'Store/Hooks/useDispatch'
-import { NavLink, useLocation } from 'react-router-dom'
+import { NavLink, useLocation, useParams } from 'react-router-dom'
 import { group } from 'Assets/Types/GroupType'
+import useFetchEstates from 'Store/Hooks/Estates/useFetchEstates'
 
 const SideNav = () => {
     const groups = useAppSelector(state => state.groups.userGroups)
@@ -22,7 +23,7 @@ const SideNav = () => {
     )
 }
 
-interface NavigationLinkProps { 
+interface NavigationLinkProps {
     group: group
 }
 
@@ -31,7 +32,7 @@ const NavigationLink = ({ group }: NavigationLinkProps) => {
         <NavLink
             to={`/estates/${group.id}`}
             className={({ isActive }) =>
-                isActive ? classes['navigation-link--active'] : classes['navigation-link']
+                `${classes['navigation-link']} ${isActive ? classes['navigation-link--active'] : classes['navigation-link']}`
             }>
             {group.name}
         </NavLink >

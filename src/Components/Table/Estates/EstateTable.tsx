@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import classes from './EstateTable.module.scss'
 import estate from 'Assets/Types/EstateType'
-import { Location, NavigateFunction, useLocation, useNavigate } from 'react-router-dom'
-import { useAppDispatch } from 'Store/Hooks/useDispatch'
-import { setSelectedEstate } from 'Store/Reducers/estates'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { Button, Rating, Table, TableBody, TableCell, TableHead, TableRow, Tooltip } from '@mui/material'
 import rating from 'Assets/Types/EstateRatingType'
-import comment from 'Assets/Types/EstateCommentType'
 
 interface Props {
     estates?: estate[]

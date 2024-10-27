@@ -14,7 +14,6 @@ const Ratings = () => {
   const [editRating, setEditRating] = useState(false)
   const ratings = useAppSelector(state => state.estates.selectedEstate.estate_ratings)
   const userHasRated = useAppSelector(state => state.estates.selectedEstate.user_rating)
-
   useEffect(() => {
     const ratingSum = ratings.reduce((prevRating, currentRating) => prevRating + +currentRating.rating, 0)
     const avg = ratingSum / ratings.length

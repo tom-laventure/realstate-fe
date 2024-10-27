@@ -1,8 +1,14 @@
 .side-nav {
     @apply w-60 border flex flex-col;
+
+    &--links {
+        @apply flex flex-col;
+    }
 }
 
 .navigation-link {
+    @apply h-10 flex w-full justify-center items-center border-b;
+
     &--active {
         @apply text-black;
     }
