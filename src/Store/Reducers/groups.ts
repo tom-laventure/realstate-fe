@@ -17,7 +17,7 @@ const groupsSlice = createSlice({
     reducers: {
         setGroupState: (state, action: PayloadAction<group[]>) => {
             state.userGroups = action.payload
-        },
+        }
     }
 })
 

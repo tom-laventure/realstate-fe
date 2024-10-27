@@ -1,25 +1,26 @@
 import { useMutation } from "@tanstack/react-query"
-import postComment from "Assets/API/Comments/postComment"
-import comment from "Assets/Types/EstateCommentType"
+import postGroup, { PostGroupType } from "Assets/API/Groups/postGroup"
+import { group } from "Assets/Types/GroupType"
 import { useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import { addComment } from "Store/Reducers/estates"
+import { setGroupState } from "Store/Reducers/groups"
 
-interface UsePostCommentsProps {
+interface UsePostGroupProps {
     complete: () => void
 }
 
 
-const usePostComments = ({complete}: UsePostCommentsProps) => {
+const usePostGroup = ({ complete }: UsePostGroupProps) => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
     const { isLoading, mutate, isError } = useMutation({
-        mutationFn: (body: comment) => postComment(body),
+        mutationFn: (body: PostGroupType) => postGroup(body),
         retry: false,
         onSuccess: (data) => {
-            const comment = data.data
-            dispatch(addComment(comment))
+            const groups = data.data
+            dispatch(setGroupState(groups))
             complete()
         }
     })
@@ -27,4 +28,4 @@ const usePostComments = ({complete}: UsePostCommentsProps) => {
     return { isLoading, mutate }
 }
 
-export default usePostComments
+export default usePostGroup

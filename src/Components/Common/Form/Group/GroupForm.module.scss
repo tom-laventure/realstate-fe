@@ -1,0 +1,15 @@
+.create-group {
+    @apply w-full max-w-lg flex justify-center border p-5;
+
+    &--form-control {
+        @apply w-full;
+    }
+
+    &--header {
+        @apply w-full text-lg font-semibold mb-5;
+    }
+
+    &--submit-button {
+        @apply w-full flex justify-end mt-5;
+    }
+}
