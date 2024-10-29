@@ -1,16 +1,16 @@
 import React from 'react'
-import classes from './SideNav.module.scss'
+import classes from '../SideNav.module.scss'
 import { useAppSelector } from 'Store/Hooks/useDispatch'
 import { NavLink, useLocation, useParams } from 'react-router-dom'
 import { group } from 'Assets/Types/GroupType'
 import useFetchEstates from 'Store/Hooks/Estates/useFetchEstates'
 
-const SideNav = () => {
+const EstateSideNav = () => {
     const groups = useAppSelector(state => state.groups.userGroups)
 
     return (
         <div className={classes['side-nav']}>
-            Groups:
+            Estates :
             <div className={classes['side-nav--links']}>
                 {
                     groups.map((group, key) => {
@@ -39,4 +39,4 @@ const NavigationLink = ({ group }: NavigationLinkProps) => {
     )
 }
 
-export default SideNav
+export default EstateSideNav

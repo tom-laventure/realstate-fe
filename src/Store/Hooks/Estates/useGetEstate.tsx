@@ -3,7 +3,7 @@ import getEstate from "Assets/API/Estates/getEstate"
 import { useEffect } from "react"
 import { useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
-import { setSelectedEstate } from "Store/Reducers/estates"
+import { setEstates, setSelectedEstate } from "Store/Reducers/estates"
 import { useAppSelector } from "../useDispatch"
 
 
@@ -19,9 +19,10 @@ const useGetEstate = (id: string | undefined, estateId: string | undefined) => {
         queryFn: () => getEstate(id, estateId),
         retry: false,
         onSuccess: (data) => {
-            const estate = data.data
-            dispatch(setSelectedEstate(estate))
-            selectedEstate = estate
+            const estates = data.data
+            dispatch(setSelectedEstate(estates.selected_estate))
+            dispatch(setEstates(estates.estates))
+            selectedEstate = estates.selected_estate
         }
     })
 

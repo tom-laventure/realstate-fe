@@ -4,7 +4,8 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { useAppSelector } from 'Store/Hooks/useDispatch'
 import EstateDetails from 'Components/View/Estate/EstateDetails'
 import useGetEstate from 'Store/Hooks/Estates/useGetEstate'
-import SideNav from 'Components/Navbar/SideNav/SideNav'
+import EstateSideNav from 'Components/Navbar/SideNav/EstateSideNav/EstateSideNav'
+
 
 type Props = {}
 
@@ -14,7 +15,7 @@ const EstateView = (props: Props) => {
 
     return (
         <div className={classes['estate-view']}>
-            <SideNav />
+            <EstateSideNav />
             {selectedEstate && <EstateDetails estate={selectedEstate} />}
         </div>
     )
