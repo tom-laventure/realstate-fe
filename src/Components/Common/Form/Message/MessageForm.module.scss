@@ -1,0 +1,17 @@
+.message-form {
+    &--control {
+        @apply w-full;
+    }
+
+    &--input-container {
+        @apply w-full flex;
+    }
+
+    &--message-input {
+        @apply w-full;
+    }
+
+    &--button-container {
+        @apply my-auto
+    }
+}
