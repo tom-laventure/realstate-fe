@@ -7,12 +7,13 @@ import { useAppSelector } from 'Store/Hooks/useDispatch'
 import GroupSideNav from 'Components/Navbar/SideNav/GroupSideNav/GroupSideNav'
 import { Button } from '@mui/material'
 import connectToChat from 'Assets/Websocket/ChatChannel'
+import Messages from 'Components/View/Messages/Messages'
 
 const EstatesDashboard = () => {
     const [addUserPopup, setAddUserPopup] = useState(false)
     const estates = useAppSelector(state => state.estates.userEstates)
-    const { estate_id } = useParams()
-    const { isLoading } = useFetchEstates(estate_id)
+    const { group_id } = useParams()
+    const { isLoading } = useFetchEstates(group_id)
 
     useEffect(() => {
         connectToChat('1')
@@ -26,7 +27,9 @@ const EstatesDashboard = () => {
                     <Button>Create Estate</Button>
                     <Button>Add User</Button>
                 </div>
+                <Messages />
                 <EstateTable estates={estates} />
+
             </div>
             {addUserPopup}
         </div>

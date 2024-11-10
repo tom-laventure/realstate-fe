@@ -2,6 +2,7 @@ import accountReducer, { accountState, accountType } from './account';
 import commentReducer, { commentType, commentState } from './comments';
 import estatesReducer, { estateType, estateState } from './estates';
 import groupsReducer, { groupState, groupType } from './groups';
+import messagesReducer, { messagesState, messageType } from './messages';
 import subcommentReducer, { subcommentState, subcommentType } from './subcomments';
 import { configureStore } from '@reduxjs/toolkit'
 
@@ -10,7 +11,8 @@ export interface stateType {
 	groups: groupType,
 	estates: estateType,
 	subcomments: subcommentType,
-	comments: commentType
+	comments: commentType,
+	messages: messageType
 }
 
 
@@ -19,7 +21,8 @@ const reducer = {
 	groups: groupsReducer,
 	estates: estatesReducer,
 	subcomments: subcommentReducer,
-	comments: commentReducer
+	comments: commentReducer,
+	messages: messagesReducer
 }
 
 const preloadedState: stateType = {
@@ -27,7 +30,8 @@ const preloadedState: stateType = {
 	groups: groupState,
 	estates: estateState,
 	subcomments: subcommentState,
-	comments: commentState
+	comments: commentState,
+	messages: messagesState
 }
 
 

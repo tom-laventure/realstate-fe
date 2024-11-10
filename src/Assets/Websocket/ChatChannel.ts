@@ -3,11 +3,8 @@ import { createConsumer } from "@rails/actioncable";
 
 const url = process.env.REACT_APP_BE_ENDPOINT;
 const token = localStorage.getItem('authToken')
-const consumer = createConsumer(`${url}/cable`,
-  {
-    headers: { 'X-User-Id': token }
-  }
-);
+let res = token?.split(' ').pop()
+const consumer = createConsumer(`${url}/cable?token=${res}`);
 
 const connectToChat = (group: string) => {
   // Create a subscription to the ChatChannel

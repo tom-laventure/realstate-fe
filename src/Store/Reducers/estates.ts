@@ -1,7 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { EditRatingResponse } from 'Assets/API/Ratings/editRating'
 import comment from 'Assets/Types/EstateCommentType'
-import rating from 'Assets/Types/EstateRatingType'
 import estate from 'Assets/Types/EstateType'
 
 export interface estateType {
