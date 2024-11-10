@@ -7,12 +7,12 @@ interface AddUserPopupProps {
 }
 
 export const AddUserPopup = ({ close }: AddUserPopupProps) => {
-    const { estate_id } = useParams()
+    const { group_id } = useParams()
     const [hashedUrl, setHashedUrl] = useState('')
 
     const hashGroupId = async () => {
         const encoder = new TextEncoder();
-        const data = encoder.encode(estate_id);
+        const data = encoder.encode(group_id);
         const hashBuffer = await crypto.subtle.digest('SHA-256', data);
         const hashArray = Array.from(new Uint8Array(hashBuffer));
         const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');

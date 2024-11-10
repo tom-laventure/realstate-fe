@@ -12,7 +12,7 @@ import EllipsisMenu from 'Components/Common/Buttons/Elipsis/Elipsis'
 
 
 const SubComments = () => {
-    const { estate_id, selected_id, comment_id } = useParams()
+    const { group_id, selected_id, comment_id } = useParams()
     const selectedComment = useAppSelector((state) => state.estates.selectedEstate.estate_comments?.find(el => el.id == comment_id))
     const subcomments = useAppSelector((state) => state.subcomments.subcomments)
     const navigate = useNavigate()
@@ -20,7 +20,7 @@ const SubComments = () => {
     const { } = useFetchSubComments(comment_id)
 
     const goBack = () => {
-        navigate(`/estates/${estate_id}/selected/${selected_id}`)
+        navigate(`/estates/${group_id}/selected/${selected_id}`)
     }
 
     return (

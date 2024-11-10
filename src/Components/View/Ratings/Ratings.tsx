@@ -79,7 +79,7 @@ interface SetRatingProps {
 }
 
 const SetRating = ({ cancelEdit, currentRating }: SetRatingProps) => {
-  const { estate_id: estateId } = useParams()
+  const { selected_id: estateId } = useParams()
   const complete = () => {
     cancelEdit()
   }

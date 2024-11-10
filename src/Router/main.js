@@ -28,11 +28,11 @@ const router = createBrowserRouter([
 			},
 			{
 				element: <EstateView />,
-				path: "estates/:estate_id/selected/:selected_id/*"
+				path: "estates/:group_id/selected/:selected_id/*"
 			},
 			{
 				element: <EstatesDashboard />,
-				path: "estates/:estate_id"
+				path: "estates/:group_id"
 			}
 		]
 	},
