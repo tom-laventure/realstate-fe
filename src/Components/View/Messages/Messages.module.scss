@@ -1,0 +1,15 @@
+.messages {
+    &--container {
+        @apply max-w-sm w-full border;
+    }
+}
+
+.message {
+    &--owner {
+        @apply min-h-12 rounded border m-5 p-2 flex justify-center flex-col items-end;
+    }
+
+    &--other {
+        @apply min-h-12 rounded border m-5 p-2 flex justify-center flex-col;
+    }
+}
