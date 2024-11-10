@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import classes from './EstatesDashboard.module.scss'
 import useFetchEstates from 'Store/Hooks/Estates/useFetchEstates'
 import { useParams } from 'react-router-dom'
@@ -6,11 +6,17 @@ import EstateTable from 'Components/Table/Estates/EstateTable'
 import { useAppSelector } from 'Store/Hooks/useDispatch'
 import GroupSideNav from 'Components/Navbar/SideNav/GroupSideNav/GroupSideNav'
 import { Button } from '@mui/material'
+import connectToChat from 'Assets/Websocket/ChatChannel'
 
 const EstatesDashboard = () => {
+    const [addUserPopup, setAddUserPopup] = useState(false)
     const estates = useAppSelector(state => state.estates.userEstates)
     const { estate_id } = useParams()
     const { isLoading } = useFetchEstates(estate_id)
+
+    useEffect(() => {
+        connectToChat('1')
+    }, [])
 
     return (
         <div className={classes['estate-dashboard']}>
@@ -18,9 +24,11 @@ const EstatesDashboard = () => {
             <div className={classes['estate-dashboard--estates-table']}>
                 <div className={classes['estate-dashboard--estates-table__button']}>
                     <Button>Create Estate</Button>
+                    <Button>Add User</Button>
                 </div>
                 <EstateTable estates={estates} />
             </div>
+            {addUserPopup}
         </div>
     )
 }
