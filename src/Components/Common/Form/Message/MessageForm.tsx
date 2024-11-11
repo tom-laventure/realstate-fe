@@ -50,7 +50,7 @@ const PostMessage = ({ register }: PostMessageProps) => {
             <div className={classes['message-form--input-container']}>
                 <TextField
                     className={classes['message-form--message-input']}
-                    label="Add a message"
+                    label="replye"
                     type="text"
                     multiline
                     {...register('message', {
@@ -58,6 +58,10 @@ const PostMessage = ({ register }: PostMessageProps) => {
                         minLength: {
                             value: 1,
                             message: 'a message is required'
+                        },
+                        maxLength: {
+                            value: 1000,
+                            message: 'character limit of 1000'
                         }
                     })}
                 />
