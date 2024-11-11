@@ -2,14 +2,12 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 export interface accountType {
 	name: string,
-	id: string,
-	account_id?: string
+	id: string
 }
 
 const initialState: accountType = {
 	name: '',
-	id: '',
-	account_id: undefined
+	id: ''
 }
 
 const accountSlice = createSlice({

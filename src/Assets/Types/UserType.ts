@@ -1,5 +1,6 @@
 interface users {
-    name: string
+    name: string,
+    id: string
 }
 
 export default users
