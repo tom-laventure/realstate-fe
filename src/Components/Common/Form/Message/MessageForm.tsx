@@ -50,7 +50,7 @@ const PostMessage = ({ register }: PostMessageProps) => {
             <div className={classes['message-form--input-container']}>
                 <TextField
                     className={classes['message-form--message-input']}
-                    label="replye"
+                    label="enter a message"
                     type="text"
                     multiline
                     {...register('message', {

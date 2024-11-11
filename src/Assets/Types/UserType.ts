@@ -1,6 +1,6 @@
-interface users {
+interface user {
     name: string,
-    id: string
+    id: number
 }
 
-export default users
+export default user

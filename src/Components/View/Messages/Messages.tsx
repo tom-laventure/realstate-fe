@@ -10,13 +10,16 @@ import MessageForm from 'Components/Common/Form/Message/MessageForm'
 const Messages = () => {
     const { group_id } = useParams()
     const { } = useFetchMessages(group_id)
-    const messages = useAppSelector(state => state.messages.messages)
+    const { messages, accountId } = useAppSelector(state => {
+        return { messages: state.messages.messages, accountId: state.account.id }
+    })
 
     return (
         <div className={classes['messages--container']}>
             {
-                messages && messages.map((message, key) => {
-                    return <Message message={message} key={key}></Message>
+                messages && accountId && messages.map((message, key) => {
+                    if (accountId === message.user_id) return <MessageOwner message={message} key={key}></MessageOwner>
+                    else return <NonUserMessage message={message} key={key}></NonUserMessage>
                 })
             }
             <div className='messages--input-container'>
@@ -26,13 +29,26 @@ const Messages = () => {
     )
 }
 
-interface MessageProps {
+interface MessageOwnerProps {
     message: message
 }
 
-const Message = ({ message }: MessageProps) => {
+const MessageOwner = ({ message }: MessageOwnerProps) => {
     return (
         <div className={classes['message--owner']}>
+            {message.message}
+        </div>
+    )
+}
+
+
+interface NonUserMessageProps {
+    message: message
+}
+
+const NonUserMessage = ({ message }: NonUserMessageProps) => {
+    return (
+        <div className={classes['message--other']}>
             {message.message}
         </div>
     )

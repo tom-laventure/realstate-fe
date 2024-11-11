@@ -1,6 +1,6 @@
 import instance from "Assets/Axios/axios";
-import users from "Assets/Types/UserType";
+import user from "Assets/Types/UserType";
 
-const getCurrentUser = () => instance.get<users>(`v1/users`)
+const getCurrentUser = () => instance.get<user>(`v1/users`)
 
 export default getCurrentUser
