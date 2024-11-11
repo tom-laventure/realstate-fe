@@ -5,10 +5,10 @@ import { useNavigate } from "react-router-dom";
 import { updateUser } from "Store/Reducers/account";
 
 
-const useGetCurrentUser = (accountId: string) => {
+const useGetCurrentUser = (accountId: number) => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
-
+    console.log(accountId)
     const { isLoading } = useQuery({
         queryKey: ['getCurrentUser'],
         enabled: !accountId,
@@ -16,7 +16,7 @@ const useGetCurrentUser = (accountId: string) => {
         onSuccess: (data) => {
             if (data) {
                 const user = data?.data
-
+                console.log(user)
                 if (!user) navigate('/')
                 dispatch(updateUser(user))
             }

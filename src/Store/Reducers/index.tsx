@@ -2,7 +2,7 @@ import accountReducer, { accountState, accountType } from './account';
 import commentReducer, { commentType, commentState } from './comments';
 import estatesReducer, { estateType, estateState } from './estates';
 import groupsReducer, { groupState, groupType } from './groups';
-import messagesReducer, { messagesState, messageType } from './messages';
+import messagesReducer,{ messagesState, messageType } from './messages';
 import subcommentReducer, { subcommentState, subcommentType } from './subcomments';
 import { configureStore } from '@reduxjs/toolkit'
 
