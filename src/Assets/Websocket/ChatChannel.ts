@@ -14,8 +14,7 @@ const connectToChat = (group: string, messageRecieved: (message: message) => voi
     { channel: "ChatChannel", group_id: group },
     {
       received(data: any) {
-        console.log(data); // Handle received messages
-        messageRecieved(data)
+        messageRecieved(data.message)
       }
     }
   );

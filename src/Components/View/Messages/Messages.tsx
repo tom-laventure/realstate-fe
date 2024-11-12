@@ -1,18 +1,27 @@
-import React from 'react'
+import React, { createRef, RefObject, useEffect } from 'react'
 import classes from './Messages.module.scss'
 import useFetchMessages from 'Store/Hooks/Messages/useFetchMessages'
 import { useParams } from 'react-router-dom'
 import { useAppSelector } from 'Store/Hooks/useDispatch'
 import message from 'Assets/Types/MessageType'
-import { TextField } from '@mui/material'
 import MessageForm from 'Components/Common/Form/Message/MessageForm'
 
 const Messages = () => {
+    const messagesEndRef: RefObject<HTMLDivElement> = createRef();
     const { group_id } = useParams()
     const { } = useFetchMessages(group_id)
     const { messages, accountId } = useAppSelector(state => {
         return { messages: state.messages.messages, accountId: state.account.id }
     })
+
+    const scrollToBottom = () => {
+        messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
+    }
+
+
+    useEffect(() => {
+        scrollToBottom()
+    }, [messages])
 
     return (
         <div className={classes['messages--container']}>
@@ -23,6 +32,7 @@ const Messages = () => {
                         else return <NonMessageOwner message={message} key={key}></NonMessageOwner>
                     })
                 }
+                <div ref={messagesEndRef} />
             </div>
             <div className='messages--input-container'>
                 <MessageForm />

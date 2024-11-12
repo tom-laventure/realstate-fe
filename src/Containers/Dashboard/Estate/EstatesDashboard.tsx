@@ -19,6 +19,7 @@ const EstatesDashboard = () => {
     const { isLoading } = useFetchEstates(group_id)
 
     const messageRecieved = (message: message) => {
+        console.log(message)
         dispatch(pushMessage(message))
     }
 

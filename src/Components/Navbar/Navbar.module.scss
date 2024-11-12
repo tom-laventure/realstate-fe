@@ -1,5 +1,5 @@
 .navbar {
-    @apply flex justify-between p-10 border-b;
+    @apply flex justify-between p-6 border-b;
 
     &__buttons {
         button {
@@ -8,6 +8,6 @@
     }
 
     &__sign-in {
-        @apply fixed w-full h-fit flex justify-center items-center bg-opacity-30 bg-black top-0 left-0 bottom-0;
+        @apply fixed w-full flex justify-center items-center bg-opacity-30 bg-black top-0 left-0 bottom-0;
     }
 }
