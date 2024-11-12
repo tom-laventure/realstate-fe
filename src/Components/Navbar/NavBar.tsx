@@ -14,7 +14,7 @@ const Navbar = () => {
 	useGetCurrentUser(accountId)
 
 	return (
-		<div className={classes.navbar}>
+		<div className={classes['navbar']}>
 			<div className={classes['navbar__buttons']}>
 			</div>
 			<div className={classes['navbar__buttons']}>
