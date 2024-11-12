@@ -1,11 +1,15 @@
 .estate-dashboard {
-    @apply w-full flex justify-center min-h-full h-screen;
+    @apply w-full flex justify-center min-h-full h-fit;
 
-    &--estates-table {
+    &--content {
         @apply w-full flex flex-col items-center mt-5;
 
         &__button {
             @apply w-full flex justify-end my-2 px-10;
         }
+    }
+
+    &--body {
+        @apply flex justify-around w-full;
     }
 }

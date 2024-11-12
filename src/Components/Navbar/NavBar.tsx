@@ -16,9 +16,6 @@ const Navbar = () => {
 	return (
 		<div className={classes.navbar}>
 			<div className={classes['navbar__buttons']}>
-				<Link to="/">
-					<Button>Home</Button>
-				</Link>
 			</div>
 			<div className={classes['navbar__buttons']}>
 				<Button onClick={() => signout()}>Sign Out</Button>

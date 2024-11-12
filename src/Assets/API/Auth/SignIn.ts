@@ -1,3 +1,4 @@
+import user from 'Assets/Types/UserType';
 import instance from '../../Axios/axios';
 
 
@@ -12,7 +13,7 @@ interface body {
 
 const signIn = async (body: body) => {
     localStorage.removeItem('authToken')
-    return instance.post(`login`, body)
+    return instance.post<user>(`login`, body)
 }
 
 export { body }

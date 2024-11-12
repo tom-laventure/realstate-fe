@@ -7,7 +7,6 @@ import { Button } from '@mui/material';
 import CreateGroupForm from 'Components/Common/Form/Group/CreateGroupForm';
 
 const Dashboard = () => {
-	const { isLoading } = useFetchGroups()
 	const [createGroup, setCreateGroup] = useState(false)
 
 	const groups = useAppSelector(state => state.groups.userGroups)

@@ -29,13 +29,15 @@ const EstatesDashboard = () => {
     return (
         <div className={classes['estate-dashboard']}>
             <GroupSideNav />
-            <div className={classes['estate-dashboard--estates-table']}>
-                <div className={classes['estate-dashboard--estates-table__button']}>
+            <div className={classes['estate-dashboard--content']}>
+                <div className={classes['estate-dashboard--content__button']}>
                     <Button>Create Estate</Button>
                     <Button>Add User</Button>
                 </div>
-                <Messages />
-                {/* <EstateTable estates={estates} /> */}
+                <div className={classes['estate-dashboard--body']}>
+                    <Messages />
+                    <EstateTable estates={estates} />
+                </div>
 
             </div>
             {addUserPopup}

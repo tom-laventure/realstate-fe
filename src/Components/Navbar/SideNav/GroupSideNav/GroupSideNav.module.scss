@@ -6,10 +6,14 @@
     }
 }
 
-.navigation-link {
+.group-navigation-link {
     @apply h-10 flex w-full justify-center items-center border-b;
 
     &--active {
         @apply text-black;
     }
+}
+
+.user-navigation-link {
+    @apply text-sm h-8 w-full justify-center flex items-center;
 }
