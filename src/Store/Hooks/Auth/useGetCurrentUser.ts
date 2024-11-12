@@ -1,14 +1,17 @@
 import { useQuery } from "@tanstack/react-query"
 import getCurrentUser from "Assets/API/Auth/getCurrentUser";
+import { AxiosError } from "axios";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { updateUser } from "Store/Reducers/account";
+import { setGroupState } from "Store/Reducers/groups";
 
 
 const useGetCurrentUser = (accountId: number) => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
-    console.log(accountId)
+    const { group_id } = useParams()
+
     const { isLoading } = useQuery({
         queryKey: ['getCurrentUser'],
         enabled: !accountId,
@@ -16,11 +19,21 @@ const useGetCurrentUser = (accountId: number) => {
         onSuccess: (data) => {
             if (data) {
                 const user = data?.data
-                console.log(user)
-                if (!user) navigate('/')
+                const groups = user.groups
                 dispatch(updateUser(user))
+                if (group_id) navigate(`/estates/${group_id}`)
+                else if (groups?.length) {
+                    dispatch(setGroupState(groups))
+                    navigate(`/estates/${groups[0].id}`)
+                }
+                else navigate('/')
             }
-        }
+        },
+        onError: (error: AxiosError) => {
+            if (error.response?.status === 401) {
+                navigate('/login');
+            }
+        },
     })
 
 

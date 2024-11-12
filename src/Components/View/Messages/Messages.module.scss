@@ -2,6 +2,10 @@
     &--container {
         @apply max-w-sm w-full border;
     }
+
+    &--message-array {
+        @apply h-fit overflow-y-auto
+    }
 }
 
 .message {

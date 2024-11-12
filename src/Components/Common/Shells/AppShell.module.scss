@@ -1,7 +1,7 @@
 .app-shell {
-    @apply w-full flex flex-col min-h-screen;
+    @apply w-full flex flex-col h-screen;
 
     &__outlet {
-        @apply mx-auto w-full h-fit min-h-screen;
+        @apply mx-auto w-full h-fit;
     }
 }

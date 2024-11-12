@@ -16,12 +16,14 @@ const Messages = () => {
 
     return (
         <div className={classes['messages--container']}>
-            {
-                messages && accountId && messages.map((message, key) => {
-                    if (accountId === message.user_id) return <MessageOwner message={message} key={key}></MessageOwner>
-                    else return <NonUserMessage message={message} key={key}></NonUserMessage>
-                })
-            }
+            <div className={classes['messages--message-array']}>
+                {
+                    messages && accountId && messages.map((message, key) => {
+                        if (accountId === message.user_id) return <MessageOwner message={message} key={key}></MessageOwner>
+                        else return <NonMessageOwner message={message} key={key}></NonMessageOwner>
+                    })
+                }
+            </div>
             <div className='messages--input-container'>
                 <MessageForm />
             </div>
@@ -42,11 +44,11 @@ const MessageOwner = ({ message }: MessageOwnerProps) => {
 }
 
 
-interface NonUserMessageProps {
+interface NonMessageOwnerProps {
     message: message
 }
 
-const NonUserMessage = ({ message }: NonUserMessageProps) => {
+const NonMessageOwner = ({ message }: NonMessageOwnerProps) => {
     return (
         <div className={classes['message--other']}>
             {message.message}

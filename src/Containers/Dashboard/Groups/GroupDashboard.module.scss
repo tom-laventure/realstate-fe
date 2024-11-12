@@ -1,5 +1,5 @@
 .dashboard {
-    @apply w-full flex flex-col items-center min-h-full h-screen m-2;
+    @apply w-full flex flex-col items-center min-h-full h-fit m-2;
 
     &--button {
         @apply w-full flex justify-end mb-2 px-5;

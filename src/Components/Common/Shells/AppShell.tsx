@@ -19,7 +19,6 @@ const AppShell = () => {
 			<div className={classes['app-shell__outlet']}>
 				<Outlet />
 			</div>
-			<Footer />
 		</div>
 	);
 }
