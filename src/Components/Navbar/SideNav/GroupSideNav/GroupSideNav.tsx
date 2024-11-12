@@ -20,7 +20,7 @@ const GroupSideNav = () => {
                             <NavigationGroupLink
                                 group={group} />
                             {
-                                activeLink && group.users.map((user, key) => {
+                                activeLink && group.users?.map((user, key) => {
                                     return <NavigationUserLink user={user} key={`${key}`} />
                                 })
                             }
