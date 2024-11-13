@@ -10,7 +10,6 @@ import { setGroupState } from "Store/Reducers/groups";
 const useGetCurrentUser = (accountId: number) => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
-    const { group_id } = useParams()
 
     const { isLoading } = useQuery({
         queryKey: ['getCurrentUser'],
@@ -21,10 +20,8 @@ const useGetCurrentUser = (accountId: number) => {
                 const user = data?.data
                 const groups = user.groups
                 dispatch(updateUser(user))
-                if (group_id) navigate(`/estates/${group_id}`)
-                else if (groups?.length) {
+                if (groups?.length) {
                     dispatch(setGroupState(groups))
-                    navigate(`/estates/${groups[0].id}`)
                 }
                 else navigate('/')
             }
