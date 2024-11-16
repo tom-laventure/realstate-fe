@@ -25,8 +25,6 @@ const Messages = () => {
         if (!containerRef.current) return;
 
         if (containerRef.current.scrollTop === 0) {
-            console.log('Scrolled to top')
-            console.log()
             setMessagePage(index => ++index)
             const container = containerRef.current
             const previousScrollHeight = container.scrollHeight
@@ -45,7 +43,6 @@ const Messages = () => {
     useEffect(() => {
         if (!containerRef.current) return
 
-        console.log('second' + prevScrollHeight)
         if (!messagesLoaded && messages.length) {
             scrollToBottom();
             setMessagesLoaded(true);
