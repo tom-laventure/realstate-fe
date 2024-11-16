@@ -1,0 +1,7 @@
+.add-user-popup {
+    @apply flex flex-col p-10;
+
+    &--link {
+        @apply cursor-pointer;
+    }
+}
