@@ -10,18 +10,16 @@ import connectToChat from 'Assets/Websocket/ChatChannel'
 import Messages from 'Components/View/Messages/Messages'
 import message from 'Assets/Types/MessageType'
 import { pushMessage } from 'Store/Reducers/messages'
+import { AddUserPopup } from 'Components/Common/Popups/AddUser/AddUserPopup'
 
 const EstatesDashboard = () => {
     const dispatch = useAppDispatch()
-    const [addUserPopup, setAddUserPopup] = useState(false)
+    const [addUserPopup, setAddUserPopup] = useState(true)
     const estates = useAppSelector(state => state.estates.userEstates)
     const { group_id } = useParams()
-    const { isLoading } = useFetchEstates(group_id)
+    const { } = useFetchEstates(group_id)
 
-    const messageRecieved = (message: message) => {
-        console.log(message)
-        dispatch(pushMessage(message))
-    }
+    const messageRecieved = (message: message) => dispatch(pushMessage(message))
 
     useEffect(() => {
         if (group_id) connectToChat(group_id, messageRecieved)
@@ -32,8 +30,8 @@ const EstatesDashboard = () => {
             <GroupSideNav />
             <div className={classes['estate-dashboard--content']}>
                 <div className={classes['estate-dashboard--content__button']}>
-                    <Button>Create Estate</Button>
-                    <Button>Add User</Button>
+                    <Button>Add Listing</Button>
+                    <Button onClick={() => setAddUserPopup(true)}>Invite User</Button>
                 </div>
                 <div className={classes['estate-dashboard--body']}>
                     <Messages />
@@ -41,7 +39,7 @@ const EstatesDashboard = () => {
                 </div>
 
             </div>
-            {addUserPopup}
+            {addUserPopup && <AddUserPopup close={() => setAddUserPopup(false)} />}
         </div>
     )
 }
