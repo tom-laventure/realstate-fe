@@ -14,7 +14,7 @@ import { AddUserPopup } from 'Components/Common/Popups/AddUser/AddUserPopup'
 
 const EstatesDashboard = () => {
     const dispatch = useAppDispatch()
-    const [addUserPopup, setAddUserPopup] = useState(true)
+    const [addUserPopup, setAddUserPopup] = useState(false)
     const estates = useAppSelector(state => state.estates.userEstates)
     const { group_id } = useParams()
     const { } = useFetchEstates(group_id)

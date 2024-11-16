@@ -3,11 +3,11 @@ import message from 'Assets/Types/MessageType'
 
 
 export interface messageType {
-    messages?: message[]
+    messages: message[]
 }
 
 const initialState: messageType = {
-    messages: undefined
+    messages: []
 }
 const messagesSlice = createSlice({
     name: 'messages',
@@ -19,9 +19,12 @@ const messagesSlice = createSlice({
         pushMessage: (state, action: PayloadAction<message>) => {
             state.messages?.push(action.payload)
         },
+        prependMessage: (state, action: PayloadAction<message[]>) => {
+            state.messages = [...action.payload, ...state.messages]
+        },
     }
 })
 
-export const { setMessages, pushMessage } = messagesSlice.actions
+export const { setMessages, pushMessage, prependMessage } = messagesSlice.actions
 export { initialState as messagesState }
 export default messagesSlice.reducer

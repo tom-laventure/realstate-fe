@@ -10,10 +10,18 @@
 
 .message {
     &--owner {
-        @apply min-h-12 rounded border m-5 p-2 flex justify-center flex-col items-end;
+        @apply min-h-12 rounded border m-5 p-2 flex justify-center flex-col items-end bg-blue-100;
     }
 
     &--other {
-        @apply min-h-12 rounded border m-5 p-2 flex justify-center flex-col;
+        @apply min-h-12 rounded border m-5 p-2 flex justify-center flex-col bg-gray-100;
+    }
+
+    &--body {
+        @apply pb-4;
+    }
+
+    &--datetime {
+        @apply text-xs;
     }
 }
