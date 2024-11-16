@@ -27,6 +27,7 @@ const MessageForm = () => {
             group_id: group_id
         }
         postMessage(body)
+        reset()
     }
 
     return (

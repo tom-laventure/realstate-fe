@@ -6,6 +6,10 @@
     &--message-array {
         @apply h-[70vh] overflow-y-auto
     }
+
+    &--loading {
+        @apply w-full flex justify-center;
+    }
 }
 
 .message {
@@ -23,5 +27,9 @@
 
     &--datetime {
         @apply text-xs;
+    }
+
+    &--info {
+        @apply flex w-full justify-between text-xs;
     }
 }
