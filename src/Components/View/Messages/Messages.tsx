@@ -10,6 +10,7 @@ import { formatTime } from 'Helpers/DateFormat'
 const Messages = () => {
     const [messagesLoaded, setMessagesLoaded] = useState(false)
     const [messagePage, setMessagePage] = useState(1)
+    const [prevScrollHeight, setPrevScrollHeight] = useState(0)
     const messagesEndRef: RefObject<HTMLDivElement> = createRef();
     const containerRef = useRef<HTMLDivElement | null>(null);
     const { group_id } = useParams()
@@ -25,7 +26,11 @@ const Messages = () => {
 
         if (containerRef.current.scrollTop === 0) {
             console.log('Scrolled to top')
+            console.log()
             setMessagePage(index => ++index)
+            const container = containerRef.current
+            const previousScrollHeight = container.scrollHeight
+            setPrevScrollHeight(previousScrollHeight)
         }
     }, []);
 
@@ -38,20 +43,19 @@ const Messages = () => {
     }, [handleScroll])
 
     useEffect(() => {
-        if (!containerRef.current) return;
+        if (!containerRef.current) return
 
-        const container = containerRef.current;
-        const previousScrollHeight = container.scrollHeight;
-
+        console.log('second' + prevScrollHeight)
         if (!messagesLoaded && messages.length) {
             scrollToBottom();
             setMessagesLoaded(true);
         } else if (messagesLoaded && messages.length) {
-            const currentScrollHeight = container.scrollHeight;
-            const scrollDifference = currentScrollHeight - previousScrollHeight;
-            container.scrollTop += scrollDifference;
+            const container = containerRef.current
+            const currentScrollHeight = container.scrollHeight
+            const scrollDifference = currentScrollHeight - prevScrollHeight
+            container.scrollTop += scrollDifference
         }
-    }, [messages, messagesLoaded]);
+    }, [messages, messagesLoaded])
 
     return (
         <div className={classes['messages--container']}>
