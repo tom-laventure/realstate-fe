@@ -6,22 +6,23 @@ import { useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import { setEstates } from "Store/Reducers/estates"
 import { setGroupState } from "Store/Reducers/groups"
-import { setMessages } from "Store/Reducers/messages"
+import { prependMessage, setMessages } from "Store/Reducers/messages"
 
 
-const useFetchMessages = (id: string | undefined) => {
+const useFetchMessages = (id: string | undefined, page: number) => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
     const { isLoading, isError, data, isSuccess } = useQuery({
-        queryKey: ['fetchMessages', id],
+        queryKey: ['fetchMessages', id, page],
         enabled: !!id,
         staleTime: 10,
-        queryFn: () => fetchMessages(id),
+        queryFn: () => fetchMessages(id, page),
         retry: false,
         onSuccess: (data) => {
             const messages = data.data
-            dispatch(setMessages(messages))
+            if (page === 0) dispatch(setMessages(messages))
+            else dispatch(prependMessage(messages))
         }
     })
 

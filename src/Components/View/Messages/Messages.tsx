@@ -1,69 +1,95 @@
-import React, { createRef, RefObject, useEffect } from 'react'
+import React, { createRef, RefObject, useCallback, useEffect, useRef, useState } from 'react'
 import classes from './Messages.module.scss'
 import useFetchMessages from 'Store/Hooks/Messages/useFetchMessages'
 import { useParams } from 'react-router-dom'
 import { useAppSelector } from 'Store/Hooks/useDispatch'
 import message from 'Assets/Types/MessageType'
 import MessageForm from 'Components/Common/Form/Message/MessageForm'
+import { formatTime } from 'Helpers/DateFormat'
 
 const Messages = () => {
+    const [messagesLoaded, setMessagesLoaded] = useState(false)
+    const [messagePage, setMessagePage] = useState(1)
     const messagesEndRef: RefObject<HTMLDivElement> = createRef();
+    const containerRef = useRef<HTMLDivElement | null>(null);
     const { group_id } = useParams()
-    const { } = useFetchMessages(group_id)
+    const { } = useFetchMessages(group_id, messagePage)
     const { messages, accountId } = useAppSelector(state => {
         return { messages: state.messages.messages, accountId: state.account.id }
     })
 
-    const scrollToBottom = () => {
-        messagesEndRef.current?.scrollIntoView({ behavior: 'auto' })
-    }
+    const scrollToBottom = () => messagesEndRef.current?.scrollIntoView({ behavior: 'auto' })
 
+    const handleScroll = useCallback(() => {
+        if (!containerRef.current) return;
+
+        if (containerRef.current.scrollTop === 0) {
+            console.log('Scrolled to top')
+            setMessagePage(index => ++index)
+        }
+    }, []);
 
     useEffect(() => {
-        scrollToBottom()
-    }, [messages])
+        const container = containerRef.current;
+        if (!container) return;
+
+        container.addEventListener('scroll', handleScroll)
+        return () => container.removeEventListener('scroll', handleScroll)
+    }, [handleScroll])
+
+    useEffect(() => {
+        if (!containerRef.current) return;
+
+        const container = containerRef.current;
+        const previousScrollHeight = container.scrollHeight;
+
+        if (!messagesLoaded && messages.length) {
+            scrollToBottom();
+            setMessagesLoaded(true);
+        } else if (messagesLoaded && messages.length) {
+            const currentScrollHeight = container.scrollHeight;
+            const scrollDifference = currentScrollHeight - previousScrollHeight;
+            container.scrollTop += scrollDifference;
+        }
+    }, [messages, messagesLoaded]);
 
     return (
         <div className={classes['messages--container']}>
-            <div className={classes['messages--message-array']}>
+            <div
+                className={classes['messages--message-array']}
+                ref={containerRef}
+            >
+                <div>loading</div>
                 {
-                    messages && accountId && messages.map((message, key) => {
-                        if (accountId === message.user_id) return <MessageOwner message={message} key={key}></MessageOwner>
-                        else return <NonMessageOwner message={message} key={key}></NonMessageOwner>
-                    })
+                    messages && accountId ? messages.map((message, key) => {
+                        const owner = accountId === message.user_id
+                        return <Message message={message} key={key} owner={owner} />
+                    }) : <></>
                 }
                 <div ref={messagesEndRef} />
             </div>
-            <div className='messages--input-container'>
+            <div className={classes['messages--input-container']}>
                 <MessageForm />
             </div>
         </div>
     )
 }
 
-interface MessageOwnerProps {
-    message: message
+interface MessageProps {
+    message: message,
+    owner: boolean
 }
 
-const MessageOwner = ({ message }: MessageOwnerProps) => {
+const Message = ({ message, owner }: MessageProps) => {
     return (
-        <div className={classes['message--owner']}>
-            {message.message}
+        <div className={`${owner ? classes['message--owner'] : classes['message--other']}`}>
+            <div className={classes['message--body']}>
+                {message.message}
+            </div>
+            <div className={classes['message--datetime']}>{message.created_at && formatTime(message.created_at)}</div>
         </div>
     )
 }
 
-
-interface NonMessageOwnerProps {
-    message: message
-}
-
-const NonMessageOwner = ({ message }: NonMessageOwnerProps) => {
-    return (
-        <div className={classes['message--other']}>
-            {message.message}
-        </div>
-    )
-}
 
 export default Messages

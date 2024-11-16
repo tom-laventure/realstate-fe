@@ -61,7 +61,7 @@ const CommentForm = () => {
             id: editCommentState?.id
         }
 
-        if (editComment) {
+        if (editCommentState) {
             submitEditComment(body)
             dispatch(editComment(undefined))
         } else {
