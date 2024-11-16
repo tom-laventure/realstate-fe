@@ -6,6 +6,7 @@ import { useAppSelector } from 'Store/Hooks/useDispatch'
 import message from 'Assets/Types/MessageType'
 import MessageForm from 'Components/Common/Form/Message/MessageForm'
 import { formatTime } from 'Helpers/DateFormat'
+import { setMessages } from 'Store/Reducers/messages'
 
 const Messages = () => {
     const [messagesLoaded, setMessagesLoaded] = useState(false)
@@ -14,7 +15,7 @@ const Messages = () => {
     const messagesEndRef: RefObject<HTMLDivElement> = createRef();
     const containerRef = useRef<HTMLDivElement | null>(null);
     const { group_id } = useParams()
-    const { } = useFetchMessages(group_id, messagePage)
+    const { isLoading } = useFetchMessages(group_id, messagePage)
     const { messages, accountId } = useAppSelector(state => {
         return { messages: state.messages.messages, accountId: state.account.id }
     })
@@ -41,6 +42,10 @@ const Messages = () => {
     }, [handleScroll])
 
     useEffect(() => {
+        setMessagePage(1)
+    }, [group_id])
+
+    useEffect(() => {
         if (!containerRef.current) return
 
         if (!messagesLoaded && messages.length) {
@@ -60,7 +65,7 @@ const Messages = () => {
                 className={classes['messages--message-array']}
                 ref={containerRef}
             >
-                <div>loading</div>
+                {isLoading ? <div className={classes['messages--loading']}>loading...</div> : <></>}
                 {
                     messages && accountId ? messages.map((message, key) => {
                         const owner = accountId === message.user_id
@@ -87,7 +92,10 @@ const Message = ({ message, owner }: MessageProps) => {
             <div className={classes['message--body']}>
                 {message.message}
             </div>
-            <div className={classes['message--datetime']}>{message.created_at && formatTime(message.created_at)}</div>
+            <div className={classes['message--info']}>
+                <div>{!owner && message.message_owner}</div>
+                <div className={classes['message--datetime']}>{message.created_at && formatTime(message.created_at)}</div>
+            </div>
         </div>
     )
 }

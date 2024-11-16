@@ -21,7 +21,7 @@ const useFetchMessages = (id: string | undefined, page: number) => {
         retry: false,
         onSuccess: (data) => {
             const messages = data.data
-            if (page === 0) dispatch(setMessages(messages))
+            if (page === 1) dispatch(setMessages(messages))
             else dispatch(prependMessage(messages))
         }
     })
