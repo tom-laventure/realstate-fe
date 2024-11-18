@@ -3,6 +3,8 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import classes from './SignIn.module.scss';
 import { Button, FormControl, TextField } from '@mui/material';
 import useSignIn from 'Store/Hooks/Auth/useSignIn';
+import FacebookLogin from 'react-facebook-login';
+
 
 interface SignInFormInputs {
     email: string;
@@ -71,6 +73,13 @@ const SignIn = ({ switchForm }: Props) => {
                     </div>
 
                     <Button type="submit">Submit</Button>
+
+                    {/* <FacebookLogin
+                        appId="1272848457185312"
+                        autoLoad={true}
+                        fields="name,email,picture"
+                        onClick={() => { }}
+                        callback={() => { }} /> */}
 
                 </div>
             </FormControl>

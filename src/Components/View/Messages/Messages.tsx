@@ -6,7 +6,6 @@ import { useAppSelector } from 'Store/Hooks/useDispatch'
 import message from 'Assets/Types/MessageType'
 import MessageForm from 'Components/Common/Form/Message/MessageForm'
 import { formatTime } from 'Helpers/DateFormat'
-import { setMessages } from 'Store/Reducers/messages'
 
 const Messages = () => {
     const [messagesLoaded, setMessagesLoaded] = useState(false)
