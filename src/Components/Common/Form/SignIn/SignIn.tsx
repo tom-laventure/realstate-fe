@@ -26,6 +26,10 @@ const SignIn = ({ switchForm }: Props) => {
 
     };
 
+    const responseFacebook = (response: any) => {
+        console.log(response);
+    }
+
     return (
         <form
             className={classes['signin']}
@@ -74,12 +78,12 @@ const SignIn = ({ switchForm }: Props) => {
 
                     <Button type="submit">Submit</Button>
 
-                    {/* <FacebookLogin
+                    <FacebookLogin
                         appId="1272848457185312"
                         autoLoad={true}
-                        fields="name,email,picture"
-                        onClick={() => { }}
-                        callback={() => { }} /> */}
+                        fields="name,email"
+                        onClick={() => console.log('clicked')}
+                        callback={responseFacebook} />
 
                 </div>
             </FormControl>
