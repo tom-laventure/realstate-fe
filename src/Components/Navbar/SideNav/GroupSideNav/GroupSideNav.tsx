@@ -8,6 +8,7 @@ import user from 'Assets/Types/UserType'
 const GroupSideNav = () => {
     const { group_id } = useParams()
     const groups = useAppSelector(state => state.groups.userGroups)
+    console.log(groups)
     return (
         <div className={classes['side-nav']}>
             Groups:
@@ -20,9 +21,9 @@ const GroupSideNav = () => {
                             <NavigationGroupLink
                                 group={group} />
                             {
-                                activeLink && group.users?.map((user, key) => {
-                                    return <NavigationUserLink user={user} key={`${key}`} />
-                                })
+                                // activeLink && group.users?.map((user, key) => {
+                                //     return <NavigationUserLink user={user} key={`${key}`} />
+                                // })
                             }
                         </div>
                     })}

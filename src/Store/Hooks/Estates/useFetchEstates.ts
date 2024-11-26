@@ -20,7 +20,6 @@ const useFetchEstates = (id: string | undefined) => {
         onSuccess: (data) => {
             const estates = data.data
             dispatch(setEstates(estates.estates))
-            dispatch(setGroupState(estates.groups))
         }
     })
 
