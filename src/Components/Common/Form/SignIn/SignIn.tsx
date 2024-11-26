@@ -77,14 +77,11 @@ const SignIn = ({ switchForm }: Props) => {
                     </div>
 
                     <Button type="submit">Submit</Button>
-
-                    <FacebookLogin
+                    {/* <FacebookLogin
                         appId="1272848457185312"
                         autoLoad={true}
                         fields="name,email"
-                        onClick={() => console.log('clicked')}
-                        callback={responseFacebook} />
-
+                        callback={responseFacebook} /> */}
                 </div>
             </FormControl>
         </form>
