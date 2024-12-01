@@ -9,15 +9,21 @@ import { setGroupState } from "Store/Reducers/groups"
 import { prependMessage, setMessages } from "Store/Reducers/messages"
 
 
-const useFetchMessages = (id: string | undefined, page: number) => {
+const useFetchMessages = (id: string | undefined, page: number, channel_id: string | undefined) => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
     const { isLoading, isError, data, isSuccess } = useQuery({
-        queryKey: ['fetchMessages', id, page],
+        queryKey: ['fetchMessages', id, page, channel_id],
         enabled: !!id,
         staleTime: 10,
-        queryFn: () => fetchMessages(id, page),
+        queryFn: () => {
+            if(!channel_id){
+                return fetchMessages(id, page)
+            } else {
+                return fetchMessages(id, page)
+            }
+        },
         retry: false,
         onSuccess: (data) => {
             const messages = data.data
