@@ -53,7 +53,7 @@ const EditCommentForm = () => {
                             className={classes['comment-form--comment-select']}
                             {...register('type')}
                         >
-                            <MenuItem value="neutral">Neutral</MenuItem>
+                            <MenuItem value="neutral">Note</MenuItem>
                             <MenuItem value="like">Something I like</MenuItem>
                             <MenuItem value="dislike">Something I dislike</MenuItem>
                             <MenuItem value="work">Would need work</MenuItem>

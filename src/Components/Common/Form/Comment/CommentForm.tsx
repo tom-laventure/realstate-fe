@@ -112,7 +112,7 @@ const PostComment = ({ register }: PostCommentProps) => {
                         className={classes['comment-form--comment-select']}
                         {...register('type')}
                     >
-                        <MenuItem value="neutral">Neutral</MenuItem>
+                        <MenuItem value="neutral">Note</MenuItem>
                         <MenuItem value="like">Something I like</MenuItem>
                         <MenuItem value="dislike">Something I dislike</MenuItem>
                         <MenuItem value="work">Would need work</MenuItem>
@@ -161,7 +161,7 @@ const EditComment = ({ register, comment }: EditCommentProps) => {
                         defaultValue={comment.comment_type}
                         {...register('type')}
                     >
-                        <MenuItem value="neutral">Neutral</MenuItem>
+                        <MenuItem value="neutral">Note</MenuItem>
                         <MenuItem value="like">Something I like</MenuItem>
                         <MenuItem value="dislike">Something I dislike</MenuItem>
                         <MenuItem value="work">Would need work</MenuItem>

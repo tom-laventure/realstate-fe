@@ -108,7 +108,7 @@ interface CommentDetailsType {
 const commentDetails: CommentDetailsType = {
     neutral: {
         color: classes['comment--neutral'],
-        text: 'Nuetral'
+        text: 'Note'
     },
     like: {
         color: classes['comment--like'],
