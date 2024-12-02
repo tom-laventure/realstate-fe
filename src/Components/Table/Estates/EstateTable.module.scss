@@ -1,7 +1,37 @@
 .estates-table {
-    @apply w-full max-w-lg border h-full;
+    @apply w-full max-w-lg h-full;
 }
 
 .estate {
-    @apply min-h-[100px] border-b cursor-pointer;
+    &--container {
+        @apply border rounded p-3 cursor-pointer flex;
+    }
+
+    &--content {
+        @apply p-4;
+    }
+
+    &--image {
+        @apply object-cover h-auto w-full max-w-40;
+    }
+
+    &--top {
+        @apply w-full flex justify-between pb-4
+    }
+
+    &--bottom {
+        @apply flex justify-between
+    }
+
+    &--header {
+        @apply font-semibold;
+    }
+
+    &--label {
+        @apply text-sm w-full flex justify-between items-center;
+    }
+
+    &--ratings {
+        @apply flex flex-col;
+    }
 }
