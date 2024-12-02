@@ -4,6 +4,14 @@
     &--links {
         @apply flex flex-col;
     }
+
+    &--sub-links {
+        @apply flex flex-col items-center;
+    }
+
+    &--group-header {
+        @apply w-full text-center font-bold
+    }
 }
 
 .group-navigation-link {
@@ -14,6 +22,10 @@
     }
 }
 
-.user-navigation-link {
-    @apply text-sm h-8 w-full justify-center flex items-center;
+.channel-navigation-link {
+    @apply text-sm h-8 w-full justify-center flex items-center border-b;
+
+    &--active {
+        @apply text-black
+    }
 }
