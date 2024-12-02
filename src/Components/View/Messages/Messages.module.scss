@@ -10,6 +10,10 @@
     &--loading {
         @apply w-full flex justify-center;
     }
+
+    &--header {
+        @apply border-b w-full flex justify-center py-5;
+    }
 }
 
 .message {

@@ -13,7 +13,7 @@ const GroupSideNav = () => {
 
     return (
         <div className={classes['side-nav']}>
-            Groups:
+            <span className={classes['side-nav--group-header']}>Group:</span>
             <div className={classes['side-nav--links']}>
                 {
                     groups.map((group, key) => {
@@ -22,22 +22,28 @@ const GroupSideNav = () => {
                         return <div key={key}>
                             <NavigationGroupLink
                                 group={group} />
-
                             {
                                 activeLink &&
                                 <div className={classes['side-nav--sub-links']}>
+                                    <NavigationChannelLink
+                                        path={`/estates/${group.id}`}
+                                        name="General Chat"
+                                    />
                                     {
                                         group.channel?.map((channel, key) => {
-                                            return <NavigationChannelLink channel={channel} groupId={group.id} key={`${key}`} />
+                                            return <NavigationChannelLink
+                                                name={channel.name}
+                                                path={`/estates/${group.id}/channel/${channel.id}`}
+                                                key={`${key}`} />
                                         })
                                     }
-                                    <NavLink to={`/estates/${group.id}/create-chat`}>+ new chat</NavLink>
+                                    <NavigationChannelLink name="+ new chat" path={`/estates/${group.id}/create-chat`} />
                                 </div>
                             }
                         </div>
                     })}
             </div>
-        </div>
+        </div >
     )
 }
 
@@ -58,18 +64,18 @@ const NavigationGroupLink = ({ group }: NavigationGroupLinkProps) => {
 }
 
 interface NavigationChannelLinkProps {
-    channel: channel,
-    groupId?: number
+    name: string,
+    path: string
 }
 
-const NavigationChannelLink = ({ channel, groupId }: NavigationChannelLinkProps) => {
+const NavigationChannelLink = ({ name, path }: NavigationChannelLinkProps) => {
     return (
         <NavLink
-            to={`/estates/${groupId}/channel/${channel.id}`}
+            to={path}
             className={({ isActive }) =>
-                `${classes['user-navigation-link']} ${isActive && classes['user-navigation-link--active']}`
+                `${classes['channel-navigation-link']} ${isActive && classes['channel-navigation-link--active']}`
             }>
-            {channel.name}
+            {name}
         </NavLink >
     )
 }

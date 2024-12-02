@@ -13,7 +13,7 @@ const Messages = () => {
     const [prevScrollHeight, setPrevScrollHeight] = useState(0)
     const messagesEndRef: RefObject<HTMLDivElement> = createRef();
     const containerRef = useRef<HTMLDivElement | null>(null);
-    const { group_id, channel_id  } = useParams()
+    const { group_id, channel_id } = useParams()
     const { isLoading } = useFetchMessages(group_id, messagePage, channel_id)
     const { messages, accountId } = useAppSelector(state => {
         return { messages: state.messages.messages, accountId: state.account.id }
@@ -60,6 +60,9 @@ const Messages = () => {
 
     return (
         <div className={classes['messages--container']}>
+            <div className={classes['messages--header']}>
+                General Chat
+            </div>
             <div
                 className={classes['messages--message-array']}
                 ref={containerRef}
