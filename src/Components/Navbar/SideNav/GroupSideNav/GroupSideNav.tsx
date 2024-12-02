@@ -1,22 +1,33 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import classes from './GroupSideNav.module.scss'
 import { useAppSelector } from 'Store/Hooks/useDispatch'
-import { NavLink, useLocation, useParams } from 'react-router-dom'
+import { NavLink, useParams } from 'react-router-dom'
 import { group } from 'Assets/Types/GroupType'
-import user from 'Assets/Types/UserType'
-import channel from 'Assets/Types/ChannelType'
+import { array } from 'prop-types'
 
 const GroupSideNav = () => {
     const { group_id } = useParams()
     const [selectedChannel, setSelectedChannel] = useState()
+    const [groupOrder, setGroupOrder] = useState<group[]>([])
     const groups = useAppSelector(state => state.groups.userGroups)
+
+    useEffect(() => {
+        const groupsCopy = [...groups]
+        const index = groupsCopy.findIndex(group => group.id == group_id)
+
+        if (index > -1) {
+            const groupItem = groupsCopy.splice(index, 1)[0]
+            groupsCopy.unshift(groupItem)
+            setGroupOrder(groupsCopy)
+        }
+    }, [groups, group_id])
 
     return (
         <div className={classes['side-nav']}>
             <span className={classes['side-nav--group-header']}>Group:</span>
             <div className={classes['side-nav--links']}>
                 {
-                    groups.map((group, key) => {
+                    groupOrder.map((group, key) => {
                         const activeLink = group_id == group.id
 
                         return <div key={key}>
@@ -25,19 +36,22 @@ const GroupSideNav = () => {
                             {
                                 activeLink &&
                                 <div className={classes['side-nav--sub-links']}>
-                                    <NavigationChannelLink
-                                        path={`/estates/${group.id}`}
-                                        name="General Chat"
-                                    />
-                                    {
-                                        group.channel?.map((channel, key) => {
-                                            return <NavigationChannelLink
-                                                name={channel.name}
-                                                path={`/estates/${group.id}/channel/${channel.id}`}
-                                                key={`${key}`} />
-                                        })
-                                    }
-                                    <NavigationChannelLink name="+ new chat" path={`/estates/${group.id}/create-chat`} />
+                                    <div className={classes['side-nav--chat-section']}>
+                                        <span>Chat:</span>
+                                        <NavigationChannelLink
+                                            path={`/estates/${group.id}`}
+                                            name="General Chat"
+                                        />
+                                        {
+                                            group.channel?.map((channel, key) => {
+                                                return <NavigationChannelLink
+                                                    name={channel.name}
+                                                    path={`/estates/${group.id}/channel/${channel.id}`}
+                                                    key={`${key}`} />
+                                            })
+                                        }
+                                        <NavigationChannelLink name="+ new chat" path={`/estates/${group.id}/create-chat`} />
+                                    </div>
                                 </div>
                             }
                         </div>

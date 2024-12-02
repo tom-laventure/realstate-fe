@@ -12,6 +12,10 @@
     &--group-header {
         @apply w-full text-center font-bold
     }
+
+    &--chat-section {
+        @apply w-full text-center;
+    }
 }
 
 .group-navigation-link {
