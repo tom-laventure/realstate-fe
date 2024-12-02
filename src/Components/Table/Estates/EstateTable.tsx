@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react'
 import classes from './EstateTable.module.scss'
 import estate from 'Assets/Types/EstateType'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { Button, Rating, Table, TableBody, TableCell, TableHead, TableRow, Tooltip } from '@mui/material'
+import { Button, Rating, Tooltip } from '@mui/material'
 import rating from 'Assets/Types/EstateRatingType'
 import placeholder from 'Assets/Images/placeholder.png'
+import { useAppSelector } from 'Store/Hooks/useDispatch'
 interface Props {
     estates?: estate[]
 }
@@ -12,7 +13,7 @@ interface Props {
 const EstateTable = ({ estates }: Props) => {
     const location = useLocation()
     const navigate = useNavigate()
-
+    const userId = useAppSelector(state => state.account.id)
     const estateClicked = (id: number) => {
         navigate(`${location.pathname}/selected/${id}`)
     }
@@ -22,7 +23,13 @@ const EstateTable = ({ estates }: Props) => {
         <div className={classes['estates-table']}>
 
             {estates && estates?.map((estate, index) => {
-                return <Estates header={estate.header} rating={estate.estate_ratings} key={index} click={() => estateClicked(estate.id)} />
+                return <Estates
+                    header={estate.header}
+                    rating={estate.estate_ratings}
+                    key={index}
+                    click={() => estateClicked(estate.id)}
+                    userId={userId}
+                />
             })}
         </div>
     )
@@ -32,10 +39,11 @@ const EstateTable = ({ estates }: Props) => {
 interface EstateProps {
     header: string,
     click: () => void,
-    rating?: rating[]
+    rating?: rating[],
+    userId: number
 }
 
-const Estates = ({ header, click, rating }: EstateProps) => {
+const Estates = ({ header, click, rating, userId }: EstateProps) => {
     const [avgRating, setAvgRating] = useState(0)
     const [userRating, setUserRating] = useState(0)
     const price = 2400000
@@ -43,7 +51,8 @@ const Estates = ({ header, click, rating }: EstateProps) => {
         if (!rating) return
         const ratingSum = rating.reduce((prevRating, currentRating) => prevRating + +currentRating.rating, 0)
         const avg = ratingSum / rating.length
-
+        const userRating = rating.find(rating => rating.rating_owner_id == userId)
+        if (userRating) setUserRating(+userRating.rating)
         setAvgRating(avg)
     }, [rating])
 
