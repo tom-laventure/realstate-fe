@@ -1,5 +1,9 @@
-.side-nav {
+.selected-side-nav {
     @apply w-60 border flex flex-col;
+
+    &--header {
+        @apply w-full font-semibold;
+    }
 
     &--group-selection {
         @apply flex flex-col;
@@ -9,22 +13,24 @@
         @apply flex flex-col items-center;
     }
 
-    &--group-header {
-        @apply w-full text-center font-semibold
+    &--channels {
+        @apply my-10;
+
+        &__header {
+            @apply w-full text-center font-semibold
+        }
     }
 
-    &--chat-section {
+    &--members {
         @apply w-full text-center;
+
+        &__header {
+            @apply w-full font-semibold;
+        }
+
     }
 }
 
-.group-navigation-link {
-    @apply h-10 flex w-full justify-center items-center border-b;
-
-    &--active {
-        @apply text-black;
-    }
-}
 
 .channel-navigation-link {
     @apply text-sm h-8 w-full justify-center flex items-center border-b;

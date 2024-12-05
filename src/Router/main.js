@@ -32,6 +32,10 @@ const router = createBrowserRouter([
 			},
 			{
 				element: <EstatesDashboard />,
+				path: "estates"
+			},
+			{
+				element: <EstatesDashboard />,
 				path: "estates/:group_id"
 			},
 			{
