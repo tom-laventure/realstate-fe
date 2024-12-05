@@ -18,14 +18,16 @@ const GroupSideNav = () => {
     return (
         <div className={classes['side-nav']}>
             {selectedGroup ?
-                <GroupSelectedSideNav goBack={() => setSelectedGroup(false)}/>
+                <GroupSelectedSideNav goBack={() => setSelectedGroup(false)} />
                 : <div className={classes['side-nav--group-selection']}>
                     <span className={classes['side-nav--group-header']}>Your Groups:</span>
                     {
                         groups.map((group, key) => {
                             return <div key={key}>
                                 <NavigationGroupLink
-                                    group={group} />
+                                    group={group}
+                                    selected={() => setSelectedGroup(true)}
+                                />
                             </div>
                         })}
                 </div>}
@@ -34,16 +36,19 @@ const GroupSideNav = () => {
 }
 
 interface NavigationGroupLinkProps {
-    group: group
+    group: group,
+    selected: () => void
 }
 
-const NavigationGroupLink = ({ group }: NavigationGroupLinkProps) => {
+const NavigationGroupLink = ({ group, selected }: NavigationGroupLinkProps) => {
     return (
         <NavLink
             to={`/estates/${group.id}`}
             className={({ isActive }) =>
-                `${classes['group-navigation-link']}`
-            }>
+                `${classes['group-navigation-link']} ${isActive && classes['group-navigation-link--active']}`
+            }
+            onClick={selected}
+        >
             {group.name}
         </NavLink >
     )
