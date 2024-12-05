@@ -9,6 +9,10 @@
         }
     }
 
+    &--home {
+        @apply w-full;
+    }
+
     &--body {
         @apply flex justify-around w-full;
     }

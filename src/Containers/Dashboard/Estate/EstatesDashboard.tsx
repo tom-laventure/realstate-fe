@@ -28,17 +28,23 @@ const EstatesDashboard = () => {
     return (
         <div className={classes['estate-dashboard']}>
             <GroupSideNav />
-            <div className={classes['estate-dashboard--content']}>
-                <div className={classes['estate-dashboard--content__button']}>
-                    <Button>Add Listing</Button>
-                    <Button onClick={() => setAddUserPopup(true)}>Invite User</Button>
-                </div>
-                <div className={classes['estate-dashboard--body']}>
-                    <Messages />
-                    <EstateTable estates={estates} />
-                </div>
+            {group_id ?
+                <div className={classes['estate-dashboard--content']}>
+                    <div className={classes['estate-dashboard--content__button']}>
+                        <Button>Add Listing</Button>
+                        <Button onClick={() => setAddUserPopup(true)}>Invite User</Button>
+                    </div>
+                    <div className={classes['estate-dashboard--body']}>
+                        <Messages />
+                        <EstateTable estates={estates} />
+                    </div>
 
-            </div>
+                </div>
+                :
+                <div className={classes['estate-dashboard--home']}>
+
+                </div>
+            }
             {addUserPopup && <AddUserPopup close={() => setAddUserPopup(false)} />}
         </div>
     )
