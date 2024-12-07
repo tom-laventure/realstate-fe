@@ -3,7 +3,7 @@ import { group } from 'Assets/Types/GroupType'
 
 export interface groupType {
     userGroups: group[],
-    selectedGroup?: number
+    selectedGroup?: group
 }
 
 const initialState: groupType = {
@@ -18,12 +18,12 @@ const groupsSlice = createSlice({
         setGroupState: (state, action: PayloadAction<group[]>) => {
             state.userGroups = action.payload
         },
-        setSelectedGroup: (state, action: PayloadAction<group[]>) => {
-            state.userGroups = action.payload
+        setSelectedGroup: (state, action: PayloadAction<group>) => {
+            state.selectedGroup = action.payload
         },
     }
 })
 
-export const { setGroupState } = groupsSlice.actions
+export const { setGroupState, setSelectedGroup } = groupsSlice.actions
 export { initialState as groupState }
 export default groupsSlice.reducer

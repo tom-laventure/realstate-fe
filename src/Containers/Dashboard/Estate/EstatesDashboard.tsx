@@ -30,10 +30,6 @@ const EstatesDashboard = () => {
             <GroupSideNav />
             {group_id ?
                 <div className={classes['estate-dashboard--content']}>
-                    <div className={classes['estate-dashboard--content__button']}>
-                        <Button>Add Listing</Button>
-                        <Button onClick={() => setAddUserPopup(true)}>Invite User</Button>
-                    </div>
                     <div className={classes['estate-dashboard--body']}>
                         <Messages />
                         <EstateTable estates={estates} />

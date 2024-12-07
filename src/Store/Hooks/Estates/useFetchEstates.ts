@@ -4,7 +4,7 @@ import { useEffect } from "react"
 import { useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import { setEstates } from "Store/Reducers/estates"
-import { setGroupState } from "Store/Reducers/groups"
+import { setGroupState, setSelectedGroup } from "Store/Reducers/groups"
 
 
 const useFetchEstates = (id: string | undefined) => {
@@ -20,6 +20,7 @@ const useFetchEstates = (id: string | undefined) => {
         onSuccess: (data) => {
             const estates = data.data
             dispatch(setEstates(estates.estates))
+            dispatch(setSelectedGroup(estates.group))
         }
     })
 

@@ -1,8 +1,8 @@
 .side-nav {
-    @apply w-60 border flex flex-col;
+    @apply w-80 border flex flex-col;
 
     &--group-selection {
-        @apply flex flex-col;
+        @apply flex flex-col pt-1;
     }
 
     &--sub-links {
