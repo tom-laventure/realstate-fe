@@ -2,7 +2,16 @@
     @apply w-60 border flex flex-col;
 
     &--header {
-        @apply w-full font-semibold;
+        @apply font-semibold py-2;
+
+        &__content {
+            @apply relative flex justify-center;
+
+
+            button {
+                @apply mx-1 absolute left-0 top-1;
+            }
+        }
     }
 
     &--group-selection {
@@ -28,6 +37,10 @@
             @apply w-full font-semibold;
         }
 
+        &__user {
+            @apply border-b py-1;
+        }
+
     }
 }
 
@@ -38,4 +51,8 @@
     &--active {
         @apply text-black
     }
+}
+
+.channel-navigation-button {
+    @apply text-sm h-8 w-full justify-center flex items-center border-b cursor-pointer text-blue-700;
 }
