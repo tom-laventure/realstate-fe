@@ -15,7 +15,8 @@ const initialState: estateType = {
         id: -1,
         link: '',
         estate_ratings: [],
-        user_rating: undefined
+        user_rating: undefined,
+        image: ''
     }
 }
 

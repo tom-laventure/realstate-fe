@@ -1,5 +1,17 @@
 .estates-table {
     @apply w-full max-w-lg h-full;
+
+    &--header-content {
+        @apply w-full flex justify-between;
+
+        button {
+            @apply text-blue-700;
+        }
+    }
+
+    &--header {
+        @apply font-semibold mb-4;
+    }
 }
 
 .estate {
