@@ -1,0 +1,9 @@
+.estate-popup {
+    &--container {
+        @apply w-full min-w-12 p-10;
+    }
+
+    &--header {
+        @apply w-full;
+    }
+}

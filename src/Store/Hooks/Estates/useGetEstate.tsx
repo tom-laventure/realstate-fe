@@ -13,7 +13,7 @@ const useGetEstate = (id: string | undefined, estateId: string | undefined) => {
     let selectedEstate = useAppSelector(state => state.estates.selectedEstate)
 
     const { isLoading, isError, data, isSuccess } = useQuery({
-        queryKey: ['fetchEstates', estateId],
+        queryKey: ['getEstate', estateId],
         enabled: !!id && !!estateId,
         staleTime: 10,
         queryFn: () => getEstate(id, estateId),

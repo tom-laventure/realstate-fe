@@ -1,0 +1,19 @@
+.estate-form {
+    &--header {
+        @apply mb-4;
+    }
+
+    &--input {
+        @apply w-full;
+    }
+
+    &--preview {
+        &__container {
+            @apply w-full flex justify-center mt-5;
+        }
+
+        img {
+            @apply max-w-36;
+        }
+    }
+}
