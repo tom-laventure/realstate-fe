@@ -16,4 +16,36 @@
             @apply max-w-36;
         }
     }
+
+    &--temp-estate {
+        @apply w-full flex border p-5;
+
+        &__image {
+            @apply w-48;
+        }
+
+        &__content {
+            @apply w-full flex flex-col justify-between mx-4;
+        }
+
+        &__number {
+            @apply w-12 mx-12;
+        }
+
+        &__input {
+            @apply w-full mx-4;
+        }
+
+        &__bottom {
+            @apply flex items-center w-full justify-between;
+        }
+
+        &__details {
+            @apply w-full flex items-center;
+        }
+
+        &__icon {
+            @apply mx-2;
+        }
+    }
 }
