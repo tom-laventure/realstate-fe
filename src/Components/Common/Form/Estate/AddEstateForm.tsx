@@ -5,7 +5,8 @@ import classes from './AddEstateForm.module.scss'
 import debounce from 'lodash/debounce'
 import useGetEstateMetaData from 'Store/Hooks/Estates/useGetEstateMetaData'
 import { estateMetaData } from 'Assets/Types/EstateType'
-
+import BathtubIcon from '@mui/icons-material/Bathtub';
+import LocalHotelIcon from '@mui/icons-material/LocalHotel';
 
 interface AddEstateFormProps {
 
@@ -18,9 +19,9 @@ interface EstateFormType {
 const AddEstateForm = ({ }: AddEstateFormProps) => {
     const { register, watch } = useForm<EstateFormType>()
     const [tempEstate, setTempEstate] = useState<estateMetaData>({
-        image: '',
-        header: '',
-        price: ''
+        image: '//cdnparap130.paragonrels.com/ParagonImages/Property/p13/BCRES/262970846/0/0/0/228f73da9935b36e88fd3e7a04ae3568/16/b205158212923d1297ac8d30364cbeb0/262970846-34a080e2-65cb-4469-8b12-87983ee450d0.JPG',
+        header: 'For Sale $1,599,999 - 620 SLOCAN STREET, Vancouver, BC | Zealty',
+        price: '$1,599,999'
     })
     const [url, setUrl] = useState('')
     const { isLoading } = useGetEstateMetaData(url, setTempEstate)
@@ -63,14 +64,34 @@ const AddEstateForm = ({ }: AddEstateFormProps) => {
                     }
 
                     {
-                        url && !isLoading && <div>
-
+                        tempEstate.image && !isLoading && <div className={classes['estate-form--temporary-estate']}>
+                            <img src={tempEstate.image} />
                         </div>
                     }
-                    <div className={classes['estate-form--preview']}>
-                        {tempEstate.image ? <img src={tempEstate.image} /> :
-                            <></>
-                        }
+                    <div className={classes['estate-form--temp-estate']}>
+                        <img className={classes['estate-form--temp-estate__image']} src={tempEstate.image} />
+                        <div className={classes['estate-form--temp-estate__content']}>
+                            <TextField
+                                className={classes['estate-form--temp-estate__input']}
+                                defaultValue={tempEstate.header}
+                                label="Header"
+                            />
+                            <div className={classes['estate-form--temp-estate__bottom']}>
+                                <div className={classes['estate-form--temp-estate__details']}>
+                                    <TextField
+                                        size='small'
+                                        className={classes['estate-form--temp-estate__number']}
+                                        defaultValue={0}
+                                    /> <BathtubIcon className={classes['estate-form--temp-estate__icon']}/>
+                                    <TextField
+                                        size='small'
+                                        className={classes['estate-form--temp-estate__number']}
+                                        defaultValue={0}
+                                    /> <LocalHotelIcon className={classes['estate-form--temp-estate__icon']}/>
+                                </div>
+                                <TextField label={'Price'} defaultValue={tempEstate.price} />
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
