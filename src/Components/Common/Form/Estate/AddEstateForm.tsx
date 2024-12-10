@@ -19,9 +19,9 @@ interface EstateFormType {
 const AddEstateForm = ({ }: AddEstateFormProps) => {
     const { register, watch } = useForm<EstateFormType>()
     const [tempEstate, setTempEstate] = useState<estateMetaData>({
-        image: '//cdnparap130.paragonrels.com/ParagonImages/Property/p13/BCRES/262970846/0/0/0/228f73da9935b36e88fd3e7a04ae3568/16/b205158212923d1297ac8d30364cbeb0/262970846-34a080e2-65cb-4469-8b12-87983ee450d0.JPG',
-        header: 'For Sale $1,599,999 - 620 SLOCAN STREET, Vancouver, BC | Zealty',
-        price: '$1,599,999'
+        image: '',
+        header: '',
+        price: ''
     })
     const [url, setUrl] = useState('')
     const { isLoading } = useGetEstateMetaData(url, setTempEstate)
@@ -64,11 +64,7 @@ const AddEstateForm = ({ }: AddEstateFormProps) => {
                     }
 
                     {
-                        tempEstate.image && !isLoading && <div className={classes['estate-form--temporary-estate']}>
-                            <img src={tempEstate.image} />
-                        </div>
-                    }
-                    <div className={classes['estate-form--temp-estate']}>
+                        tempEstate.image && !isLoading && <div className={classes['estate-form--temp-estate']}>
                         <img className={classes['estate-form--temp-estate__image']} src={tempEstate.image} />
                         <div className={classes['estate-form--temp-estate__content']}>
                             <TextField
@@ -93,6 +89,7 @@ const AddEstateForm = ({ }: AddEstateFormProps) => {
                             </div>
                         </div>
                     </div>
+                    }
                 </div>
             </div>
         </FormControl>

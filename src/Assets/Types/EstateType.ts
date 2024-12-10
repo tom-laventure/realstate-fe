@@ -8,14 +8,11 @@ interface estate {
     estate_comments?: comment[],
     id: number,
     user_rating?: rating,
-    image: string
+    image: string,
+    price?: string
 }
 
-interface estateMetaData {
-    image: string,
-    price: string,
-    header: string
-}
+type estateMetaData = Omit<estate, 'estate_ratings' | 'link' | 'id'>
 
 export { estateMetaData }
 export default estate

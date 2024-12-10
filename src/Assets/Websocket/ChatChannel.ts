@@ -8,7 +8,7 @@ const token = localStorage.getItem('authToken')
 let res = token?.split(' ').pop()
 const consumer = createConsumer(`${url}/cable?token=${res}`);
 
-const connectToChat = (group: string, messageRecieved: (message: message) => void) => {
+const connectToChat = (group: string, messageRecieved: (message: message) => void) => {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
   // Create a subscription to the ChatChannel
   consumer.subscriptions.create(
     { channel: "ChatChannel", group_id: group },
