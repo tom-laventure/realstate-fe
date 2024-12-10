@@ -1,5 +1,4 @@
 import { useQuery } from "@tanstack/react-query"
-import getEstate from "Assets/API/Estates/getEstate"
 import { useAppSelector } from "../useDispatch"
 import getEstateMetaData from "Assets/API/Estates/getEstateMetaData"
 import { estateMetaData } from "Assets/Types/EstateType"
@@ -12,7 +11,10 @@ const useGetEstateMetaData = (url: string, complete: (data: estateMetaData) => v
         queryKey: ['fetchEstates', url],
         enabled: !!url,
         staleTime: 10,
-        queryFn: () => getEstateMetaData(url),
+        queryFn: () => {
+            const encodedUrl = encodeURIComponent(url)
+            return getEstateMetaData(encodedUrl)
+        },
         retry: false,
         onSuccess: (data) => {
             complete(data.data)
