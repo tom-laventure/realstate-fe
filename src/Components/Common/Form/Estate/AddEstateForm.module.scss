@@ -37,7 +37,7 @@
         }
 
         &__bottom {
-            @apply flex items-center w-full justify-between;
+            @apply flex items-center w-full justify-between pt-4;
         }
 
         &__details {
@@ -46,6 +46,14 @@
 
         &__icon {
             @apply mx-2;
+        }
+
+        &__buttons {
+            @apply flex justify-end w-full mt-3;
+
+            button {
+                @apply mx-3
+            }
         }
     }
 }

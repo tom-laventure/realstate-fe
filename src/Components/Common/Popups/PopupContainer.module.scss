@@ -2,6 +2,6 @@
     @apply fixed right-0 top-0 w-full h-screen flex z-10 justify-center items-center bg-black bg-opacity-20;
 
     &__modal {
-        @apply max-w-3xl bg-white shadow-md opacity-100;
+        @apply max-w-3xl bg-white shadow-md opacity-100 relative;
     }
 }
