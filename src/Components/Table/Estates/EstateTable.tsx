@@ -13,7 +13,7 @@ interface Props {
 }
 
 const EstateTable = ({ estates }: Props) => {
-    const [openEstatePopup, setOpenEstatePopup] = useState(true)
+    const [openEstatePopup, setOpenEstatePopup] = useState(false)
     const location = useLocation()
     const navigate = useNavigate()
     const userId = useAppSelector(state => state.account.id)
@@ -32,8 +32,7 @@ const EstateTable = ({ estates }: Props) => {
             </div>
             {estates && estates?.map((estate, index) => {
                 return <Estates
-                    header={estate.header}
-                    rating={estate.estate_ratings}
+                    estate={estate}
                     key={index}
                     click={() => estateClicked(estate.id)}
                     userId={userId}
@@ -46,34 +45,32 @@ const EstateTable = ({ estates }: Props) => {
 
 
 interface EstateProps {
-    header: string,
     click: () => void,
-    rating?: rating[],
-    userId: number
+    userId: number,
+    estate: estate
 }
 
-const Estates = ({ header, click, rating, userId }: EstateProps) => {
+const Estates = ({ click, estate, userId }: EstateProps) => {
     const [avgRating, setAvgRating] = useState(0)
     const [userRating, setUserRating] = useState(0)
-    const price = 2400000
 
     useEffect(() => {
-        if (!rating) return
-        const ratingSum = rating.reduce((prevRating, currentRating) => prevRating + +currentRating.rating, 0)
-        const avg = ratingSum / rating.length
-        const userRating = rating.find(rating => rating.rating_owner_id == userId)
+        if (!estate.estate_ratings) return
+        const ratingSum = estate.estate_ratings.reduce((prevRating, currentRating) => prevRating + +currentRating.rating, 0)
+        const avg = ratingSum / estate.estate_ratings.length
+        const userRating = estate.estate_ratings.find(rating => rating.rating_owner_id == userId)
         if (userRating) setUserRating(+userRating.rating)
         setAvgRating(avg)
-    }, [rating])
+    }, [estate.estate_ratings])
 
 
     return (
         <div className={classes['estate--container']} onClick={click}>
-            <img className={classes['estate--image']} src="//cdnparap130.paragonrels.com/ParagonImages/Property/p13/BCRES/262932514/0/0/0/438c4f5015a1f3f001cc41c9fe26fb9f/16/5ed9581da3892b561c174ee59b97f553/262932514-2e6c0f43-63bf-4d78-9071-134b2b16f837.JPG" />
+            <img className={classes['estate--image']} src={estate.image} />
             <div className={classes['estate--content']}>
                 <div className={classes['estate--top']}>
-                    <span className={classes['estate--header']}>{header}</span>
-                    <span>${price.toLocaleString()}</span>
+                    <span className={classes['estate--header']}>{estate.header}</span>
+                    <span>{estate.price}</span>
                 </div>
                 <div className={classes['estate--bottom']}>
                     <div className={classes['estate--ratings']}>

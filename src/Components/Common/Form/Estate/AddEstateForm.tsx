@@ -54,6 +54,7 @@ const AddEstateForm = ({ close }: AddEstateFormProps) => {
 
     const submitEstate: SubmitHandler<estateMetaData> = (data) => {
         if (!group_id) return
+        const estatePrice = formatCurrency(data.price)
 
         const formdata = {
             estate: {
@@ -66,6 +67,23 @@ const AddEstateForm = ({ close }: AddEstateFormProps) => {
         }
 
         mutate(formdata)
+    }
+
+    function formatCurrency(input: string | undefined) {
+        if (!input) return
+
+        let cleanedInput = input.replace(/[^\d.,]/g, '');
+
+        cleanedInput = cleanedInput.replace(/,/g, '');
+
+        const parsedNumber = parseFloat(cleanedInput);
+        if (isNaN(parsedNumber)) {
+            throw new Error("Input is not a valid number");
+        }
+
+        const formattedNumber = parsedNumber.toLocaleString('en-US');
+
+        return `$${formattedNumber}`;
     }
 
     return (

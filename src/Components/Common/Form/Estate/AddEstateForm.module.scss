@@ -21,7 +21,7 @@
         @apply w-full flex border p-5;
 
         &__image {
-            @apply w-48;
+            @apply w-48 max-h-max;
         }
 
         &__content {

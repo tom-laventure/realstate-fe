@@ -1,5 +1,5 @@
 .estates-table {
-    @apply w-full max-w-lg h-full;
+    @apply w-full max-w-2xl h-full;
 
     &--header-content {
         @apply w-full flex justify-between;
@@ -24,7 +24,7 @@
     }
 
     &--image {
-        @apply object-cover h-auto w-full max-w-40;
+        @apply object-cover max-h-max w-48;
     }
 
     &--top {
