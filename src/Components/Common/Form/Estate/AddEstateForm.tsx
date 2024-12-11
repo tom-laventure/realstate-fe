@@ -32,7 +32,7 @@ const AddEstateForm = ({ close }: AddEstateFormProps) => {
 
     const { image, header, price } = getValues()
     const [url, setUrl] = useState('')
-    const { isLoading } = useGetEstateMetaData('', reset)
+    const { isLoading } = useGetEstateMetaData(url, reset)
     const linkValue = watch('link')
 
 
@@ -60,7 +60,7 @@ const AddEstateForm = ({ close }: AddEstateFormProps) => {
                 header: data.header,
                 price: data.price,
                 image: data.image,
-                url: url
+                link: url
             },
             group_id: group_id
         }
