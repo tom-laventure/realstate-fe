@@ -16,7 +16,6 @@ interface Props {
 }
 
 const Comments = ({ comments, estateId }: Props) => {
-    // const { editComment: mutate } = useEditComments()
     const [confirmPopup, setConfirmPopup] = useState(0)
     const { mutate: deleteComment } = useDeleteComment({ complete: () => setConfirmPopup(0) })
     const navigate = useNavigate()
