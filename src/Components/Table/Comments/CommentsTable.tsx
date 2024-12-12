@@ -1,12 +1,11 @@
 import estate from 'Assets/Types/EstateType'
 import React, { useState } from 'react'
-import classes from './EstateDetails.module.scss'
-import Comments from '../Comments/Comments'
+import classes from './CommentsTable.module.scss'
 import CommentForm from 'Components/Common/Form/Comment/CommentForm'
-import SubComments from '../SubComments/SubComments'
 import SubCommentForm from 'Components/Common/Form/Subcomment/SubCommentForm'
 import { Route, Routes, useLocation } from 'react-router-dom'
-import Ratings from '../Ratings/Ratings'
+import Comments from 'Components/View/Comments/Comments'
+import SubComments from 'Components/View/SubComments/SubComments'
 
 type Props = {
   estate: estate
@@ -15,22 +14,13 @@ type Props = {
 const EstateDetails = ({ estate }: Props) => {
   return (
     <div className={classes['estate-details']}>
-      <div className={classes['estate-details--header']}>
-        {estate.header}
+      <div className={classes['estate-details--comments']}>
+        <Routes>
+          <Route path="comment/:comment_id" element={<SelectedCommenView />} />
+          <Route path="/" element={<CommentView estate={estate} />} />
+        </Routes>
       </div>
-      <div className={classes['estate-details--info']}>
-        <div>
-          <div>Full listing: <a href={estate.link}>{estate.link}</a></div>
-          <Ratings />
-        </div>
-        <div className={classes['estate-details--comments']}>
-          <Routes>
-            <Route path="comment/:comment_id" element={<SelectedCommenView />} />
-            <Route path="/" element={<CommentView estate={estate} />} />
-          </Routes>
-        </div>
-      </div>
-    </div >
+    </div>
   )
 }
 
@@ -56,4 +46,5 @@ const SelectedCommenView = () => {
   )
 }
 
+export { CommentView }
 export default EstateDetails

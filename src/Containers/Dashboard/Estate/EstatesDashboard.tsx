@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import classes from './EstatesDashboard.module.scss'
 import useFetchEstates from 'Store/Hooks/Estates/useFetchEstates'
 import { useParams } from 'react-router-dom'
-import EstateTable from 'Components/Table/Estates/EstateTable'
 import { useAppDispatch, useAppSelector } from 'Store/Hooks/useDispatch'
 import GroupSideNav from 'Components/Navbar/SideNav/GroupSideNav/GroupSideNav'
 import { Button } from '@mui/material'
@@ -11,6 +10,7 @@ import Messages from 'Components/View/Messages/Messages'
 import message from 'Assets/Types/MessageType'
 import { pushMessage } from 'Store/Reducers/messages'
 import { AddUserPopup } from 'Components/Common/Popups/AddUser/AddUserPopup'
+import EstateTable from 'Components/Table/Estates/EstateTable'
 
 const EstatesDashboard = () => {
     const dispatch = useAppDispatch()
