@@ -2,7 +2,7 @@
     @apply w-full max-w-2xl h-full;
 
     &--header-content {
-        @apply w-full flex justify-between;
+        @apply w-full flex justify-between items-center mb-4;
 
         button {
             @apply text-blue-700;
@@ -10,13 +10,17 @@
     }
 
     &--header {
-        @apply font-semibold mb-4;
+        @apply font-semibold;
     }
 }
 
 .estate {
     &--container {
-        @apply border rounded p-3 cursor-pointer flex;
+        @apply border rounded p-3 m-2;
+    }
+
+    &--body {
+        @apply flex;
     }
 
     &--content {
@@ -32,18 +36,34 @@
     }
 
     &--bottom {
-        @apply flex justify-between
+        @apply flex justify-between w-full
     }
 
     &--header {
         @apply font-semibold;
     }
 
-    &--label {
-        @apply text-sm w-full flex justify-between items-center;
+    &--ratings-container {
+        @apply flex flex-col;
     }
 
-    &--ratings {
-        @apply flex flex-col;
+    &--rating {
+        @apply flex items-center;
+
+        &__label {
+            @apply text-sm flex items-center w-20;
+        }
+
+        &__alter {
+            @apply text-sm cursor-pointer text-blue-500;
+        }
+    }
+
+    &--actions {
+        @apply flex justify-between;
+
+        button {
+            @apply flex items-center;
+        }
     }
 }

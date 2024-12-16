@@ -31,7 +31,7 @@ const EstatesDashboard = () => {
             {group_id ?
                 <div className={classes['estate-dashboard--content']}>
                     <div className={classes['estate-dashboard--body']}>
-                        <Messages />
+                        {/* <Messages /> */}
                         <EstateTable estates={estates} />
                     </div>
 

@@ -6,6 +6,7 @@ import { Button, Rating, Tooltip } from '@mui/material'
 import rating from 'Assets/Types/EstateRatingType'
 import { useAppSelector } from 'Store/Hooks/useDispatch'
 import AddEstatePopup from 'Components/Common/Popups/AddEstate/AddEstatePopup'
+import Ratings from 'Components/View/Ratings/Ratings'
 
 
 interface Props {
@@ -53,7 +54,7 @@ interface EstateProps {
 const Estates = ({ click, estate, userId }: EstateProps) => {
     const [avgRating, setAvgRating] = useState(0)
     const [userRating, setUserRating] = useState(0)
-
+    const [ratingMessage, setRatingMessage] = useState('add rating')
     useEffect(() => {
         if (!estate.estate_ratings) return
         const ratingSum = estate.estate_ratings.reduce((prevRating, currentRating) => prevRating + +currentRating.rating, 0)
@@ -64,23 +65,27 @@ const Estates = ({ click, estate, userId }: EstateProps) => {
     }, [estate.estate_ratings])
 
 
+
     return (
-        <div className={classes['estate--container']} onClick={click}>
-            <img className={classes['estate--image']} src={estate.image} />
-            <div className={classes['estate--content']}>
-                <div className={classes['estate--top']}>
-                    <span className={classes['estate--header']}>{estate.header}</span>
-                    <span>{estate.price}</span>
-                </div>
-                <div className={classes['estate--bottom']}>
-                    <div className={classes['estate--ratings']}>
-                        <span className={classes['estate--label']}>Avg Rating: <Tooltip title={avgRating}><Button><Rating size='small' disabled value={avgRating} max={10} precision={.5} /></Button></Tooltip></span>
-                        <span className={classes['estate--label']}>Your Rating: <Tooltip title={userRating}><Button><Rating size='small' disabled value={userRating} max={10} precision={.5} /></Button></Tooltip></span>
+        <div className={classes['estate--container']}>
+            <div className={classes['estate--body']}>
+                <img className={classes['estate--image']} src={estate.image} />
+                <div className={classes['estate--content']}>
+                    <div className={classes['estate--top']}>
+                        <span className={classes['estate--header']}>{estate.header}</span>
+                        <span>{estate.price}</span>
                     </div>
-                    <div className={classes['estate--date']}>
-                        <span></span>
+                    <div className={classes['estate--bottom']}>
+                        <Ratings estateId={estate.id} ratings={estate.estate_ratings} userHasRated={estate.user_rating}/>
+                        <div className={classes['estate--date']}>
+                            <span></span>
+                        </div>
                     </div>
                 </div>
+            </div>
+            <div className={classes['estate--actions']}>
+                <Button>Comments &#40;{0}&#41;</Button>
+                <Button onClick={() => window.open(estate.link, '_blank')}>View Listing</Button>
             </div>
         </div>
     )

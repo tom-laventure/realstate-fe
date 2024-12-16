@@ -8,12 +8,18 @@ import rating from 'Assets/Types/EstateRatingType'
 import UseEditRating from 'Store/Hooks/Ratings/useEditRating'
 import MouseHoverPopover from 'Components/Common/Popups/MouseHoverPopover'
 
+interface RatingsPropTypes {
+  estateId: number,
+  ratings: rating[],
+  userHasRated?: rating
+}
 
-const Ratings = () => {
+const Ratings = ({ estateId, ratings, userHasRated }: RatingsPropTypes) => {
+  console.log(ratings, userHasRated)
+
   const [avgRating, setAvgRating] = useState<number>(0)
   const [editRating, setEditRating] = useState(false)
-  const ratings = useAppSelector(state => state.estates.selectedEstate.estate_ratings)
-  const userHasRated = useAppSelector(state => state.estates.selectedEstate.user_rating)
+
   useEffect(() => {
     const ratingSum = ratings.reduce((prevRating, currentRating) => prevRating + +currentRating.rating, 0)
     const avg = ratingSum / ratings.length
@@ -29,14 +35,15 @@ const Ratings = () => {
         userRatings={ratings}
       />
       {
-        userHasRated && !editRating ?
+        !editRating ?
           <UserRating
             editRating={() => setEditRating(true)}
-            ratingValue={userHasRated.rating}
+            ratingValue={userHasRated?.rating}
           /> :
           <SetRating
             currentRating={userHasRated}
             cancelEdit={() => setEditRating(false)}
+            estateId={estateId}
           />
       }
     </div>
@@ -57,16 +64,14 @@ const ExistingRatings = ({ currentRating, userRatings }: ExistingRatings) => {
     </div>
   })
 
-  const rating = `${currentRating}/10`
-
   return (
-    <div>
-      <div>
-        Current Average Rating:
-      </div>
+    <div className={classes['ratings--content']}>
+      <span className={classes['ratings--content__label']}>
+        Avg Rating:
+      </span>
       <div className={classes['ratings--rating-container']}>
-        <Rating value={currentRating} disabled precision={.5} max={10} />
-        <MouseHoverPopover label={rating}><>{ratingList}</></MouseHoverPopover>
+        <Rating size="small" value={currentRating} disabled precision={.5} max={10} />
+        {/* <MouseHoverPopover label={rating}><>{ratingList}</></MouseHoverPopover> */}
       </div>
     </div>
   )
@@ -75,11 +80,11 @@ const ExistingRatings = ({ currentRating, userRatings }: ExistingRatings) => {
 
 interface SetRatingProps {
   cancelEdit: () => void,
-  currentRating: rating | undefined
+  currentRating: rating | undefined,
+  estateId: number
 }
 
-const SetRating = ({ cancelEdit, currentRating }: SetRatingProps) => {
-  const { selected_id: estateId } = useParams()
+const SetRating = ({ cancelEdit, currentRating, estateId }: SetRatingProps) => {
   const complete = () => {
     cancelEdit()
   }
@@ -101,36 +106,31 @@ const SetRating = ({ cancelEdit, currentRating }: SetRatingProps) => {
   }
 
   return (
-    <div>
-      <div>
-        Rate this property:
-      </div>
-      <Rating precision={.5} defaultValue={currentRating?.rating ? +currentRating.rating : 0} max={10} onChange={(event, value) => saveRating(value)} />
-      <div>
-        <Button size='small' onClick={cancelEdit}>cancel</Button>
-      </div>
+    <div className={classes['ratings--content']}>
+      <span className={classes['ratings--content__label']}>
+        Your Rating:
+      </span>
+      <Rating size="small" precision={.5} defaultValue={currentRating?.rating ? +currentRating.rating : 0} max={10} onChange={(event, value) => saveRating(value)} />
+      <span className={classes['ratings--content__action']} onClick={cancelEdit}>cancel</span>
     </div>
   )
 }
 
 interface UserRatingProps {
-  ratingValue: string,
+  ratingValue?: string,
   editRating: () => void
 }
 
-const UserRating = ({ ratingValue, editRating }: UserRatingProps) => {
+const UserRating = ({ ratingValue = '0', editRating }: UserRatingProps) => {
   return (
-    <div>
-      <div>
+    <div className={classes['ratings--content']}>
+      <span className={classes['ratings--content__label']}>
         Your Rating:
-      </div>
+      </span>
       <div className={classes['ratings--rating-container']}>
-        <Rating value={+ratingValue} precision={.5} max={10} disabled />
-        <div>{ratingValue}/10</div>
+        <Rating size="small" value={+ratingValue} precision={.5} max={10} disabled />
       </div>
-      <div>
-        <Button onClick={editRating} size='small'>edit rating</Button>
-      </div>
+      <span onClick={editRating} className={classes['ratings--content__action']}>edit</span>
     </div>
   )
 }
