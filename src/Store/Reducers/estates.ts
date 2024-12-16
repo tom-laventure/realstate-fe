@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { EditRatingResponse } from 'Assets/API/Ratings/editRating'
 import comment from 'Assets/Types/EstateCommentType'
+import { RatingResponse } from 'Assets/Types/EstateRatingType'
 import estate from 'Assets/Types/EstateType'
 
 export interface estateType {
@@ -39,7 +39,7 @@ const estatesSlice = createSlice({
         setComments: (state, action: PayloadAction<comment[]>) => {
             state.selectedEstate.estate_comments = action.payload
         },
-        setRatings: (state, action: PayloadAction<EditRatingResponse>) => {
+        setRatings: (state, action: PayloadAction<RatingResponse>) => {
             state.selectedEstate.estate_ratings = action.payload.estate_ratings
             state.selectedEstate.user_rating = action.payload.user_rating
         },

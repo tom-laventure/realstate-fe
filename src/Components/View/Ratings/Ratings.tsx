@@ -1,49 +1,67 @@
-import React, { MouseEvent, useEffect, useMemo, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import classes from './Ratings.module.scss'
-import { Button, Popover, Rating, Typography } from '@mui/material'
-import { useAppSelector } from 'Store/Hooks/useDispatch'
+import { Rating } from '@mui/material'
 import usePostRatings from 'Store/Hooks/Ratings/usePostRating'
-import { useParams } from 'react-router-dom'
-import rating from 'Assets/Types/EstateRatingType'
+import rating, { RatingResponse } from 'Assets/Types/EstateRatingType'
 import UseEditRating from 'Store/Hooks/Ratings/useEditRating'
 import MouseHoverPopover from 'Components/Common/Popups/MouseHoverPopover'
 
-interface RatingsPropTypes {
+export interface RatingsPropTypes {
   estateId: number,
   ratings: rating[],
-  userHasRated?: rating
+  userRating?: rating
 }
 
-const Ratings = ({ estateId, ratings, userHasRated }: RatingsPropTypes) => {
-  console.log(ratings, userHasRated)
-
+const Ratings = ({ estateId, ratings, userRating }: RatingsPropTypes) => {
   const [avgRating, setAvgRating] = useState<number>(0)
   const [editRating, setEditRating] = useState(false)
+  const [ratingState, setRatingState] = useState<RatingResponse>({
+    estate_ratings: [],
+    user_rating: {
+      rating: '0'
+    }
+  })
 
   useEffect(() => {
-    const ratingSum = ratings.reduce((prevRating, currentRating) => prevRating + +currentRating.rating, 0)
-    const avg = ratingSum / ratings.length
+    setRatingState((state) => {
+      if (!userRating) return {
+        ...state,
+        estate_ratings: ratings
+      }
+      return {
+        ...state,
+        estate_ratings: ratings,
+        user_rating: userRating,
+      }
+    })
+  }, [estateId, ratings, userRating])
+
+  useEffect(() => {
+    const ratingSum = ratingState.estate_ratings.reduce((prevRating, currentRating) => prevRating + +currentRating.rating, 0)
+    console.log(ratingSum, ratingState)
+    const avg = ratingSum / ratingState.estate_ratings.length
 
     setAvgRating(avg)
 
-  }, [ratings])
+  }, [ratingState.estate_ratings])
 
   return (
     <div className={classes['ratings']}>
       <ExistingRatings
         currentRating={avgRating}
-        userRatings={ratings}
+        userRatings={ratingState.estate_ratings}
       />
       {
         !editRating ?
           <UserRating
             editRating={() => setEditRating(true)}
-            ratingValue={userHasRated?.rating}
+            ratingValue={ratingState.user_rating?.rating}
           /> :
           <SetRating
-            currentRating={userHasRated}
+            currentRating={ratingState.user_rating}
             cancelEdit={() => setEditRating(false)}
             estateId={estateId}
+            setRatings={setRatingState}
           />
       }
     </div>
@@ -81,11 +99,13 @@ const ExistingRatings = ({ currentRating, userRatings }: ExistingRatings) => {
 interface SetRatingProps {
   cancelEdit: () => void,
   currentRating: rating | undefined,
-  estateId: number
+  estateId: number,
+  setRatings: React.Dispatch<React.SetStateAction<RatingResponse>>
 }
 
-const SetRating = ({ cancelEdit, currentRating, estateId }: SetRatingProps) => {
-  const complete = () => {
+const SetRating = ({ cancelEdit, currentRating, estateId, setRatings }: SetRatingProps) => {
+  const complete = (data: RatingResponse) => {
+    setRatings(data)
     cancelEdit()
   }
 

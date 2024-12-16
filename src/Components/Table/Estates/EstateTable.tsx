@@ -76,7 +76,7 @@ const Estates = ({ click, estate, userId }: EstateProps) => {
                         <span>{estate.price}</span>
                     </div>
                     <div className={classes['estate--bottom']}>
-                        <Ratings estateId={estate.id} ratings={estate.estate_ratings} userHasRated={estate.user_rating}/>
+                        <Ratings estateId={estate.id} ratings={estate.estate_ratings} userRating={estate.user_rating}/>
                         <div className={classes['estate--date']}>
                             <span></span>
                         </div>
