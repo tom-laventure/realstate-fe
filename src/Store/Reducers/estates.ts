@@ -30,6 +30,9 @@ const estatesSlice = createSlice({
         setSelectedEstate: (state, action: PayloadAction<estate>) => {
             state.selectedEstate = action.payload
         },
+        pushEstate: (state, action: PayloadAction<estate>) => {
+            state.userEstates.push(action.payload)
+        },
         addComment: (state, action: PayloadAction<comment>) => {
             state.selectedEstate?.estate_comments?.push(action.payload)
         },
@@ -43,6 +46,13 @@ const estatesSlice = createSlice({
     }
 })
 
-export const { setEstates, setSelectedEstate, addComment, setComments, setRatings } = estatesSlice.actions
+export const { 
+    setEstates, 
+    setSelectedEstate, 
+    addComment, 
+    setComments, 
+    setRatings,
+    pushEstate
+} = estatesSlice.actions
 export { initialState as estateState }
 export default estatesSlice.reducer

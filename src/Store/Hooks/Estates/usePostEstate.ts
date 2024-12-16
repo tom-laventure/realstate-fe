@@ -1,9 +1,7 @@
 import { useMutation } from "@tanstack/react-query"
 import postEstate, { PostEstateType } from "Assets/API/Estates/postEstate"
-import { estateMetaData } from "Assets/Types/EstateType"
 import { useDispatch } from "react-redux"
-import { useNavigate } from "react-router-dom"
-import { setGroupState } from "Store/Reducers/groups"
+import { pushEstate } from "Store/Reducers/estates"
 
 interface UsePostEstateProps {
     complete: () => void
@@ -18,6 +16,7 @@ const usePostEstate = ({ complete }: UsePostEstateProps) => {
         retry: false,
         onSuccess: (data) => {
             const estate = data.data
+            dispatch(pushEstate(estate))
             complete()
         }
     })

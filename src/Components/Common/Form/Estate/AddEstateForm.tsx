@@ -136,9 +136,6 @@ const AddEstateForm = ({ close }: AddEstateFormProps) => {
                                             <TextField label={'Price'} value={price} {...registerEstate('price')} />
                                         </div>
                                     </div>
-                                    <div>
-                                        <TextField className={classes['estate-form--temp-estate__input']} defaultValue={url} disabled size="small" />
-                                    </div>
                                 </div>
                                 <div className={classes['estate-form--temp-estate__buttons']}>
                                     <Button variant='contained' type="submit">Create</Button>

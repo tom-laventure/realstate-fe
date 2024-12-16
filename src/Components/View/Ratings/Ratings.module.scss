@@ -1,16 +1,18 @@
 .ratings {
-    @apply m-3;
-
-    &__popup {
-        @apply flex w-full justify-between p-2 items-center;
-
-        &--name {
-            @apply mr-1 text-sm;
-        }
+    &--rating-container {
+        @apply flex items-center;
     }
 
-    &--rating-container {
-        @apply flex items-center ;
+    &--content {
+        @apply flex pb-2;
+
+        &__label {
+            @apply text-sm w-20;
+        }
+
+        &__action {
+            @apply text-sm cursor-pointer text-blue-500 ml-2;
+        }
     }
 
 }
