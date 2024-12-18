@@ -4,7 +4,7 @@ import { Rating } from '@mui/material'
 import usePostRatings from 'Store/Hooks/Ratings/usePostRating'
 import rating, { RatingResponse } from 'Assets/Types/EstateRatingType'
 import UseEditRating from 'Store/Hooks/Ratings/useEditRating'
-import MouseHoverPopover from 'Components/Common/Popups/MouseHoverPopover'
+
 
 export interface RatingsPropTypes {
   estateId: number,
@@ -38,7 +38,7 @@ const Ratings = ({ estateId, ratings, userRating }: RatingsPropTypes) => {
 
   useEffect(() => {
     const ratingSum = ratingState.estate_ratings.reduce((prevRating, currentRating) => prevRating + +currentRating.rating, 0)
-    console.log(ratingSum, ratingState)
+
     const avg = ratingSum / ratingState.estate_ratings.length
 
     setAvgRating(avg)

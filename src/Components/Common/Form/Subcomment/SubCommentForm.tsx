@@ -2,8 +2,6 @@ import { Button, FormControl, FormHelperText, MenuItem, Select, TextField } from
 import React from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import classes from './SubCommentForm.module.scss'
-import usePostComments from 'Store/Hooks/Comments/usePostComment'
-import { useAppSelector } from 'Store/Hooks/useDispatch'
 import usePostSubcomments from 'Store/Hooks/Subcomments/usePostSubcomment'
 import { useParams } from 'react-router-dom'
 
