@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query"
-import fetchEstate from "Assets/API/Estates/fetchEstates"
+import fetchEstate, { FetchEstateType } from "Assets/API/Estates/fetchEstates"
 import { useEffect } from "react"
 import { useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
@@ -7,15 +7,15 @@ import { setEstates } from "Store/Reducers/estates"
 import { setGroupState, setSelectedGroup } from "Store/Reducers/groups"
 
 
-const useFetchEstates = (id: string | undefined) => {
+const useFetchEstates = (params: FetchEstateType) => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
     const { isLoading, isError, data, isSuccess } = useQuery({
-        queryKey: ['fetchEstates', id],
-        enabled: !!id,
+        queryKey: ['fetchEstates', params.id, params.order],
+        enabled: !!params.id,
         staleTime: 10,
-        queryFn: () => fetchEstate(id),
+        queryFn: () => fetchEstate(params),
         retry: false,
         onSuccess: (data) => {
             const estates = data.data

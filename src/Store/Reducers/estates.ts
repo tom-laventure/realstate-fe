@@ -5,7 +5,8 @@ import estate from 'Assets/Types/EstateType'
 
 export interface estateType {
     userEstates: estate[],
-    selectedEstate: estate
+    selectedEstate: estate,
+    orderby?: string
 }
 
 const initialState: estateType = {
@@ -43,16 +44,20 @@ const estatesSlice = createSlice({
             state.selectedEstate.estate_ratings = action.payload.estate_ratings
             state.selectedEstate.user_rating = action.payload.user_rating
         },
+        setOrderBy: (state, action: PayloadAction<string>) => {
+            state.orderby = action.payload
+        },
     }
 })
 
-export const { 
-    setEstates, 
-    setSelectedEstate, 
-    addComment, 
-    setComments, 
+export const {
+    setEstates,
+    setSelectedEstate,
+    addComment,
+    setComments,
     setRatings,
-    pushEstate
+    pushEstate,
+    setOrderBy
 } = estatesSlice.actions
 export { initialState as estateState }
 export default estatesSlice.reducer

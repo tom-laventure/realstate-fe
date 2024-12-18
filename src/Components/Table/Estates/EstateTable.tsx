@@ -7,6 +7,7 @@ import rating from 'Assets/Types/EstateRatingType'
 import { useAppSelector } from 'Store/Hooks/useDispatch'
 import AddEstatePopup from 'Components/Common/Popups/AddEstate/AddEstatePopup'
 import Ratings from 'Components/View/Ratings/Ratings'
+import EstateFiltersForm from 'Components/Common/Form/EstateFilters/EstateFiltersForm'
 
 
 interface Props {
@@ -31,6 +32,7 @@ const EstateTable = ({ estates }: Props) => {
                 </span>
                 <button onClick={() => setOpenEstatePopup(true)}>+ new listing</button>
             </div>
+            <EstateFiltersForm />
             {estates && estates?.map((estate, index) => {
                 return <Estates
                     estate={estate}
@@ -76,7 +78,7 @@ const Estates = ({ click, estate, userId }: EstateProps) => {
                         <span>{estate.price}</span>
                     </div>
                     <div className={classes['estate--bottom']}>
-                        <Ratings estateId={estate.id} ratings={estate.estate_ratings} userRating={estate.user_rating}/>
+                        <Ratings estateId={estate.id} ratings={estate.estate_ratings} userRating={estate.user_rating} />
                         <div className={classes['estate--date']}>
                             <span></span>
                         </div>

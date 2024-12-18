@@ -1,0 +1,15 @@
+.estate-filters-form {
+    @apply w-full;
+
+    &--control {
+        @apply w-32;
+    }
+
+    &--select {
+        @apply mb-1 min-w-fit;
+    }
+
+    &--label {
+        @apply whitespace-nowrap;
+    }
+}
