@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react'
 import classes from './EstateTable.module.scss'
 import estate from 'Assets/Types/EstateType'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { Button, Rating, Tooltip } from '@mui/material'
-import rating from 'Assets/Types/EstateRatingType'
+import { Button } from '@mui/material'
 import { useAppSelector } from 'Store/Hooks/useDispatch'
 import AddEstatePopup from 'Components/Common/Popups/AddEstate/AddEstatePopup'
 import Ratings from 'Components/View/Ratings/Ratings'
@@ -57,6 +56,8 @@ const Estates = ({ click, estate, userId }: EstateProps) => {
     const [avgRating, setAvgRating] = useState(0)
     const [userRating, setUserRating] = useState(0)
     const [ratingMessage, setRatingMessage] = useState('add rating')
+
+
     useEffect(() => {
         if (!estate.estate_ratings) return
         const ratingSum = estate.estate_ratings.reduce((prevRating, currentRating) => prevRating + +currentRating.rating, 0)
@@ -86,7 +87,7 @@ const Estates = ({ click, estate, userId }: EstateProps) => {
                 </div>
             </div>
             <div className={classes['estate--actions']}>
-                <Button>Comments &#40;{0}&#41;</Button>
+                <Button onClick={click}>Comments &#40;{estate.estate_comment_count}&#41;</Button>
                 <Button onClick={() => window.open(estate.link, '_blank')}>View Listing</Button>
             </div>
         </div>

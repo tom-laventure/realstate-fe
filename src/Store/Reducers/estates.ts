@@ -17,7 +17,8 @@ const initialState: estateType = {
         link: '',
         estate_ratings: [],
         user_rating: undefined,
-        image: ''
+        image: '',
+        estate_comment_count: 0
     }
 }
 

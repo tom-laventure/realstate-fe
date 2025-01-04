@@ -6,7 +6,6 @@ import EllipsisMenu, { elipsisFunctionType } from 'Components/Common/Buttons/Eli
 import useDeleteComment from 'Store/Hooks/Comments/useDeleteComment'
 import PopupContainer from 'Components/Common/Popups/PopupContainer'
 import { useLocation, useNavigate } from 'react-router-dom'
-import subcomment from 'Assets/Types/EstateSubCommentType'
 import { useDispatch } from 'react-redux'
 import { editComment } from 'Store/Reducers/comments'
 

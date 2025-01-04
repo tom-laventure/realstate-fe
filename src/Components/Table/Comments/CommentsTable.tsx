@@ -11,7 +11,7 @@ type Props = {
   estate: estate
 }
 
-const EstateDetails = ({ estate }: Props) => {
+const CommentsTable = ({ estate }: Props) => {
   return (
     <div className={classes['estate-details']}>
       <div className={classes['estate-details--comments']}>
@@ -47,4 +47,4 @@ const SelectedCommenView = () => {
 }
 
 export { CommentView }
-export default EstateDetails
+export default CommentsTable
