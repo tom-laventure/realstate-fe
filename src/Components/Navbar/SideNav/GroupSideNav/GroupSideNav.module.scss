@@ -19,7 +19,7 @@
 }
 
 .group-navigation-link {
-    @apply h-10 flex w-full justify-center items-center border-b;
+    @apply h-10 flex w-full justify-center items-center border-b text-sm;
 
     &--active {
         @apply text-black;

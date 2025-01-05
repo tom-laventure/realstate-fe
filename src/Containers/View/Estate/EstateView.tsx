@@ -17,13 +17,14 @@ const EstateView = (props: Props) => {
 
     return (
         <div className={classes['estate-view']}>
-            <GroupSideNav />
             <div className={classes['estate-view--content']}>
-                <div className={classes['estate-view--content__button-container']}>
-                    <Button onClick={() => navigate(`/estates/${params.group_id}`)}>Go Back</Button>
+                <div className={classes['estate-view--body']}>
+                    <div className={classes['estate-view--content__button-container']}>
+                        <Button onClick={() => navigate(`/estates/${params.group_id}`)}>Go Back</Button>
+                    </div>
+                    <Estate estate={selectedEstate} click={() => { }} />
+                    <CommentsTable estate={selectedEstate} />
                 </div>
-                <Estate estate={selectedEstate} click={() => { }} />
-                <CommentsTable estate={selectedEstate} />
             </div>
             <div />
         </div>

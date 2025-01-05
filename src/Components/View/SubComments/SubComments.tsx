@@ -1,5 +1,4 @@
-import comment from 'Assets/Types/EstateCommentType'
-import React, { useEffect } from 'react'
+import React from 'react'
 import classes from './SubComments.module.scss'
 import { Comment } from '../Comments/Comments'
 import { Button } from '@mui/material'
@@ -8,7 +7,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import useFetchSubComments from 'Store/Hooks/Subcomments/useFetchSubcomments'
 import { useAppSelector } from 'Store/Hooks/useDispatch'
 import subcomment from 'Assets/Types/EstateSubCommentType'
-import EllipsisMenu from 'Components/Common/Buttons/Elipsis/Elipsis'
+import EllipsisMenu, { elipsisFunctionType } from 'Components/Common/Buttons/Elipsis/Elipsis'
 
 
 const SubComments = () => {
@@ -18,6 +17,45 @@ const SubComments = () => {
     const navigate = useNavigate()
 
     const { } = useFetchSubComments(comment_id)
+
+    const editSubComment = () => {
+
+    }
+
+    const deleteSubComment = () => {
+
+    }
+
+    const editComment = () => {
+
+    }
+
+    const deleteComment = () => {
+
+    }
+
+    const functionArray = [
+        {
+            label: 'edit',
+            func: editComment
+        },
+        {
+            label: 'delete',
+            func: deleteComment
+        }
+    ]
+
+
+    const functionSubCommentArray = [
+        {
+            label: 'edit',
+            func: editSubComment
+        },
+        {
+            label: 'delete',
+            func: deleteSubComment
+        }
+    ]
 
     const goBack = () => {
         navigate(`/estates/${group_id}/selected/${selected_id}`)
@@ -29,9 +67,9 @@ const SubComments = () => {
                 <Button onClick={() => goBack()}><ArrowBackIcon color='action' fontSize='small' /> </Button>Reply:
             </div>
             <div className={classes['subcomment--comments']}>
-                {selectedComment && <Comment comment={selectedComment} functionArray={[]} />}
+                {selectedComment && <Comment comment={selectedComment} functionArray={functionArray} />}
                 {subcomments.map((el, index) => {
-                    return <SubComment subcomment={el} key={index} />
+                    return <SubComment functionArray={functionSubCommentArray} subcomment={el} key={index} />
                 })}
             </div>
         </div>
@@ -39,13 +77,14 @@ const SubComments = () => {
 }
 
 interface SubcommentProps {
-    subcomment: subcomment
+    subcomment: subcomment,
+    functionArray: elipsisFunctionType[]
 }
 
-const SubComment = ({ subcomment }: SubcommentProps) => {
+const SubComment = ({ functionArray, subcomment }: SubcommentProps) => {
     return (
         <div className={classes['subcomment--comment']}>
-            <div className={classes['subcomment--comment__elipsis']}>{subcomment.is_author && <EllipsisMenu functionArray={[]} item={subcomment} />}</div>
+            <div className={classes['subcomment--comment__elipsis']}>{subcomment.is_author && <EllipsisMenu functionArray={functionArray} item={subcomment} />}</div>
             <div className={classes['subcomment--comment__text']}>{subcomment.comment}</div>
             <div className={classes['subcomment--comment__addition']}>
                 <div className={classes['subcomment--comment__owner']}>{subcomment.comment_owner}</div>

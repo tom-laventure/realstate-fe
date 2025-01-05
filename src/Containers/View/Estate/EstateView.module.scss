@@ -2,10 +2,14 @@
     @apply w-full flex;
 
     &--content {
-        @apply w-full flex flex-col items-center max-w-2xl m-auto my-10;
+        @apply w-full flex flex-col items-center m-auto my-10;
 
         &__button-container {
             @apply w-full;
         }
+    }
+
+    &--body {
+        @apply max-w-2xl;
     }
 }
