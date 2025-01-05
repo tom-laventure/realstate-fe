@@ -33,11 +33,10 @@ const EstateTable = ({ estates }: Props) => {
             </div>
             <EstateFiltersForm />
             {estates && estates?.map((estate, index) => {
-                return <Estates
+                return <Estate
                     estate={estate}
                     key={index}
                     click={() => estateClicked(estate.id)}
-                    userId={userId}
                 />
             })}
             {openEstatePopup && <AddEstatePopup close={() => setOpenEstatePopup(false)} />}
@@ -48,26 +47,10 @@ const EstateTable = ({ estates }: Props) => {
 
 interface EstateProps {
     click: () => void,
-    userId: number,
     estate: estate
 }
 
-const Estates = ({ click, estate, userId }: EstateProps) => {
-    const [avgRating, setAvgRating] = useState(0)
-    const [userRating, setUserRating] = useState(0)
-    const [ratingMessage, setRatingMessage] = useState('add rating')
-
-
-    useEffect(() => {
-        if (!estate.estate_ratings) return
-        const ratingSum = estate.estate_ratings.reduce((prevRating, currentRating) => prevRating + +currentRating.rating, 0)
-        const avg = ratingSum / estate.estate_ratings.length
-        const userRating = estate.estate_ratings.find(rating => rating.rating_owner_id == userId)
-        if (userRating) setUserRating(+userRating.rating)
-        setAvgRating(avg)
-    }, [estate.estate_ratings])
-
-
+const Estate = ({ click, estate }: EstateProps) => {
 
     return (
         <div className={classes['estate--container']}>
@@ -95,4 +78,6 @@ const Estates = ({ click, estate, userId }: EstateProps) => {
 
 }
 
+
+export { Estate }
 export default EstateTable

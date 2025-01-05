@@ -1,3 +1,11 @@
 .estate-view {
     @apply w-full flex;
+
+    &--content {
+        @apply w-full flex flex-col items-center max-w-2xl m-auto my-10;
+
+        &__button-container {
+            @apply w-full;
+        }
+    }
 }

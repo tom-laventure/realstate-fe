@@ -7,7 +7,8 @@ interface comment {
     comment_type: string,
     id?: number,
     subcomments?: subcomment,
-    is_author?: boolean
+    is_author?: boolean,
+    subcomment_count?: number
 }
 
 export default comment

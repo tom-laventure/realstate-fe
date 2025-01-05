@@ -130,7 +130,7 @@ const Comment = ({ comment, functionArray, openSubComment }: CommentsArrayProps)
             <div className={classes['comment--text']}>{comment.comment}</div>
             <div className={classes['comment--addition']}>
                 <div className={classes['comment--owner']}>{comment.comment_owner} - {commentDetails[comment.comment_type].text}</div>
-                {openSubComment && <Button onClick={() => openSubComment(comment.id)} className={classes['comment--reply']}>Reply</Button>}
+                {openSubComment && <Button onClick={() => openSubComment(comment.id)} className={classes['comment--reply']}>{comment.subcomment_count ? `Replies (${comment.subcomment_count})` : `Reply`}</Button>}
             </div>
         </div>
     )

@@ -1,5 +1,5 @@
 .estate-details {
-    @apply flex flex-col my-10 w-full;
+    @apply flex flex-col w-full items-center;
 
     &--header {
         @apply text-2xl flex w-full justify-center;
@@ -10,6 +10,6 @@
     }
 
     &--comments {
-        @apply w-full max-w-lg;
+        @apply w-full;
     }
 }
