@@ -6,7 +6,8 @@ import { useParams } from 'react-router-dom'
 
 const JoinGroup = () => {
     const [groupInfo, setGroupInfo] = useState<group>()
-    const params = useParams()
+    const { token } = useParams()
+    
 
     return (
         <div>
