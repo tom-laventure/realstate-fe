@@ -3,6 +3,7 @@ import { createBrowserRouter } from 'react-router-dom'
 import AppShell from 'Components/Common/Shells/AppShell'
 import AccountManagement from 'Containers/Auth/AccountManagement/AccountManagement'
 import GroupDashBoard from 'Containers/Dashboard/Groups/GroupDashboard'
+import JoinGroup from 'Containers/Dashboard/Groups/JoinGroup/JoinGroup'
 import EstatesDashboard from 'Containers/Dashboard/Estate/EstatesDashboard'
 import EstateView from 'Containers/View/Estate/EstateView'
 import ErrorPage from 'Containers/ErrorPage/ErrorPage'
@@ -39,7 +40,7 @@ const router = createBrowserRouter([
 				path: "estates/:group_id"
 			},
 			{
-				element: <></>,
+				element: <JoinGroup />,
 				path: "join-group/:token"
 			}
 		]

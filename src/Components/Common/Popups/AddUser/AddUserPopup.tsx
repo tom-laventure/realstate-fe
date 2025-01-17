@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import PopupContainer from '../PopupContainer'
 import { useParams } from 'react-router-dom'
-import { TextField } from '@mui/material'
+import { Button, TextField } from '@mui/material'
 import classes from './AddUserPopup.module.scss'
 import { encryptData, exportKey, generateKey } from 'Helpers/Encryption'
 
@@ -11,16 +11,19 @@ interface AddUserPopupProps {
 
 export const AddUserPopup = ({ close }: AddUserPopupProps) => {
     const { group_id } = useParams()
+    const [copied, setCopied] = useState(false)
     const [hashedUrl, setHashedUrl] = useState('')
 
 
     const generateGroupIDHash = async () => {
+
         if (!group_id) return
 
         const key = await generateKey();
 
         const encryptedString = await encryptData(group_id, key);
-        const url = `${window.location.origin}?data=${encodeURIComponent(encryptedString)}`;
+        const url = `${window.location.origin}/join-group/${encodeURIComponent(encryptedString)}`;
+
         setHashedUrl(url)
     }
 
@@ -28,13 +31,24 @@ export const AddUserPopup = ({ close }: AddUserPopupProps) => {
         generateGroupIDHash()
     }, [])
 
+    const copyClicked = () => {
+        navigator.clipboard.writeText(hashedUrl);
+        setCopied(true)
+    }
+
     return (
         <PopupContainer closePopup={close}>
             <div className={classes['add-user-popup']}>
-                Url to share
-                <div className={classes['add-user-popup--link']}>
-                    {hashedUrl}
+                <div className={classes['add-user-popup--blurb']}>
+                    Share this link to add users to this group
                 </div>
+                <div className={classes['add-user-popup--shareable-container']}>
+                    <div className={classes['add-user-popup--link']}>
+                        {hashedUrl}
+                    </div>
+                    <Button variant='contained' onClick={() => copyClicked()}>Copy</Button>
+                </div>
+                {copied && <div className={classes['add-user-popup--copied']}>Copied to clip board!</div>}
             </div>
         </PopupContainer>
     )

@@ -1,7 +1,15 @@
 .add-user-popup {
-    @apply flex flex-col p-10;
+    @apply flex flex-col p-8 items-center;
+
+    &--shareable-container {
+        @apply flex w-full mb-2;
+    }
 
     &--link {
-        @apply cursor-pointer;
+        @apply cursor-pointer text-nowrap overflow-hidden bg-gray-300 p-2 w-96 text-gray-500 mr-2;
+    }
+
+    &--blurb {
+        @apply mb-4;
     }
 }

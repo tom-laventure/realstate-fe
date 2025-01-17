@@ -1,15 +1,17 @@
-import React from 'react'
+import React, { useState } from 'react'
 import classes from './GroupSelectedSideNav.module.scss'
 import { NavLink, useParams } from 'react-router-dom'
 import { useAppSelector } from 'Store/Hooks/useDispatch'
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import { Button } from '@mui/material'
+import { AddUserPopup } from 'Components/Common/Popups/AddUser/AddUserPopup';
 
 interface GroupSelectedSideNavProps {
     goBack: () => void
 }
 
 const GroupSelectedSideNav = ({ goBack }: GroupSelectedSideNavProps) => {
+    const [showAddUserPopup, setShowAddUserPopup] = useState(true)
     const selectedGroup = useAppSelector(state => state.groups.selectedGroup)
 
     return (
@@ -44,8 +46,9 @@ const GroupSelectedSideNav = ({ goBack }: GroupSelectedSideNavProps) => {
                         return <div className={classes['selected-side-nav--members__user']} key={key}>{user.name}</div>
                     })}
                 </div>
-                <div className={classes['channel-navigation-button']}>+ new member</div>
+                <div onClick={() => { }} className={classes['channel-navigation-button']}>+ new member</div>
             </div>
+            {showAddUserPopup && <AddUserPopup close={() => setShowAddUserPopup(false)}/>}
         </div>
     )
 }
