@@ -1,6 +1,7 @@
 import React from 'react'
 import { createBrowserRouter } from 'react-router-dom'
 import AppShell from 'Components/Common/Shells/AppShell'
+import AppShellNoAuth from 'Components/Common/Shells/AppShellNoAuth'
 import AccountManagement from 'Containers/Auth/AccountManagement/AccountManagement'
 import GroupDashBoard from 'Containers/Dashboard/Groups/GroupDashboard'
 import JoinGroup from 'Containers/Dashboard/Groups/JoinGroup/JoinGroup'
@@ -38,7 +39,14 @@ const router = createBrowserRouter([
 			{
 				element: <EstatesDashboard />,
 				path: "estates/:group_id"
-			},
+			}
+		]
+	},
+	{
+		path: '/invite/',
+		element: <AppShellNoAuth/>,
+		errorElement: <ErrorPage />,
+		children: [
 			{
 				element: <JoinGroup />,
 				path: "join-group/:token"

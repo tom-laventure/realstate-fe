@@ -20,7 +20,7 @@ export const AddUserPopup = ({ close }: AddUserPopupProps) => {
         if (!group_id) return
 
         const encryptedString = await encryptData(group_id);
-        const url = `${window.location.origin}/join-group/${encodeURIComponent(encryptedString)}`;
+        const url = `${window.location.origin}/invite/join-group/${encodeURIComponent(encryptedString)}`;
 
         setHashedUrl(url)
     }

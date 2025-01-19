@@ -15,12 +15,12 @@ const useGetGroup = (id: string | undefined) => {
         queryFn: () => getGroup(id),
         retry: false,
         onSuccess: (data) => {
-
+            console.log(data)
         }
     })
 
     useEffect(() => {
-        if (isError) navigate('/login')
+
     }, [isError])
 
     return { isLoading, data, isSuccess }
