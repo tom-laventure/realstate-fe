@@ -5,11 +5,10 @@ import { Button } from '@mui/material'
 import { useParams } from 'react-router-dom'
 import { decryptData } from 'Helpers/Encryption'
 import useGetGroup from 'Store/Hooks/Groups/useGetGroup'
-import SignUp from 'Components/Common/Form/SignUp/SignUp'
-import SignIn from 'Components/Common/Form/SignIn/SignIn'
+import SignInSignUp from 'Components/View/Auth/SignInSignUp'
+
 
 const JoinGroup = () => {
-    const [signIn, setSignIn] = useState(true)
     const [groupInfo, setGroupInfo] = useState<group>()
     const [groupID, setGroupID] = useState<string>()
     const { token } = useParams()
@@ -35,11 +34,7 @@ const JoinGroup = () => {
             </div>
         )
     } else {
-        return (
-            <div>
-                {signIn ? <SignIn switchForm={() => setSignIn(!signIn)} /> : <SignUp switchForm={() => setSignIn(!signIn)} />}
-            </div>
-        )
+        return <SignInSignUp />
     }
 
 }
