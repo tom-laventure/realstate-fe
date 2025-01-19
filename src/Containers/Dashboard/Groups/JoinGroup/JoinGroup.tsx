@@ -8,6 +8,7 @@ const JoinGroup = () => {
     const [groupInfo, setGroupInfo] = useState<group>()
     const { token } = useParams()
     
+    
 
     return (
         <div>

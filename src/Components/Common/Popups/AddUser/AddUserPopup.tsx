@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import PopupContainer from '../PopupContainer'
 import { useParams } from 'react-router-dom'
-import { Button, TextField } from '@mui/material'
+import { Button } from '@mui/material'
 import classes from './AddUserPopup.module.scss'
-import { encryptData, exportKey, generateKey } from 'Helpers/Encryption'
+import { decryptData, encryptData } from 'Helpers/Encryption'
 
 interface AddUserPopupProps {
     close: () => void
@@ -19,9 +19,9 @@ export const AddUserPopup = ({ close }: AddUserPopupProps) => {
 
         if (!group_id) return
 
-        const key = await generateKey();
-
-        const encryptedString = await encryptData(group_id, key);
+        const encryptedString = await encryptData(group_id);
+        const decode = await decryptData(encodeURIComponent(encryptedString))
+        console.log(decode)
         const url = `${window.location.origin}/join-group/${encodeURIComponent(encryptedString)}`;
 
         setHashedUrl(url)

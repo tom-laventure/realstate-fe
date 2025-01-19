@@ -1,71 +1,76 @@
-
-// Generate an AES-GCM key
-const generateKey = async () => {
-    return await crypto.subtle.generateKey(
-        { name: "AES-GCM", length: 256 },
-        true, // extractable
-        ["encrypt", "decrypt"]
-    );
-};
-
-// Export the key to a Base64 string to share with the client
-const exportKey = async (key: CryptoKey) => {
-    const rawKey = await crypto.subtle.exportKey("raw", key);
-    return btoa(String.fromCharCode(...new Uint8Array(rawKey)));
-};
-
-const encryptData = async (data: string, key: CryptoKey) => {
-    const iv = crypto.getRandomValues(new Uint8Array(12)); // Generate a random IV
+const getKeyForEncryption = async (keyString: string): Promise<CryptoKey> => {
     const encoder = new TextEncoder();
-    const encodedData = encoder.encode(data);
+    const keyData = encoder.encode(keyString);
+    const hashBuffer = await crypto.subtle.digest('SHA-256', keyData);
+    return crypto.subtle.importKey(
+        'raw',
+        hashBuffer,
+        { name: 'AES-GCM', length: 256 },
+        false,
+        ['encrypt', 'decrypt']
+    );
+};
 
-    const encryptedData = await crypto.subtle.encrypt(
-        { name: "AES-GCM", iv },
+const urlSafeBase64ToBase64 = (urlSafeBase64: string): string => {
+    let base64 = urlSafeBase64.replace(/-/g, '+').replace(/_/g, '/');
+
+    // Add padding if necessary
+    while (base64.length % 4) {
+        base64 += '=';
+    }
+
+    return base64;
+};
+
+// Function to encrypt the ID
+const encryptData = async (id: string): Promise<string> => {
+    const secretKey = process.env.REACT_APP_SECRET_KEY || '123'
+    const key = await getKeyForEncryption(secretKey);
+    const encoder = new TextEncoder();
+    const iv = crypto.getRandomValues(new Uint8Array(12)); // Initialization vector
+    const encodedId = encoder.encode(id);
+    const encryptedBuffer = await crypto.subtle.encrypt(
+        { name: 'AES-GCM', iv },
         key,
-        encodedData
+        encodedId
     );
 
-    // Convert encrypted data and IV to Base64 for URL-safe encoding
-    const encryptedBase64 = btoa(String.fromCharCode(...new Uint8Array(encryptedData)));
+    // Convert encrypted data and IV to Base64 and make them URL-safe
+    const encryptedArray = Array.from(new Uint8Array(encryptedBuffer));
+    const encryptedBase64 = btoa(String.fromCharCode(...encryptedArray));
     const ivBase64 = btoa(String.fromCharCode(...iv));
 
-    return `${ivBase64}.${encryptedBase64}`; // Format to be URL-safe
+    return `${ivBase64}.${encryptedBase64}`.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
 };
 
+const decryptData = async (encryptedId: string): Promise<string> => {
+    const secretKey = process.env.REACT_APP_SECRET_KEY || '123';
+    const [ivBase64, encryptedBase64] = encryptedId.split('.');
 
-const importKey = async (base64Key: string) => {
-    const rawKey = Uint8Array.from(atob(base64Key), c => c.charCodeAt(0));
-    return await crypto.subtle.importKey(
-        "raw",
-        rawKey,
-        { name: "AES-GCM" },
-        true,
-        ["decrypt"]
-    );
-};
+    if (!ivBase64 || !encryptedBase64) {
+        throw new Error('Invalid encrypted ID format.');
+    }
 
-const decryptData = async (encryptedData: string, key: CryptoKey) => {
-    const [ivBase64, encryptedBase64] = encryptedData.split('.');
+    // Revert URL-safe Base64 to standard Base64
+    const ivBase64Standard = urlSafeBase64ToBase64(ivBase64);
+    const encryptedBase64Standard = urlSafeBase64ToBase64(encryptedBase64);
 
-    // Decode IV and encrypted data from Base64
-    const iv = Uint8Array.from(atob(ivBase64), c => c.charCodeAt(0));
-    const encryptedArray = Uint8Array.from(atob(encryptedBase64), c => c.charCodeAt(0));
+    // Decode the Base64 data and IV
+    const iv = Uint8Array.from(atob(ivBase64Standard), c => c.charCodeAt(0));
+    const encryptedData = Uint8Array.from(atob(encryptedBase64Standard), c => c.charCodeAt(0));
 
-    // Decrypt the data
-    const decryptedData = await crypto.subtle.decrypt(
-        { name: "AES-GCM", iv },
+    const key = await getKeyForEncryption(secretKey);
+    const decryptedBuffer = await crypto.subtle.decrypt(
+        { name: 'AES-GCM', iv },
         key,
-        encryptedArray
+        encryptedData
     );
 
     const decoder = new TextDecoder();
-    return decoder.decode(decryptedData);
+    return decoder.decode(decryptedBuffer);
 };
 
 export {
-    generateKey,
-    exportKey,
     encryptData,
-    importKey,
     decryptData
 }

@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query"
 import fetchGroups from "Assets/API/Groups/fetchGroups"
+import getGroup from "Assets/API/Groups/getGroup"
 import { useEffect } from "react"
 import { useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
@@ -13,7 +14,7 @@ const useGetGroup = (id: string) => {
     const { isLoading, isError, data, isSuccess } = useQuery({
         queryKey: ['fetchGroup', id],
         staleTime: 10,
-        queryFn: () => getGroup(),
+        queryFn: () => getGroup(id),
         retry: false,
         onSuccess: (data) => {
             const groups = data.data
