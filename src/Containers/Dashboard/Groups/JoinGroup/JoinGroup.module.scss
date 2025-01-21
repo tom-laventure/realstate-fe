@@ -1,0 +1,15 @@
+.join-group {
+    @apply w-full flex justify-center;
+
+    &--body {
+        @apply mx-auto mt-40 flex flex-col;
+    }
+
+    &--blurb {
+        @apply pb-4;
+    }
+
+    &--button-container {
+        @apply w-full flex justify-center;
+    }
+}

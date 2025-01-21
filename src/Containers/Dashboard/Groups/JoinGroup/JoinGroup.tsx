@@ -29,13 +29,19 @@ const JoinGroup = () => {
         return <div>Loading</div>
     } else if (isSuccess) {
         return (
-            <div>
-                You have been invited to join {groupInfo?.name}
-                <Button>Join</Button>
+            <div className={classes['join-group']}>
+                <div className={classes['join-group--body']}>
+                    <div className={classes['join-group--blurb']}>
+                        You have been invited to join {groupInfo?.name}
+                    </div>
+                    <div className={classes['join-group--button-container']}>
+                        <Button>Join</Button>
+                    </div>
+                </div>
             </div>
         )
     } else {
-        return <SignInSignUp complete={() => refetch()}/>
+        return <SignInSignUp complete={() => refetch()} />
     }
 
 }
