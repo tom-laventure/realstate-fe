@@ -12,11 +12,12 @@ interface SignInFormInputs {
 }
 
 interface Props {
-    switchForm: () => void
+    switchForm: () => void,
+    complete?: () => void
 }
 
-const SignIn = ({ switchForm }: Props) => {
-    const { mutate } = useSignIn()
+const SignIn = ({ switchForm, complete }: Props) => {
+    const { mutate } = useSignIn({ complete })
     const { register, handleSubmit, formState: { errors } } = useForm<SignInFormInputs>();
 
     const onSubmit: SubmitHandler<SignInFormInputs> = (formData) => {

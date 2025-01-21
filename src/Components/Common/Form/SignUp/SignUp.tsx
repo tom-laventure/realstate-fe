@@ -12,21 +12,22 @@ interface signUpFormInputs {
 }
 
 interface Props {
-    switchForm: () => void
+    switchForm: () => void,
+    complete?: () => void
 }
 
-const SignUp = ({ switchForm }: Props) => {
+const SignUp = ({ switchForm, complete }: Props) => {
     const { register, handleSubmit, formState: { errors }, watch } = useForm<signUpFormInputs>();
     const password = watch('password')
-    const {mutate} = useSignUp()
+    const { mutate } = useSignUp({ complete })
     const onSubmit: SubmitHandler<signUpFormInputs> = (formData) => {
         const user = {
             email: formData.email,
             password: formData.password,
             name: formData.name
         }
-        
-        mutate({user})
+
+        mutate({ user })
     };
 
     return (

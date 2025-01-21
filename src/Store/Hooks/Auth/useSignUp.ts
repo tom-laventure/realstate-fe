@@ -2,8 +2,11 @@ import { useMutation } from "@tanstack/react-query"
 import signUp, { body } from "Assets/API/Auth/SignUp";
 import { useNavigate } from "react-router-dom";
 
+interface UseSignUpProps {
+  complete?: () => void
+}
 
-const useSignUp = () => {
+const useSignUp = ({ complete }: UseSignUpProps) => {
   const navigate = useNavigate()
 
   const { isLoading, mutate } = useMutation({
@@ -13,7 +16,8 @@ const useSignUp = () => {
         const authorizationHeader = data.headers;
 
         if (authorizationHeader['authorization']) localStorage.setItem('authToken', authorizationHeader['authorization'])
-        // navigate('/')
+        if (complete) complete()
+        else navigate('/')
       }
     }
   })

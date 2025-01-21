@@ -5,8 +5,11 @@ import { useNavigate } from "react-router-dom";
 import { updateUser } from "Store/Reducers/account";
 import { setGroupState } from "Store/Reducers/groups";
 
+interface UseSignInProps {
+  complete?: () => void
+}
 
-const useSignIn = () => {
+const useSignIn = ({ complete }: UseSignInProps) => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
@@ -21,10 +24,10 @@ const useSignIn = () => {
         if (authorizationHeader['authorization']) localStorage.setItem('authToken', authorizationHeader['authorization'])
 
         dispatch(updateUser(user))
-        if (groups?.length) {
-          dispatch(setGroupState(groups))
-          navigate(`/estates/${groups[0].id}`)
-        }
+        if (groups) dispatch(setGroupState(groups))
+
+        if (complete) complete()
+        else if (groups?.length) navigate(`/estates/${groups[0].id}`)
         else navigate('/')
       }
     }

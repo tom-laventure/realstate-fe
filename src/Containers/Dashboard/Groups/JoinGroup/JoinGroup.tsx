@@ -12,11 +12,12 @@ const JoinGroup = () => {
     const [groupInfo, setGroupInfo] = useState<group>()
     const [groupID, setGroupID] = useState<string>()
     const { token } = useParams()
-    const { isLoading, isSuccess } = useGetGroup(groupID)
+    const { isLoading, isSuccess, refetch } = useGetGroup(groupID, setGroupInfo)
 
     useEffect(() => {
         if (token) decrypt(token)
     }, [token])
+
 
     const decrypt = async (encryptedID: string) => {
         const decoded = await decryptData(encryptedID)
@@ -34,7 +35,7 @@ const JoinGroup = () => {
             </div>
         )
     } else {
-        return <SignInSignUp />
+        return <SignInSignUp complete={() => refetch()}/>
     }
 
 }

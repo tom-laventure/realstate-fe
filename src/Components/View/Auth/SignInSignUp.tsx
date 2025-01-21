@@ -2,12 +2,20 @@ import SignIn from 'Components/Common/Form/SignIn/SignIn'
 import SignUp from 'Components/Common/Form/SignUp/SignUp'
 import React, { useState } from 'react'
 
-const SignInSignUp = () => {
+interface SignInSignUpProps {
+    complete?: () => void
+}
+
+const SignInSignUp = ({ complete }: SignInSignUpProps) => {
     const [signIn, setSignIn] = useState(true)
 
     return (
         <div>
-            {signIn ? <SignIn switchForm={() => setSignIn(!signIn)} /> : <SignUp switchForm={() => setSignIn(!signIn)} />}
+            {
+                signIn ?
+                    <SignIn complete={complete} switchForm={() => setSignIn(!signIn)} /> :
+                    <SignUp complete={complete} switchForm={() => setSignIn(!signIn)} />
+            }
         </div>
     )
 }
