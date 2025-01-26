@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom"
 
 
 
-const useGetGroup = (id: string | undefined, complete: React.Dispatch<React.SetStateAction<group | undefined>>) => {
+const useGetGroup = (id: string | undefined, complete: ({group, in_group}: {group: group, in_group: boolean}) => void) => {
     const navigate = useNavigate()
 
     const { isLoading, isError, data, isSuccess, refetch } = useQuery({
@@ -16,8 +16,8 @@ const useGetGroup = (id: string | undefined, complete: React.Dispatch<React.SetS
         queryFn: () => getGroup(id),
         retry: false,
         onSuccess: (data) => {
-            const group = data.data
-            complete(group)
+            const res = data.data
+            complete({group: res.group, in_group: res.in_group})
         }
     })
 
