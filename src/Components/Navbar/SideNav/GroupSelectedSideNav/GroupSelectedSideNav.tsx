@@ -11,7 +11,7 @@ interface GroupSelectedSideNavProps {
 }
 
 const GroupSelectedSideNav = ({ goBack }: GroupSelectedSideNavProps) => {
-    const [showAddUserPopup, setShowAddUserPopup] = useState(true)
+    const [showAddUserPopup, setShowAddUserPopup] = useState(false)
     const selectedGroup = useAppSelector(state => state.groups.selectedGroup)
 
     return (
@@ -46,7 +46,7 @@ const GroupSelectedSideNav = ({ goBack }: GroupSelectedSideNavProps) => {
                         return <div className={classes['selected-side-nav--members__user']} key={key}>{user.name}</div>
                     })}
                 </div>
-                <div onClick={() => { }} className={classes['channel-navigation-button']}>+ new member</div>
+                <div onClick={() => setShowAddUserPopup(true)} className={classes['channel-navigation-button']}>+ new member</div>
             </div>
             {showAddUserPopup && <AddUserPopup close={() => setShowAddUserPopup(false)}/>}
         </div>

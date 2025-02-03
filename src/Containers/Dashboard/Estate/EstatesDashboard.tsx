@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import classes from './EstatesDashboard.module.scss'
 import useFetchEstates from 'Store/Hooks/Estates/useFetchEstates'
 import { useParams } from 'react-router-dom'
@@ -6,12 +6,10 @@ import { useAppDispatch, useAppSelector } from 'Store/Hooks/useDispatch'
 import connectToChat from 'Assets/Websocket/ChatChannel'
 import message from 'Assets/Types/MessageType'
 import { pushMessage } from 'Store/Reducers/messages'
-import { AddUserPopup } from 'Components/Common/Popups/AddUser/AddUserPopup'
 import EstateTable from 'Components/Table/Estates/EstateTable'
 
 const EstatesDashboard = () => {
     const dispatch = useAppDispatch()
-    const [addUserPopup, setAddUserPopup] = useState(false)
     const { estates, order } = useAppSelector(state => {
         return { estates: state.estates.userEstates, order: state.estates.orderby }
     })
@@ -43,7 +41,6 @@ const EstatesDashboard = () => {
 
                 </div>
             }
-            {addUserPopup && <AddUserPopup close={() => setAddUserPopup(false)} />}
         </div>
     )
 }
