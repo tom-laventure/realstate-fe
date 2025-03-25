@@ -12,8 +12,10 @@ type Props = {}
 
 const EstateView = (props: Props) => {
     const params = useParams()
-    const { selectedEstate } = useGetEstate(params.group_id, params.selected_id)
+    const { selectedEstate, isLoading } = useGetEstate(params.group_id, params.selected_id)
     const navigate = useNavigate()
+
+    if (isLoading) return <></>
 
     return (
         <div className={classes['estate-view']}>
