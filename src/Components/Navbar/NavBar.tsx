@@ -4,21 +4,24 @@ import useSignOut from 'Store/Hooks/Auth/useSignOut'
 import { Button } from '@mui/material'
 import { useAppSelector } from 'Store/Hooks/useDispatch'
 import useGetCurrentUser from 'Store/Hooks/Auth/useGetCurrentUser'
+import { NavLink } from 'react-router-dom'
 
 interface NavBarProps {
 	disableAuth?: boolean
 }
 
-const Navbar = ({disableAuth = false}: NavBarProps) => {
+const Navbar = ({ disableAuth = false }: NavBarProps) => {
 	const { mutate: signout } = useSignOut()
 	const accountId = useAppSelector(state => state.account.id)
-	if(!disableAuth) useGetCurrentUser(accountId)
+	if (!disableAuth) useGetCurrentUser(accountId)
 
 	return (
 		<div className={classes['navbar']}>
 			<div className={classes['navbar__buttons']}>
+				Placeholder
 			</div>
 			<div className={classes['navbar__buttons']}>
+				<NavLink to="/">Groups</NavLink>
 				<Button onClick={() => signout()}>Sign Out</Button>
 			</div>
 		</div>

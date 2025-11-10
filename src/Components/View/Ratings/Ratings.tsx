@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, MouseEvent } from 'react'
 import classes from './Ratings.module.scss'
 import { Rating } from '@mui/material'
 import usePostRatings from 'Store/Hooks/Ratings/usePostRating'
@@ -125,12 +125,13 @@ const SetRating = ({ cancelEdit, currentRating, estateId, setRatings }: SetRatin
     else postRating(body)
   }
 
+
   return (
     <div className={classes['ratings--content']}>
       <span className={classes['ratings--content__label']}>
         Your Rating:
       </span>
-      <Rating size="small" precision={.5} defaultValue={currentRating?.rating ? +currentRating.rating : 0} max={10} onChange={(event, value) => saveRating(value)} />
+      <Rating size="small" precision={.5} onClick={e => e.stopPropagation()} defaultValue={currentRating?.rating ? +currentRating.rating : 0} max={10} onChange={(event, value) => saveRating(value)} />
       <span className={classes['ratings--content__action']} onClick={cancelEdit}>cancel</span>
     </div>
   )
@@ -142,6 +143,11 @@ interface UserRatingProps {
 }
 
 const UserRating = ({ ratingValue = '0', editRating }: UserRatingProps) => {
+  const editRatingClicked = (e: MouseEvent<HTMLSpanElement, globalThis.MouseEvent>) => {
+    editRating()
+    e.stopPropagation()
+  }
+
   return (
     <div className={classes['ratings--content']}>
       <span className={classes['ratings--content__label']}>
@@ -150,7 +156,7 @@ const UserRating = ({ ratingValue = '0', editRating }: UserRatingProps) => {
       <div className={classes['ratings--rating-container']}>
         <Rating size="small" value={+ratingValue} precision={.5} max={10} disabled />
       </div>
-      <span onClick={editRating} className={classes['ratings--content__action']}>edit</span>
+      <span onClick={e => editRatingClicked(e)} className={classes['ratings--content__action']}>edit</span>
     </div>
   )
 }

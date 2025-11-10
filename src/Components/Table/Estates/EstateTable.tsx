@@ -53,7 +53,7 @@ interface EstateProps {
 const Estate = ({ click, estate }: EstateProps) => {
 
     return (
-        <div className={classes['estate--container']}>
+        <div className={classes['estate--container']} onClick={click}>
             <div className={classes['estate--body']}>
                 <img className={classes['estate--image']} src={estate.image} />
                 <div className={classes['estate--content']}>

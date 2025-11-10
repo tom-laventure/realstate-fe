@@ -14,10 +14,10 @@ const EstatesDashboard = () => {
         return { estates: state.estates.userEstates, order: state.estates.orderby }
     })
     const { group_id } = useParams()
-    const { } = useFetchEstates({
+    const { isLoading } = useFetchEstates({
         id: group_id,
         order: order
-    }
+        }
     )
 
     const messageRecieved = (message: message) => dispatch(pushMessage(message))
@@ -26,6 +26,7 @@ const EstatesDashboard = () => {
         if (group_id) connectToChat(group_id, messageRecieved)
     }, [])
 
+    if (isLoading) return <></>
     return (
         <div className={classes['estate-dashboard']}>
             {group_id ?
