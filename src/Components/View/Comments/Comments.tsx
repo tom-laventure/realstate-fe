@@ -8,6 +8,7 @@ import PopupContainer from 'Components/Common/Popups/PopupContainer'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { editComment } from 'Store/Reducers/comments'
+import CardShell from 'Components/Common/Shells/CardShell'
 
 interface Props {
     comments?: comment[],
@@ -73,18 +74,20 @@ const Comments = ({ comments, estateId }: Props) => {
 
 
     return (
-        <div className={classes['comment-container']}>
-            <div className={classes['comment-container--header']}>Comments:</div>
-            {!!confirmPopup && <ConfirmPopup />}
-            {comments && comments.map((comment, index) => {
-                return <Comment
-                    key={index}
-                    comment={comment}
-                    functionArray={functionArray}
-                    openSubComment={openSubComment}
-                />
-            })}
-        </div>
+        <CardShell className={classes['comment-panel']}>
+            <div className={classes['comment-container']}>
+                <div className={classes['comment-container--header']}>Comments:</div>
+                {!!confirmPopup && <ConfirmPopup />}
+                {comments && comments.map((comment, index) => {
+                    return <Comment
+                        key={index}
+                        comment={comment}
+                        functionArray={functionArray}
+                        openSubComment={openSubComment}
+                    />
+                })}
+            </div>
+        </CardShell>
     )
 }
 

@@ -4,6 +4,7 @@ import { Rating } from '@mui/material'
 import usePostRatings from 'Store/Hooks/Ratings/usePostRating'
 import rating, { RatingResponse } from 'Assets/Types/EstateRatingType'
 import UseEditRating from 'Store/Hooks/Ratings/useEditRating'
+import EditIcon from '@mui/icons-material/Edit';
 
 
 export interface RatingsPropTypes {
@@ -85,7 +86,7 @@ const ExistingRatings = ({ currentRating, userRatings }: ExistingRatings) => {
   return (
     <div className={classes['ratings--content']}>
       <span className={classes['ratings--content__label']}>
-        Avg Rating:
+        Group Rating:
       </span>
       <div className={classes['ratings--rating-container']}>
         <Rating size="small" value={currentRating} disabled precision={.5} max={10} />
@@ -156,7 +157,7 @@ const UserRating = ({ ratingValue = '0', editRating }: UserRatingProps) => {
       <div className={classes['ratings--rating-container']}>
         <Rating size="small" value={+ratingValue} precision={.5} max={10} disabled />
       </div>
-      <span onClick={e => editRatingClicked(e)} className={classes['ratings--content__action']}>edit</span>
+      <span onClick={e => editRatingClicked(e)} className={classes['ratings--content__action']}><EditIcon color='inherit' fontSize='small' /></span>
     </div>
   )
 }

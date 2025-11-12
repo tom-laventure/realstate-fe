@@ -1,4 +1,5 @@
 import comment from "./EstateCommentType"
+import EstateListingDetails from "./EstateListingDetailsType"
 import rating from "./EstateRatingType"
 
 interface estate {
@@ -6,6 +7,7 @@ interface estate {
     link: string,
     estate_ratings: rating[]
     estate_comments?: comment[],
+    listing_detail?: EstateListingDetails,
     id: number,
     user_rating?: rating,
     image: string,

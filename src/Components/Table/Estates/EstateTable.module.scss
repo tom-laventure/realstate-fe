@@ -60,7 +60,7 @@
     }
 
     &--actions {
-        @apply flex justify-between;
+        @apply flex justify-end;
 
         button {
             @apply flex items-center;
