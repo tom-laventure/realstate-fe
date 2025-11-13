@@ -10,7 +10,7 @@
     @apply flex flex-col w-full rounded-lg my-2 p-5 relative;
 
     &--addition {
-        @apply flex justify-between w-full items-center;
+        @apply flex justify-end w-full items-center;
     }
 
     &--buttons {
@@ -24,11 +24,19 @@
     }
 
     &--owner {
-        @apply text-[10px];
+        @apply text-[10px] flex justify-between items-center w-full;
+
+        &__name {
+            @apply font-semibold mr-2 text-base;
+        }
+    }
+
+    &--top-level {
+        @apply flex justify-end w-full my-2;
     }
 
     &--elipsis {
-        @apply flex justify-end w-full absolute top-0 right-2;
+        @apply w-full flex justify-end;
     }
 
     &--pop-up {
@@ -36,18 +44,18 @@
     }
 
     &--neutral {
-        @apply bg-gray-300;
+        @apply text-gray-500;
     }
 
     &--like {
-        @apply bg-green-300;
+        @apply text-green-500;
     }
 
     &--dislike {
-        @apply bg-red-300;
+        @apply text-red-500;
     }
 
     &--work {
-        @apply bg-blue-300;
+        @apply text-blue-500;
     }
 }

@@ -19,6 +19,7 @@ const CardShell: React.FC<CardShellProps> = ({ children, sx = {}, className }) =
                 maxWidth: { xs: '100%', md: 900 },
                 mx: 'auto',
                 backgroundColor: 'background.paper',
+                width: '100%',
                 ...sx
             }}
             elevation={2}

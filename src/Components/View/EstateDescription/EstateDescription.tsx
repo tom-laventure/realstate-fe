@@ -60,104 +60,93 @@ const EstateDescription: React.FC<Props> = ({ listing_detail }) => {
   };
 
   return (
-    <Card
-      sx={{
-        borderRadius: 3,
-        boxShadow: 2,
-        p: 2,
-        maxWidth: 800,
-        mx: "auto",
-        backgroundColor: "background.paper",
-      }}
-    >
-      <CardContent>
-        {/* PRICE DETAILS */}
-        <SectionHeader title="Price Details" />
-        <Grid container spacing={1} alignItems="center">
-          <Grid size={6}>
-            <Typography variant="body2" color="text.secondary">
-              List Price
-            </Typography>
-            <Typography variant="h6">{priceDetails.listPrice}</Typography>
-          </Grid>
-          <Grid size={6} display="flex" justifyContent="flex-end">
-            {/* optional CTA area */}
-          </Grid>
-
-          <Grid size={6}>
-            <Typography variant="body2" color="text.secondary">
-              Gross Taxes for 2024
-            </Typography>
-            <Typography>{priceDetails.taxes}</Typography>
-          </Grid>
-          <Grid size={6}>
-            <Typography variant="body2" color="text.secondary">
-              Strata Maintenance Fees
-            </Typography>
-            <Typography>{priceDetails.strataFees}</Typography>
-          </Grid>
+    <>
+      {/* PRICE DETAILS */}
+      <SectionHeader title="Price Details" />
+      <Grid container spacing={1} alignItems="center" sx={{ width: '100%' }}>
+        <Grid size={6}>
+          <Typography variant="body2" color="text.secondary">
+            List Price
+          </Typography>
+          <Typography variant="h6">{priceDetails.listPrice}</Typography>
+        </Grid>
+        <Grid size={6} display="flex" justifyContent="flex-end">
+          {/* optional CTA area */}
         </Grid>
 
-        <Divider sx={{ my: 2 }} />
-
-        {/* HOME FACTS */}
-        <SectionHeader title="Home Facts" />
-        <Grid container spacing={1}>
-          <Grid size={6}>
-            <Typography>Bedrooms: {homeFacts.bedrooms ?? "—"}</Typography>
-            <Typography>Full Bathrooms: {homeFacts.bathrooms ?? "—"}</Typography>
-            <Typography>Property Type: {homeFacts.propertyType ?? "—"}</Typography>
-            <Typography>Year Built: {homeFacts.yearBuilt ?? "—"}</Typography>
-          </Grid>
-          <Grid size={6}>
-            <Typography>Title: {homeFacts.title ?? "—"}</Typography>
-            <Typography>Style: {homeFacts.style ?? "—"}</Typography>
-            <Typography>Heating Type: {homeFacts.heatingType ?? "—"}</Typography>
-            <Typography>Community: {homeFacts.community ?? "—"}</Typography>
-          </Grid>
+        <Grid size={6}>
+          <Typography variant="body2" color="text.secondary">
+            Gross Taxes for 2024
+          </Typography>
+          <Typography>{priceDetails.taxes}</Typography>
         </Grid>
-
-        <Box mt={2}>
-          <Typography variant="body2" fontWeight="bold">
-            Features:
+        <Grid size={6}>
+          <Typography variant="body2" color="text.secondary">
+            Strata Maintenance Fees
           </Typography>
-          <Typography color="text.secondary">
-            {homeFacts.features.length ? homeFacts.features.join(", ") : "—"}
-          </Typography>
+          <Typography>{priceDetails.strataFees}</Typography>
+        </Grid>
+      </Grid>
 
-          <Typography variant="body2" fontWeight="bold" mt={1}>
-            Amenities:
-          </Typography>
-          <Typography color="text.secondary">
-            {homeFacts.amenities.length ? homeFacts.amenities.join(", ") : "—"}
-          </Typography>
+      <Divider sx={{ my: 2 }} />
 
-          <Typography variant="body2" fontWeight="bold" mt={1}>
-            Appliances:
-          </Typography>
-          <Typography color="text.secondary">
-            {homeFacts.appliances.length ? homeFacts.appliances.join(", ") : "—"}
-          </Typography>
-        </Box>
+      {/* HOME FACTS */}
+      <SectionHeader title="Home Facts" />
+      <Grid container spacing={1}>
+        <Grid size={6}>
+          <Typography>Bedrooms: {homeFacts.bedrooms ?? "—"}</Typography>
+          <Typography>Full Bathrooms: {homeFacts.bathrooms ?? "—"}</Typography>
+          <Typography>Property Type: {homeFacts.propertyType ?? "—"}</Typography>
+          <Typography>Year Built: {homeFacts.yearBuilt ?? "—"}</Typography>
+        </Grid>
+        <Grid size={6}>
+          <Typography>Title: {homeFacts.title ?? "—"}</Typography>
+          <Typography>Style: {homeFacts.style ?? "—"}</Typography>
+          <Typography>Heating Type: {homeFacts.heatingType ?? "—"}</Typography>
+          <Typography>Community: {homeFacts.community ?? "—"}</Typography>
+        </Grid>
+      </Grid>
 
-        <Divider sx={{ my: 2 }} />
+      <Box mt={2}>
+        <Typography variant="body2" fontWeight="bold">
+          Features:
+        </Typography>
+        <Typography color="text.secondary">
+          {homeFacts.features.length ? homeFacts.features.join(", ") : "—"}
+        </Typography>
 
-        {/* AGENT DETAILS */}
-        <SectionHeader title="Agent Details" />
-        <Typography>Primary Agent: {agentDetails.primaryAgent || "—"}</Typography>
-        <Typography>Primary Broker: {agentDetails.primaryBroker || "—"}</Typography>
+        <Typography variant="body2" fontWeight="bold" mt={1}>
+          Amenities:
+        </Typography>
+        <Typography color="text.secondary">
+          {homeFacts.amenities.length ? homeFacts.amenities.join(", ") : "—"}
+        </Typography>
 
-        <Divider sx={{ my: 2 }} />
+        <Typography variant="body2" fontWeight="bold" mt={1}>
+          Appliances:
+        </Typography>
+        <Typography color="text.secondary">
+          {homeFacts.appliances.length ? homeFacts.appliances.join(", ") : "—"}
+        </Typography>
+      </Box>
 
-        {/* LISTING DETAILS */}
-        <SectionHeader title="Listing Details" />
-        <Typography>Days on Market: {listingDetails.daysOnMarket ?? "—"}</Typography>
-        <Typography>Property Views: {listingDetails.views ?? "—"}</Typography>
-        <Typography>MLS® Number: {listingDetails.mlsNumber ?? "—"}</Typography>
-        <Typography>Source: {listingDetails.mlsSource ?? listingDetails.source ?? "—"}</Typography>
-        <Typography>Board: {listingDetails.board ?? "—"}</Typography>
-      </CardContent>
-    </Card>
+      <Divider sx={{ my: 2 }} />
+
+      {/* AGENT DETAILS */}
+      <SectionHeader title="Agent Details" />
+      <Typography>Primary Agent: {agentDetails.primaryAgent || "—"}</Typography>
+      <Typography>Primary Broker: {agentDetails.primaryBroker || "—"}</Typography>
+
+      <Divider sx={{ my: 2 }} />
+
+      {/* LISTING DETAILS */}
+      <SectionHeader title="Listing Details" />
+      <Typography>Days on Market: {listingDetails.daysOnMarket ?? "—"}</Typography>
+      <Typography>Property Views: {listingDetails.views ?? "—"}</Typography>
+      <Typography>MLS® Number: {listingDetails.mlsNumber ?? "—"}</Typography>
+      <Typography>Source: {listingDetails.mlsSource ?? listingDetails.source ?? "—"}</Typography>
+      <Typography>Board: {listingDetails.board ?? "—"}</Typography>
+    </>
   );
 };
 

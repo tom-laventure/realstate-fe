@@ -74,20 +74,17 @@ const Comments = ({ comments, estateId }: Props) => {
 
 
     return (
-        <CardShell className={classes['comment-panel']}>
-            <div className={classes['comment-container']}>
-                <div className={classes['comment-container--header']}>Comments:</div>
-                {!!confirmPopup && <ConfirmPopup />}
-                {comments && comments.map((comment, index) => {
-                    return <Comment
-                        key={index}
-                        comment={comment}
-                        functionArray={functionArray}
-                        openSubComment={openSubComment}
-                    />
-                })}
-            </div>
-        </CardShell>
+        <div className={classes['comment-container']}>
+            {!!confirmPopup && <ConfirmPopup />}
+            {comments && comments.map((comment, index) => {
+                return <Comment
+                    key={index}
+                    comment={comment}
+                    functionArray={functionArray}
+                    openSubComment={openSubComment}
+                />
+            })}
+        </div>
     )
 }
 
@@ -128,11 +125,18 @@ const commentDetails: CommentDetailsType = {
 
 const Comment = ({ comment, functionArray, openSubComment }: CommentsArrayProps) => {
     return (
-        <div className={`${classes['comment']} ${commentDetails[comment.comment_type].color}`}>
-            <div className={classes['comment--elipsis']}>{comment.is_author && <EllipsisMenu functionArray={functionArray} item={comment} />}</div>
-            <div className={classes['comment--text']}>{comment.comment}</div>
+        <div className={`${classes['comment']}`}>
+            <div className={classes['comment--elipsis']}>
+                {comment.is_author && <EllipsisMenu functionArray={functionArray} item={comment} />}
+            </div>
+            <div className={classes['comment--top-level']}>
+                <div className={classes['comment--owner']}>
+                    <span className={classes['comment--owner__name']}>{comment.comment_owner}</span>
+                    <span className={commentDetails[comment.comment_type].color}> {commentDetails[comment.comment_type].text}</span>
+                </div>
+            </div>
+            <div className={`${classes['comment--text']}`} >{comment.comment}</div>
             <div className={classes['comment--addition']}>
-                <div className={classes['comment--owner']}>{comment.comment_owner} - {commentDetails[comment.comment_type].text}</div>
                 {openSubComment && <Button onClick={() => openSubComment(comment.id)} className={classes['comment--reply']}>{comment.subcomment_count ? `Replies (${comment.subcomment_count})` : `Reply`}</Button>}
             </div>
         </div>
