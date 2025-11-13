@@ -3,7 +3,7 @@ import classes from './SubComments.module.scss'
 import { Comment } from '../Comments/Comments'
 import { Button } from '@mui/material'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { useNavigate, useParams } from 'react-router-dom'
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import useFetchSubComments from 'Store/Hooks/Subcomments/useFetchSubcomments'
 import { useAppSelector } from 'Store/Hooks/useDispatch'
 import subcomment from 'Assets/Types/EstateSubCommentType'
@@ -12,9 +12,19 @@ import EllipsisMenu, { elipsisFunctionType } from 'Components/Common/Buttons/Eli
 
 const SubComments = () => {
     const { group_id, selected_id, comment_id } = useParams()
+    const navigate = useNavigate()
+    const [searchParams] = useSearchParams()
+
+    const goBack = () => {
+        // preserve existing query params but ensure tab=comments
+        const next = new URLSearchParams(searchParams)
+        next.set('tab', 'comments')
+
+        navigate(`/estates/${group_id}/selected/${selected_id}?${next.toString()}`, { replace: true })
+    }
+
     const selectedComment = useAppSelector((state) => state.estates.selectedEstate.estate_comments?.find(el => el.id == comment_id))
     const subcomments = useAppSelector((state) => state.subcomments.subcomments)
-    const navigate = useNavigate()
 
     const { } = useFetchSubComments(comment_id)
 
@@ -56,10 +66,6 @@ const SubComments = () => {
             func: deleteSubComment
         }
     ]
-
-    const goBack = () => {
-        navigate(`/estates/${group_id}/selected/${selected_id}`)
-    }
 
     return (
         <div className={classes['subcomment-container']}>

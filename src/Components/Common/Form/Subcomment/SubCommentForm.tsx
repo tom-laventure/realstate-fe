@@ -35,7 +35,7 @@ const SubCommentForm = () => {
                 <div className={classes['comment-form--input-container']}>
                     <TextField
                         className={classes['comment-form--comment-input']}
-                        label="Add a Comment"
+                        label="Reply"
                         type="text"
                         multiline
                         {...register('comment', {

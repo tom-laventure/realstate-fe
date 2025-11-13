@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import classes from './EstateView.module.scss'
-import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
+import { useNavigate, useParams, useSearchParams, useLocation } from 'react-router-dom'
 import useGetEstate from 'Store/Hooks/Estates/useGetEstate'
 import CommentsTable from 'Components/Table/Comments/CommentsTable'
 import { Button } from '@mui/material'
@@ -19,6 +19,7 @@ const EstateView = (props: Props) => {
     const params = useParams()
     const { selectedEstate, isLoading } = useGetEstate(params.group_id, params.selected_id)
     const navigate = useNavigate()
+    const location = useLocation()
     const [searchParams, setSearchParams] = useSearchParams()
 
     // initialize activeTab from URL (if present) and keep in sync with URL changes
@@ -32,11 +33,20 @@ const EstateView = (props: Props) => {
         }
     }, [searchParams])
 
-    // handler to change tab (updates local state + URL)
+    // handler to change tab (updates local state + URL and removes any /comment/:id segment)
     const handleNavigate = (tab: NavItem) => {
         setActiveTab(tab)
+
+        // build next search params (preserve existing params, set tab)
         const next = new URLSearchParams(searchParams)
         next.set('tab', tab)
+
+        // base path without /comment/:id - use route params to be safe
+        const basePath = `/estates/${params.group_id}/selected/${params.selected_id}`
+
+        // update the URL path and query in one navigation (removes comment segment)
+        navigate(`${basePath}?${next.toString()}`, { replace: true })
+        // also update search params state
         setSearchParams(next, { replace: true })
     }
 

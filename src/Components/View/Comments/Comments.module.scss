@@ -7,7 +7,7 @@
 }
 
 .comment {
-    @apply flex flex-col w-full rounded-lg my-2 p-5 relative;
+    @apply flex flex-col w-full rounded-lg my-2 p-5;
 
     &--addition {
         @apply flex justify-end w-full items-center;
@@ -36,7 +36,7 @@
     }
 
     &--elipsis {
-        @apply w-full flex justify-end;
+        @apply w-full flex justify-end h-4;
     }
 
     &--pop-up {

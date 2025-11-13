@@ -5,7 +5,7 @@ import { Button } from '@mui/material'
 import EllipsisMenu, { elipsisFunctionType } from 'Components/Common/Buttons/Elipsis/Elipsis'
 import useDeleteComment from 'Store/Hooks/Comments/useDeleteComment'
 import PopupContainer from 'Components/Common/Popups/PopupContainer'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { editComment } from 'Store/Reducers/comments'
 import CardShell from 'Components/Common/Shells/CardShell'
@@ -20,6 +20,8 @@ const Comments = ({ comments, estateId }: Props) => {
     const { mutate: deleteComment } = useDeleteComment({ complete: () => setConfirmPopup(0) })
     const navigate = useNavigate()
     const location = useLocation()
+    const [searchParams] = useSearchParams()
+    const params = useParams()
     const dishpatch = useDispatch()
 
     const editFunction = (closeElipsis: () => void, comment: comment) => {
@@ -43,7 +45,14 @@ const Comments = ({ comments, estateId }: Props) => {
     const openSubComment = (id?: number) => {
         if (!id) return
 
-        navigate(`${location.pathname}/comment/${id}`)
+        // preserve existing query params and force tab=comments
+        const next = new URLSearchParams(searchParams)
+        next.set('tab', 'comments')
+
+        // if current path already has /comment/:id, remove it first
+        const basePath = `/estates/${params.group_id}/selected/${params.selected_id}`
+
+        navigate(`${basePath}/comment/${id}?${next.toString()}`, { replace: false })
     }
 
     const functionArray = [
