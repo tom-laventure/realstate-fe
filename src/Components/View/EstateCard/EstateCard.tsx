@@ -1,11 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import classes from './EstateTable.module.scss'
 import estate from 'Assets/Types/EstateType'
-import { useLocation, useNavigate } from 'react-router-dom'
 import { Button } from '@mui/material'
-import AddEstatePopup from 'Components/Common/Popups/AddEstate/AddEstatePopup'
 import Ratings from 'Components/View/Ratings/Ratings'
-import EstateFiltersForm from 'Components/Common/Form/EstateFilters/EstateFiltersForm'
 import Card from '@mui/material/Card'
 import CardMedia from '@mui/material/CardMedia'
 import CardContent from '@mui/material/CardContent'
@@ -60,20 +56,14 @@ const EstateCard = ({ click, estate, disableCommentButton }: EstateCardProps) =>
                     <Ratings estateId={estate.id} ratings={estate.estate_ratings} userRating={estate.user_rating} />
                     {
                         !disableCommentButton && (
-                            <Badge
-                                badgeContent={estate.estate_comment_count ?? 0}
-                                color="primary"
-                                overlap="rectangular"
+                            <Button
+                                variant="outlined"
+                                size="small"
+                                onClick={(e) => { e.stopPropagation(); click(); }}
+                                aria-label={`comments-${estate.id}`}
                             >
-                                <Button
-                                    variant="outlined"
-                                    size="small"
-                                    onClick={(e) => { e.stopPropagation(); click(); }}
-                                    aria-label={`comments-${estate.id}`}
-                                >
-                                    Comments
-                                </Button>
-                            </Badge>
+                                Comments ({estate.estate_comment_count})
+                            </Button>
                         )
                     }
                 </CardActions>

@@ -15,7 +15,7 @@ const EstateTable = ({ estates }: Props) => {
     const location = useLocation()
     const navigate = useNavigate()
     const estateClicked = (id: number) => {
-        navigate(`${location.pathname}/selected/${id}`)
+        navigate(`${location.pathname}/selected/${id}?tab=comments`)
     }
 
 
