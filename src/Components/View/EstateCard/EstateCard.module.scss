@@ -2,4 +2,8 @@
     &--header {
         margin-bottom: 8px;
     }
+
+    &--top-level {
+        @apply flex justify-between items-center mb-2;
+    }
 }

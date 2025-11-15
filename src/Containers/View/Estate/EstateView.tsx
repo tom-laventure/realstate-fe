@@ -17,9 +17,10 @@ const VALID_TABS: NavItem[] = ['details', 'comments', 'documents', 'dates']
 const EstateView = (props: Props) => {
     const [activeTab, setActiveTab] = useState<NavItem>('details');
     const params = useParams()
+    if (!params.group_id || !params.selected_id) return <div />
+
     const { selectedEstate, isLoading } = useGetEstate(params.group_id, params.selected_id)
     const navigate = useNavigate()
-    const location = useLocation()
     const [searchParams, setSearchParams] = useSearchParams()
 
     // initialize activeTab from URL (if present) and keep in sync with URL changes
@@ -61,7 +62,7 @@ const EstateView = (props: Props) => {
                         <Button onClick={() => navigate(`/estates/${params.group_id}`)}>Go Back</Button>
                     </div>
 
-                    <EstateCard estate={selectedEstate} click={() => { }} disableCommentButton />
+                    <EstateCard estate={selectedEstate} groupID={params.group_id} click={() => { }} disableCommentButton />
 
                     {/* controlled navbar */}
                     <EstateNavBar value={activeTab} onNavigate={handleNavigate} />

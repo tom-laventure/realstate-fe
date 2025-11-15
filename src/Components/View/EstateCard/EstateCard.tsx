@@ -1,6 +1,6 @@
 import React from 'react'
 import estate from 'Assets/Types/EstateType'
-import { Button } from '@mui/material'
+import { Button, IconButton } from '@mui/material'
 import Ratings from 'Components/View/Ratings/Ratings'
 import Card from '@mui/material/Card'
 import CardMedia from '@mui/material/CardMedia'
@@ -9,21 +9,38 @@ import CardActions from '@mui/material/CardActions'
 import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
 import classes from './EstateCard.module.scss'
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import useToggleLike from 'Store/Hooks/Estates/useToggleLike'
+import { group } from 'console'
 
 interface EstateCardProps {
     click: (id: number, tab?: string) => void,
     estate: estate,
+    groupID: string,
     disableCommentButton?: boolean
 }
 
-const EstateCard = ({ click, estate, disableCommentButton }: EstateCardProps) => {
+const EstateCard = ({ click, estate, groupID, disableCommentButton }: EstateCardProps) => {
+    const [isLiked, setIsLiked] = React.useState(estate.liked || false)
+
+    const { mutate, isLoading } = useToggleLike({
+        complete: () => {
+            setIsLiked(!isLiked)
+        }
+    })
+
+    const handleLikeClick = (e: React.MouseEvent) => {
+        e.stopPropagation()
+        mutate({ estate_id: estate.id, group_id: groupID })
+    }
 
     return (
         <Card
             onClick={() => click(estate.id)}
             sx={{
                 display: 'flex',
-                flexDirection: { xs: 'column', sm: 'row' }, // stack on mobile, row on small+
+                flexDirection: { xs: 'column', sm: 'row' },
                 mb: 2,
                 cursor: 'pointer'
             }}
@@ -43,9 +60,23 @@ const EstateCard = ({ click, estate, disableCommentButton }: EstateCardProps) =>
             <Box sx={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
                 <CardContent sx={{ flex: '1 0 auto' }}>
                     <Box sx={classes['estate-card--header']}>
-                        <Typography component="div" variant="subtitle1" color="text.secondary">
-                            {estate.price}
-                        </Typography>
+                        <div className={classes['estate-card--top-level']}>
+                            <Typography component="div" variant="subtitle1" color="text.secondary">
+                                {estate.price}
+                            </Typography>
+                            <IconButton
+                                onClick={handleLikeClick}
+                                disabled={isLoading}
+                                aria-label="toggle like"
+                                size="small"
+                            >
+                                {isLiked ? (
+                                    <FavoriteIcon color="error" />
+                                ) : (
+                                    <FavoriteBorderIcon />
+                                )}
+                            </IconButton>
+                        </div>
                         <Typography component="div" variant="h6">
                             {estate.address}
                         </Typography>

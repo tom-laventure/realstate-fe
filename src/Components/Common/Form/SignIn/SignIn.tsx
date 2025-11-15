@@ -47,7 +47,7 @@ const SignIn = ({ switchForm, complete }: Props) => {
                         <TextField
                             label="Email"
                             type="email"
-                            defaultValue="sade@mcclure-douglas.example"
+                            defaultValue="leontine@wuckert.test"
                             {...register('email', {
                                 required: 'Email is required',
                                 pattern: {

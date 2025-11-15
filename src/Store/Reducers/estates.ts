@@ -18,7 +18,8 @@ const initialState: estateType = {
         estate_ratings: [],
         user_rating: undefined,
         image: '',
-        estate_comment_count: 0
+        estate_comment_count: 0,
+        liked: false
     }
 }
 

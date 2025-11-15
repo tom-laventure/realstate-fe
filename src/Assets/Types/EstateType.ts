@@ -12,10 +12,11 @@ interface estate {
     user_rating?: rating,
     image: string,
     price?: string,
-    estate_comment_count: number
+    estate_comment_count: number,
+    liked: boolean
 }
 
-type estateMetaData = Omit<estate, 'estate_ratings' | 'link' | 'id' | 'estate_comment_count'>
+type estateMetaData = Omit<estate, 'estate_ratings' | 'link' | 'id' | 'estate_comment_count' | 'liked'>
 
 export { estateMetaData }
 export default estate
