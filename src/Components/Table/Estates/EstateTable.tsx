@@ -14,8 +14,8 @@ const EstateTable = ({ estates }: Props) => {
     const [openEstatePopup, setOpenEstatePopup] = useState(false)
     const location = useLocation()
     const navigate = useNavigate()
-    const estateClicked = (id: number) => {
-        navigate(`${location.pathname}/selected/${id}?tab=comments`)
+    const estateClicked = (id: number, tab?: string) => {
+        navigate(`${location.pathname}/selected/${id}` + (tab ? `?tab=${tab}` : ''))
     }
 
 
@@ -32,7 +32,7 @@ const EstateTable = ({ estates }: Props) => {
                 return <EstateCard
                     estate={estate}
                     key={estate.id}            // use stable key
-                    click={() => estateClicked(estate.id)}
+                    click={estateClicked}
                 />
             })}
             {openEstatePopup && <AddEstatePopup close={() => setOpenEstatePopup(false)} />}

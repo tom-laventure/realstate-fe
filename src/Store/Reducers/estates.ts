@@ -12,7 +12,7 @@ export interface estateType {
 const initialState: estateType = {
     userEstates: [],
     selectedEstate: {
-        header: '',
+        address: '',
         id: -1,
         link: '',
         estate_ratings: [],

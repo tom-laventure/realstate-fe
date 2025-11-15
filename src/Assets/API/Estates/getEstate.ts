@@ -3,7 +3,6 @@ import instance from '../../Axios/axios';
 
 
 interface GetEstateType {
-    estates: estate[],
     selected_estate: estate
 }
 

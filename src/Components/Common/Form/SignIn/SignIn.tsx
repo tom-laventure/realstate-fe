@@ -47,7 +47,7 @@ const SignIn = ({ switchForm, complete }: Props) => {
                         <TextField
                             label="Email"
                             type="email"
-                            defaultValue="user1@example.com"
+                            defaultValue="sade@mcclure-douglas.example"
                             {...register('email', {
                                 required: 'Email is required',
                                 pattern: {
@@ -64,7 +64,7 @@ const SignIn = ({ switchForm, complete }: Props) => {
                         <TextField
                             label="Password"
                             type="password"
-                            defaultValue="password"
+                            defaultValue="password123"
                             {...register('password', {
                                 required: 'Password is required',
                                 minLength: {

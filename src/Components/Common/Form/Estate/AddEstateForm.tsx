@@ -25,12 +25,12 @@ const AddEstateForm = ({ close }: AddEstateFormProps) => {
     const { register: registerEstate, reset, getValues, handleSubmit } = useForm<estateMetaData>({
         defaultValues: {
             image: '',
-            header: '',
+            address: '',
             price: ''
         }
     })
 
-    const { image, header, price } = getValues()
+    const { image, address, price } = getValues()
     const [url, setUrl] = useState('')
     const { isLoading } = useGetEstateMetaData(url, reset)
     const linkValue = watch('link')
@@ -58,7 +58,7 @@ const AddEstateForm = ({ close }: AddEstateFormProps) => {
 
         const formdata = {
             estate: {
-                header: data.header,
+                address: data.address,
                 price: data.price,
                 image: data.image,
                 link: url
@@ -115,9 +115,9 @@ const AddEstateForm = ({ close }: AddEstateFormProps) => {
                                     <div className={classes['estate-form--temp-estate__content']}>
                                         <TextField
                                             className={classes['estate-form--temp-estate__input']}
-                                            label="Header"
-                                            {...registerEstate('header')}
-                                            value={header}
+                                            label="Address"
+                                            {...registerEstate('address')}
+                                            value={address}
 
                                         />
                                         <div className={classes['estate-form--temp-estate__bottom']}>

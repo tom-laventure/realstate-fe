@@ -3,7 +3,7 @@ import EstateListingDetails from "./EstateListingDetailsType"
 import rating from "./EstateRatingType"
 
 interface estate {
-    header: string,
+    address: string,
     link: string,
     estate_ratings: rating[]
     estate_comments?: comment[],

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import estate from 'Assets/Types/EstateType'
 import { Button } from '@mui/material'
 import Ratings from 'Components/View/Ratings/Ratings'
@@ -8,10 +8,10 @@ import CardContent from '@mui/material/CardContent'
 import CardActions from '@mui/material/CardActions'
 import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
-import Badge from '@mui/material/Badge'
+import classes from './EstateCard.module.scss'
 
 interface EstateCardProps {
-    click: () => void,
+    click: (id: number, tab?: string) => void,
     estate: estate,
     disableCommentButton?: boolean
 }
@@ -20,7 +20,7 @@ const EstateCard = ({ click, estate, disableCommentButton }: EstateCardProps) =>
 
     return (
         <Card
-            onClick={click}
+            onClick={() => click(estate.id)}
             sx={{
                 display: 'flex',
                 flexDirection: { xs: 'column', sm: 'row' }, // stack on mobile, row on small+
@@ -38,16 +38,16 @@ const EstateCard = ({ click, estate, disableCommentButton }: EstateCardProps) =>
                     objectFit: 'cover'
                 }}
                 image={estate.image}
-                alt={estate.header || 'estate image'}
+                alt={estate.address || 'estate image'}
             />
             <Box sx={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
                 <CardContent sx={{ flex: '1 0 auto' }}>
-                    <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 2, flexWrap: 'wrap' }}>
-                        <Typography component="div" variant="h6">
-                            {estate.header}
-                        </Typography>
+                    <Box sx={classes['estate-card--header']}>
                         <Typography component="div" variant="subtitle1" color="text.secondary">
                             {estate.price}
+                        </Typography>
+                        <Typography component="div" variant="h6">
+                            {estate.address}
                         </Typography>
                     </Box>
                 </CardContent>
@@ -59,7 +59,7 @@ const EstateCard = ({ click, estate, disableCommentButton }: EstateCardProps) =>
                             <Button
                                 variant="outlined"
                                 size="small"
-                                onClick={(e) => { e.stopPropagation(); click(); }}
+                                onClick={(e) => { e.stopPropagation(); click(estate.id, 'comments'); }}
                                 aria-label={`comments-${estate.id}`}
                             >
                                 Comments ({estate.estate_comment_count})

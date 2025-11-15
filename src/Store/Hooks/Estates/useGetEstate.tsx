@@ -8,7 +8,6 @@ import { useAppSelector } from "../useDispatch"
 
 
 const useGetEstate = (id: string | undefined, estateId: string | undefined) => {
-    const navigate = useNavigate()
     const dispatch = useDispatch()
     let selectedEstate = useAppSelector(state => state.estates.selectedEstate)
 
@@ -21,7 +20,6 @@ const useGetEstate = (id: string | undefined, estateId: string | undefined) => {
         onSuccess: (data) => {
             const estates = data.data
             dispatch(setSelectedEstate(estates.selected_estate))
-            dispatch(setEstates(estates.estates))
             selectedEstate = estates.selected_estate
         }
     })
