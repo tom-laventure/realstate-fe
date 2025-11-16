@@ -5,16 +5,13 @@ import { Button } from '@mui/material'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import useFetchSubComments from 'Store/Hooks/Subcomments/useFetchSubcomments'
-import { useAppSelector } from 'Store/Hooks/useDispatch'
+import { useAppSelector, useAppDispatch } from 'Store/Hooks/useDispatch'
 import subcomment from 'Assets/Types/EstateSubCommentType'
 import EllipsisMenu, { elipsisFunctionType } from 'Components/Common/Buttons/Elipsis/Elipsis'
+import { setEditSubcomment } from 'Store/Reducers/subcomments'
 
 
-interface SubCommentsProps {
-    openPopup: () => void
-}
-
-const SubComments = ({ openPopup }: SubCommentsProps) => {
+const SubComments = () => {
     const { group_id, selected_id, comment_id } = useParams()
     const navigate = useNavigate()
     const [searchParams] = useSearchParams()
@@ -29,17 +26,12 @@ const SubComments = ({ openPopup }: SubCommentsProps) => {
 
     const selectedComment = useAppSelector((state) => state.estates.selectedEstate.estate_comments?.find(el => el.id == comment_id))
     const subcomments = useAppSelector((state) => state.subcomments.subcomments)
+    const dispatch = useAppDispatch()
 
     const { } = useFetchSubComments(comment_id)
 
-    const editSubComment = () => {
-
-    }
-
-    const deleteSubComment = () => {
-
-    }
-
+    const editSubComment = (sc: subcomment) => { dispatch(setEditSubcomment(sc)) }
+    const deleteSubComment = (sc: subcomment) => { dispatch(setEditSubcomment(sc))} 
     const editComment = () => {
 
     }

@@ -65,10 +65,8 @@ const SelectedCommenView = ({ openPopup, setPopup }: SelectedCommentViewProps) =
 
   return (
     <>
-      <SubComments openPopup={() => setPopup(true)} />
-      {openPopup && <SubCommentsFormPopup closePopup={() => closePopup()}>
-        <SubCommentForm closePopup={() => closePopup()} />
-      </SubCommentsFormPopup>}
+      <SubComments />
+      <SubCommentForm />
     </>
   )
 }

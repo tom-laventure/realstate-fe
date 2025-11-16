@@ -103,6 +103,7 @@ const PostComment = ({ register }: PostCommentProps) => {
                     label="Add a Comment"
                     type="text"
                     multiline
+                    rows={4} // disable TextareaAutosize; avoids ResizeObserver
                     {...register('comment', {
                         required: 'A comment is required',
                         minLength: {
@@ -119,6 +120,7 @@ const PostComment = ({ register }: PostCommentProps) => {
                         className={classes['comment-form--comment-select']}
                         {...register('type')}
                         size='small'
+                        MenuProps={{ disablePortal: true }} // reduce portal-induced layout/focus churn
                     >
                         <MenuItem value="neutral">Note</MenuItem>
                         <MenuItem value="like">Something I like</MenuItem>
@@ -150,6 +152,7 @@ const EditComment = ({ register, comment }: EditCommentProps) => {
                     label="Edit Comment"
                     type="text"
                     multiline
+                    rows={4}
                     {...register('comment', {
                         required: 'A comment is required',
                         minLength: {
@@ -166,6 +169,7 @@ const EditComment = ({ register, comment }: EditCommentProps) => {
                         defaultValue={comment.comment_type}
                         {...register('type')}
                         size='small'
+                        MenuProps={{ disablePortal: true }}
                     >
                         <MenuItem value="neutral">Note</MenuItem>
                         <MenuItem value="like">Something I like</MenuItem>

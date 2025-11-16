@@ -1,5 +1,5 @@
 interface subcomment {
-    id?: number,
+    id: number,
     comment: string,
     comment_owner?: number,
     is_author?: boolean
