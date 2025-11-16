@@ -10,11 +10,14 @@ interface SubcommentFormInterface {
     comment: string
 }
 
+interface SubCommentFormProps {
+    closePopup: () => void
+}
 
-const SubCommentForm = () => {
+const SubCommentForm = ({ closePopup }: SubCommentFormProps) => {
     const { comment_id } = useParams()
     const { register, handleSubmit, reset } = useForm<SubcommentFormInterface>()
-    const { mutate } = usePostSubcomments({ complete: () => reset() })
+    const { mutate } = usePostSubcomments({ complete: () => { closePopup(); reset() } })
 
     const onSubmit: SubmitHandler<SubcommentFormInterface> = (formData) => {
         if (!comment_id) return

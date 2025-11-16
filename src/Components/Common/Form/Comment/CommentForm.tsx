@@ -15,7 +15,11 @@ interface CommentFormInterface {
     type: string
 }
 
-const CommentForm = () => {
+interface CommentFormProps {
+    closePopup: () => void
+}
+
+const CommentForm = ({ closePopup }: CommentFormProps) => {
     const [editForm, setEditForm] = useState(false)
     const dispatch = useDispatch()
     const editCommentState = useAppSelector(state => state.comments.editComment)
@@ -25,11 +29,12 @@ const CommentForm = () => {
             type: 'neutral'
         }
     })
-    const { mutate: submitPostComment } = usePostComments({ complete: () => reset() })
+    const { mutate: submitPostComment } = usePostComments({ complete: () => { reset(); closePopup() } })
     const { mutate: submitEditComment } = useEditComments({
         complete: () => {
             reset()
             setEditForm(false)
+            closePopup()
         }
     })
     const estateId = useAppSelector(state => state.estates.selectedEstate?.id)
@@ -106,11 +111,14 @@ const PostComment = ({ register }: PostCommentProps) => {
                         }
                     })}
                 />
-                <div className='w-full max-w-fit'>
+            </div>
+            <div className={classes['comment-form--button-container']}>
+                <div className='w-full max-w-fit mr-4'>
                     <Select
                         defaultValue="neutral"
                         className={classes['comment-form--comment-select']}
                         {...register('type')}
+                        size='small'
                     >
                         <MenuItem value="neutral">Note</MenuItem>
                         <MenuItem value="like">Something I like</MenuItem>
@@ -119,9 +127,9 @@ const PostComment = ({ register }: PostCommentProps) => {
                     </Select>
                     <FormHelperText>What type of comment is this?</FormHelperText>
                 </div>
-            </div>
-            <div className={classes['comment-form--button-container']}>
-                <Button variant="contained" type='submit'>Submit Comment</Button>
+                <div className={classes['comment-form--button']}>
+                    <Button variant="contained" type='submit'>Submit</Button>
+                </div>
             </div>
         </>
     )
@@ -134,11 +142,6 @@ interface EditCommentProps {
 }
 
 const EditComment = ({ register, comment }: EditCommentProps) => {
-    const dispatch = useDispatch()
-
-    const cancelEdit = () => {
-        dispatch(editComment(undefined))
-    }
     return (
         <>
             <div className={classes['comment-form--input-container']}>
@@ -155,11 +158,14 @@ const EditComment = ({ register, comment }: EditCommentProps) => {
                         }
                     })}
                 />
-                <div className='w-full max-w-fit'>
+            </div>
+            <div className={classes['comment-form--button-container__edit']}>
+                <div className='w-full max-w-fit mr-2'>
                     <Select
                         className={classes['comment-form--comment-select']}
                         defaultValue={comment.comment_type}
                         {...register('type')}
+                        size='small'
                     >
                         <MenuItem value="neutral">Note</MenuItem>
                         <MenuItem value="like">Something I like</MenuItem>
@@ -168,10 +174,9 @@ const EditComment = ({ register, comment }: EditCommentProps) => {
                     </Select>
                     <FormHelperText>What type of comment is this?</FormHelperText>
                 </div>
-            </div>
-            <div className={classes['comment-form--button-container__edit']}>
-                <Button variant="contained" type='submit'>Edit Comment</Button>
-                <Button onClick={() => cancelEdit()} variant="contained" >Cancel</Button>
+                <div>
+                    <Button variant="contained" type='submit'>Edit Comment</Button>
+                </div>
             </div>
         </>
     )

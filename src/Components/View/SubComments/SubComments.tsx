@@ -10,7 +10,11 @@ import subcomment from 'Assets/Types/EstateSubCommentType'
 import EllipsisMenu, { elipsisFunctionType } from 'Components/Common/Buttons/Elipsis/Elipsis'
 
 
-const SubComments = () => {
+interface SubCommentsProps {
+    openPopup: () => void
+}
+
+const SubComments = ({ openPopup }: SubCommentsProps) => {
     const { group_id, selected_id, comment_id } = useParams()
     const navigate = useNavigate()
     const [searchParams] = useSearchParams()

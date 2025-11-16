@@ -13,7 +13,7 @@ interface EditCommentFormInterface {
 
 const EditCommentForm = () => {
     const { register, handleSubmit, reset } = useForm<EditCommentFormInterface>()
-    const { mutate } = usePostComments({complete: () => reset()})
+    const { mutate } = usePostComments({ complete: () => reset() })
     const estateId = useAppSelector(state => state.estates.selectedEstate?.id)
 
     const onSubmit: SubmitHandler<EditCommentFormInterface> = (formData) => {
@@ -47,6 +47,8 @@ const EditCommentForm = () => {
                             }
                         })}
                     />
+                </div>
+                <div className={classes['comment-form--button-container']}>
                     <div className='w-full max-w-fit'>
                         <Select
                             defaultValue="neutral"
@@ -60,9 +62,7 @@ const EditCommentForm = () => {
                         </Select>
                         <FormHelperText>What type of comment is this?</FormHelperText>
                     </div>
-                </div>
-                <div className={classes['comment-form--button-container']}>
-                    <Button variant="contained" type='submit'>Submit Comment</Button>
+                    <Button variant="contained" type='submit'>Submit</Button>
                 </div>
             </FormControl>
         </form>

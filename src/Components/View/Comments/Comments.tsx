@@ -12,10 +12,11 @@ import CardShell from 'Components/Common/Shells/CardShell'
 
 interface Props {
     comments?: comment[],
-    estateId: number
+    estateId: number,
+    openPopup: () => void
 }
 
-const Comments = ({ comments, estateId }: Props) => {
+const Comments = ({ comments, estateId, openPopup }: Props) => {
     const [confirmPopup, setConfirmPopup] = useState(0)
     const { mutate: deleteComment } = useDeleteComment({ complete: () => setConfirmPopup(0) })
     const navigate = useNavigate()
@@ -25,13 +26,14 @@ const Comments = ({ comments, estateId }: Props) => {
     const dishpatch = useDispatch()
 
     const editFunction = (closeElipsis: () => void, comment: comment) => {
-        dishpatch(editComment(comment))
         closeElipsis()
+        dishpatch(editComment(comment))
+        openPopup()
     }
 
     const deleteFunction = (closeElipsis: () => void, comment: comment) => {
-        if (comment.id) setConfirmPopup(comment.id)
         closeElipsis()
+        if (comment.id) setConfirmPopup(comment.id)
     }
 
     const confirmDelete = () => {
