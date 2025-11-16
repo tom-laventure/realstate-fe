@@ -4,6 +4,18 @@
     }
 
     &--top-level {
-        @apply flex justify-between items-center mb-2;
+        @apply flex justify-between items-center;
+    }
+
+    &--price {
+        @apply text-lg font-semibold;
+    }
+
+    &--address {
+        @apply text-sm text-gray-600 mb-1;
+    }
+
+    &--details {
+        @apply text-sm text-gray-500;
     }
 }

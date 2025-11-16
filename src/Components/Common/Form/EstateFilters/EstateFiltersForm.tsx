@@ -3,9 +3,11 @@ import React from 'react'
 import { useDispatch } from 'react-redux'
 import { setOrderBy } from 'Store/Reducers/estates'
 import classes from './EstateFiltersForm.module.scss'
+import { useAppSelector } from 'Store/Hooks/useDispatch'
 
 const EstateFiltersForm = () => {
     const dispatch = useDispatch()
+    const orderBy = useAppSelector(state => state.estates.orderby)
 
     const filterChange = (event: { target: { value: string } }) => {
         dispatch(setOrderBy(event.target.value))
@@ -16,6 +18,7 @@ const EstateFiltersForm = () => {
             <FormControl variant="standard" className={classes['estate-filters-form--control']} >
                 <InputLabel className={classes['estate-filters-form--label']} id="estate-filters-form-select-label">Order By</InputLabel>
                 <Select
+                    value={orderBy}
                     onChange={filterChange}
                     size='small'
                     className={classes['estate-filters-form--select']}

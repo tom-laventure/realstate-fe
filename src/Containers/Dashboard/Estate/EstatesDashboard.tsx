@@ -10,14 +10,14 @@ import EstateTable from 'Components/Table/Estates/EstateTable'
 
 const EstatesDashboard = () => {
     const dispatch = useAppDispatch()
-    const { estates, order } = useAppSelector(state => {
-        return { estates: state.estates.userEstates, order: state.estates.orderby }
-    })
+    const estates = useAppSelector(state => state.estates.userEstates)
+    const order = useAppSelector(state => state.estates.orderby)
+
     const { group_id } = useParams()
     const { isLoading } = useFetchEstates({
         id: group_id,
         order: order
-        }
+    }
     )
 
     const messageRecieved = (message: message) => dispatch(pushMessage(message))

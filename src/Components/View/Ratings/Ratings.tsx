@@ -5,7 +5,7 @@ import usePostRatings from 'Store/Hooks/Ratings/usePostRating'
 import rating, { RatingResponse } from 'Assets/Types/EstateRatingType'
 import UseEditRating from 'Store/Hooks/Ratings/useEditRating'
 import EditIcon from '@mui/icons-material/Edit';
-
+import CancelIcon from '@mui/icons-material/Cancel';
 
 export interface RatingsPropTypes {
   estateId: number,
@@ -132,8 +132,10 @@ const SetRating = ({ cancelEdit, currentRating, estateId, setRatings }: SetRatin
       <span className={classes['ratings--content__label']}>
         Your Rating:
       </span>
-      <Rating size="small" precision={.5} onClick={e => e.stopPropagation()} defaultValue={currentRating?.rating ? +currentRating.rating : 0} max={10} onChange={(event, value) => saveRating(value)} />
-      <span className={classes['ratings--content__action']} onClick={cancelEdit}>cancel</span>
+      <div className={classes['ratings--rating-container']}>
+        <Rating size="small" precision={.5} onClick={e => e.stopPropagation()} defaultValue={currentRating?.rating ? +currentRating.rating : 0} max={10} onChange={(event, value) => saveRating(value)} />
+      </div>
+      <span className={classes['ratings--content__action']} onClick={cancelEdit}><CancelIcon color='inherit' fontSize='small' /></span>
     </div>
   )
 }

@@ -12,7 +12,6 @@ import classes from './EstateCard.module.scss'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import useToggleLike from 'Store/Hooks/Estates/useToggleLike'
-import { group } from 'console'
 
 interface EstateCardProps {
     click: (id: number, tab?: string) => void,
@@ -23,6 +22,7 @@ interface EstateCardProps {
 
 const EstateCard = ({ click, estate, groupID, disableCommentButton }: EstateCardProps) => {
     const [isLiked, setIsLiked] = React.useState(estate.liked || false)
+    const listingDetails = estate.listing_detail
 
     const { mutate, isLoading } = useToggleLike({
         complete: () => {
@@ -59,11 +59,11 @@ const EstateCard = ({ click, estate, groupID, disableCommentButton }: EstateCard
             />
             <Box sx={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
                 <CardContent sx={{ flex: '1 0 auto' }}>
-                    <Box sx={classes['estate-card--header']}>
+                    <Box className={classes['estate-card--header']}>
                         <div className={classes['estate-card--top-level']}>
-                            <Typography component="div" variant="subtitle1" color="text.secondary">
+                            <div className={classes['estate-card--price']}>
                                 {estate.price}
-                            </Typography>
+                            </div>
                             <IconButton
                                 onClick={handleLikeClick}
                                 disabled={isLoading}
@@ -77,9 +77,15 @@ const EstateCard = ({ click, estate, groupID, disableCommentButton }: EstateCard
                                 )}
                             </IconButton>
                         </div>
-                        <Typography component="div" variant="h6">
+                        <div className={classes['estate-card--address']}>
                             {estate.address}
-                        </Typography>
+                        </div>
+                        <div className={classes['estate-card--details']}>
+                            {listingDetails?.bedrooms} bd &#8226; {listingDetails?.full_bathrooms} ba &#8226; {listingDetails?.sqft} sqft
+                        </div>
+                        <div className={classes['estate-card--details']}>
+                            {listingDetails?.property_type}
+                        </div>
                     </Box>
                 </CardContent>
 
