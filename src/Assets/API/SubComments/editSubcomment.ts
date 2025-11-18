@@ -1,5 +1,5 @@
-import axios from 'axios'
 import subcomment from 'Assets/Types/EstateSubCommentType'
+import instance from 'Assets/Axios/axios'
 
 export interface EditSubcommentParams {
     id: number
@@ -8,6 +8,6 @@ export interface EditSubcommentParams {
 export type EditSubcommentResponse = subcomment
 
 const editSubcomment = (params: EditSubcommentParams) =>
-    axios.patch<EditSubcommentResponse>(`/v1/subcomments/${params.id}`, { comment: params.comment })
+    instance.patch<EditSubcommentResponse>(`/v1/subcomments/${params.id}`, { comment: params.comment })
 
 export default editSubcomment

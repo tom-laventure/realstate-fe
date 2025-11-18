@@ -12,4 +12,8 @@
     &--comments {
         @apply w-full;
     }
+
+    &--add-comment {
+        @apply w-full flex justify-end border-b-2 pb-4;
+    }
 }

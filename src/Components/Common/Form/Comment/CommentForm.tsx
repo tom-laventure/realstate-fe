@@ -66,17 +66,7 @@ const CommentForm = ({ closePopup }: CommentFormProps) => {
             id: editCommentState?.id
         }
 
-        if (editCommentState) {
-            submitEditComment(body)
-            dispatch(editComment(undefined))
-        } else {
-            submitPostComment(body)
-        }
-
-        reset({
-            comment: '',
-            type: 'neutral'
-        })
+        editCommentState ? submitEditComment(body) : submitPostComment(body)
     }
 
     return (

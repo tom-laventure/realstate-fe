@@ -5,10 +5,10 @@ import { Button } from '@mui/material'
 import EllipsisMenu, { elipsisFunctionType } from 'Components/Common/Buttons/Elipsis/Elipsis'
 import useDeleteComment from 'Store/Hooks/Comments/useDeleteComment'
 import PopupContainer from 'Components/Common/Popups/PopupContainer'
-import { useLocation, useNavigate, useParams, useSearchParams } from 'react-router-dom'
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { editComment } from 'Store/Reducers/comments'
-import CardShell from 'Components/Common/Shells/CardShell'
+import ConfirmPopup from 'Components/Common/Popups/ConfirmPopup/ConfirmPopup'
 
 interface Props {
     comments?: comment[],
@@ -20,7 +20,6 @@ const Comments = ({ comments, estateId, openPopup }: Props) => {
     const [confirmPopup, setConfirmPopup] = useState(0)
     const { mutate: deleteComment } = useDeleteComment({ complete: () => setConfirmPopup(0) })
     const navigate = useNavigate()
-    const location = useLocation()
     const [searchParams] = useSearchParams()
     const params = useParams()
     const dishpatch = useDispatch()
@@ -68,25 +67,11 @@ const Comments = ({ comments, estateId, openPopup }: Props) => {
         }
     ]
 
-    const ConfirmPopup = () => {
-        return (
-            <PopupContainer closePopup={() => setConfirmPopup(0)}>
-                <div className={classes['comment--pop-up']}>
-                    <div>Are you sure you want to delete this comment?</div>
-                    <div>
-                        <Button onClick={() => confirmDelete()}>Delete</Button>
-                        <Button onClick={() => setConfirmPopup(0)}>Cancel</Button>
-                    </div>
-                </div>
-            </PopupContainer>
-        )
-    }
-
 
 
     return (
         <div className={classes['comment-container']}>
-            {!!confirmPopup && <ConfirmPopup />}
+            {!!confirmPopup && <ConfirmPopup setConfirmPopup={setConfirmPopup} confirmDelete={confirmDelete} />}
             {comments && comments.map((comment, index) => {
                 return <Comment
                     key={index}

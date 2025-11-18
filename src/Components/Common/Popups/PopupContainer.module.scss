@@ -1,7 +1,7 @@
 .popup-container {
-    @apply fixed right-0 top-0 w-full h-screen flex z-10 justify-center items-center bg-black bg-opacity-20;
+    @apply fixed right-0 top-0 w-full h-screen flex justify-center items-center bg-black bg-opacity-20;
 
     &__modal {
-        @apply max-w-3xl bg-white drop-shadow-lg opacity-100 relative rounded-md;
+        @apply max-w-3xl bg-white opacity-100 rounded-md;
     }
 }

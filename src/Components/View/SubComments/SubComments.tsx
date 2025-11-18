@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import classes from './SubComments.module.scss'
 import { Comment } from '../Comments/Comments'
 import { Button } from '@mui/material'
@@ -9,15 +9,23 @@ import { useAppSelector, useAppDispatch } from 'Store/Hooks/useDispatch'
 import subcomment from 'Assets/Types/EstateSubCommentType'
 import EllipsisMenu, { elipsisFunctionType } from 'Components/Common/Buttons/Elipsis/Elipsis'
 import { setEditSubcomment } from 'Store/Reducers/subcomments'
+import useDeleteSubcomment from 'Store/Hooks/Subcomments/useDeleteSubcomment';
+import { editComment } from 'Store/Reducers/comments';
+import comment from 'Assets/Types/EstateCommentType';
+import useDeleteComment from 'Store/Hooks/Comments/useDeleteComment';
 
+interface SubCommentsProps {
+    openPopup: () => void
+}
 
-const SubComments = () => {
+const SubComments = ({ openPopup }: SubCommentsProps) => {
+    const [confirmPopup, setConfirmPopup] = useState(0)
+    const { mutate: deleteComment } = useDeleteComment({ complete: () => setConfirmPopup(0) })
     const { group_id, selected_id, comment_id } = useParams()
     const navigate = useNavigate()
     const [searchParams] = useSearchParams()
 
     const goBack = () => {
-        // preserve existing query params but ensure tab=comments
         const next = new URLSearchParams(searchParams)
         next.set('tab', 'comments')
 
@@ -26,31 +34,20 @@ const SubComments = () => {
 
     const selectedComment = useAppSelector((state) => state.estates.selectedEstate.estate_comments?.find(el => el.id == comment_id))
     const subcomments = useAppSelector((state) => state.subcomments.subcomments)
+    const { mutate: deleteSub, isLoading: isDeleting } = useDeleteSubcomment({ complete: () => { } })
     const dispatch = useAppDispatch()
 
     const { } = useFetchSubComments(comment_id)
 
-    const editSubComment = (sc: subcomment) => { dispatch(setEditSubcomment(sc)) }
-    const deleteSubComment = (sc: subcomment) => { dispatch(setEditSubcomment(sc))} 
-    const editComment = () => {
-
+    const editSubComment = (closeElipsis: () => void, sc: subcomment) => {
+        closeElipsis()
+        dispatch(setEditSubcomment(sc))
     }
 
-    const deleteComment = () => {
-
+    const deleteSubComment = (closeElipsis: () => void, sc: subcomment) => {
+        closeElipsis()
+        deleteSub({ id: sc.id })
     }
-
-    const functionArray = [
-        {
-            label: 'edit',
-            func: editComment
-        },
-        {
-            label: 'delete',
-            func: deleteComment
-        }
-    ]
-
 
     const functionSubCommentArray = [
         {
@@ -63,13 +60,36 @@ const SubComments = () => {
         }
     ]
 
+    const editFunction = (closeElipsis: () => void, comment: comment) => {
+        closeElipsis()
+        dispatch(editComment(comment))
+        openPopup()
+    }
+
+    const deleteFunction = (closeElipsis: () => void, comment: comment) => {
+        closeElipsis()
+        if (comment.id) setConfirmPopup(comment.id)
+    }
+
+
+    const functionCommentArray = [
+        {
+            label: 'edit',
+            func: editFunction
+        },
+        {
+            label: 'delete',
+            func: deleteFunction
+        }
+    ]
+
     return (
         <div className={classes['subcomment-container']}>
             <div>
-                <Button onClick={() => goBack()}><ArrowBackIcon color='action' fontSize='small' /> </Button>Reply:
+                <Button onClick={() => goBack()}><ArrowBackIcon color='action' fontSize='small' /> </Button>
             </div>
             <div className={classes['subcomment--comments']}>
-                {selectedComment && <Comment comment={selectedComment} functionArray={functionArray} />}
+                {selectedComment && <Comment comment={selectedComment} functionArray={functionCommentArray} />}
                 {subcomments.map((el, index) => {
                     return <SubComment functionArray={functionSubCommentArray} subcomment={el} key={index} />
                 })}

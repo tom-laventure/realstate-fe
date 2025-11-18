@@ -7,16 +7,16 @@ import { Route, Routes } from 'react-router-dom'
 import Comments from 'Components/View/Comments/Comments'
 import SubComments from 'Components/View/SubComments/SubComments'
 import CommentsFormPopup from 'Components/Common/Popups/CommentsFormPopup/CommentsFormPopup'
-import SubCommentsFormPopup from 'Components/Common/Popups/SubCommentsFormPopup/SubCommentsFormPopup'
 import { useDispatch } from 'react-redux'
 import { editComment } from 'Store/Reducers/comments'
+import { Button } from '@mui/material'
 
 type Props = {
   estate: estate
 }
 
 const CommentsTable = ({ estate }: Props) => {
-  const [openPopup, setOpenPopup] = useState(true)
+  const [openPopup, setOpenPopup] = useState(false)
 
   return (
     <div className={classes['estate-details']}>
@@ -38,13 +38,15 @@ interface CommentViewProps {
 
 const CommentView = ({ estate, openPopup, setPopup }: CommentViewProps) => {
   return (
-    <>
+    <div>
+      <div className={classes['estate-details--add-comment']}>
+        <Button size='small' variant="outlined" onClick={() => setPopup(true)}>Add Comment</Button>
+      </div>
       <Comments comments={estate.estate_comments} estateId={estate.id} openPopup={() => setPopup(true)} />
       {openPopup && <CommentsFormPopup closePopup={() => setPopup(false)}>
         <CommentForm closePopup={() => setPopup(false)} />
       </CommentsFormPopup>}
-
-    </>
+    </div>
   )
 }
 
@@ -65,8 +67,11 @@ const SelectedCommenView = ({ openPopup, setPopup }: SelectedCommentViewProps) =
 
   return (
     <>
-      <SubComments />
+      <SubComments openPopup={() => setPopup(true)} />
       <SubCommentForm />
+      {openPopup && <CommentsFormPopup closePopup={() => setPopup(false)}>
+        <CommentForm closePopup={() => setPopup(false)} />
+      </CommentsFormPopup>}
     </>
   )
 }
