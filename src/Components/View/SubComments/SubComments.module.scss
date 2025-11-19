@@ -12,10 +12,10 @@
     }
 
     &--comment {
-        @apply flex flex-col w-full rounded-lg my-2 p-5 relative;
+        @apply flex flex-col w-full rounded-lg my-2 p-5 relative border-2 border-t-0;
 
         &__addition {
-            @apply flex justify-between w-full items-center;
+            @apply flex w-full justify-between items-center mt-2;
         }
 
         &__buttons {
@@ -25,6 +25,10 @@
         }
 
         &__owner {
+            @apply text-[10px];
+        }
+
+        &__date {
             @apply text-[10px];
         }
 

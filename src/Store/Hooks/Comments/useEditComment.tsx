@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from "@tanstack/react-query"
 import editComment from "Assets/API/Comments/editComment"
-import comment from "Assets/Types/EstateCommentType"
+import comment, { commentMetaData } from "Assets/Types/EstateCommentType"
 import { useEffect } from "react"
 import { useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
@@ -15,7 +15,7 @@ const useEditComments = ({ complete }: UseEditCommentsProps) => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const { isLoading, mutate, isError } = useMutation({
-        mutationFn: (body: comment) => editComment(body),
+        mutationFn: (body: commentMetaData) => editComment(body),
         retry: false,
         onSuccess: (data) => {
             const comment = data.data

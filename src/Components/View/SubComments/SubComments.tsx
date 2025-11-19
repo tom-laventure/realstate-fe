@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import classes from './SubComments.module.scss'
 import { Comment } from '../Comments/Comments'
-import { Button } from '@mui/material'
+import { Button, Tooltip } from '@mui/material'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import useFetchSubComments from 'Store/Hooks/Subcomments/useFetchSubcomments'
@@ -16,6 +16,19 @@ import useDeleteComment from 'Store/Hooks/Comments/useDeleteComment';
 
 interface SubCommentsProps {
     openPopup: () => void
+}
+
+const formatTime = (value?: string | number | Date) => {
+    if (!value) return ''
+    const d = new Date(value)
+    if (isNaN(d.getTime())) return ''
+    return new Intl.DateTimeFormat(undefined, {
+        year: 'numeric',
+        month: 'short',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit'
+    }).format(d)
 }
 
 const SubComments = ({ openPopup }: SubCommentsProps) => {
@@ -98,18 +111,34 @@ const SubComments = ({ openPopup }: SubCommentsProps) => {
     )
 }
 
+
 interface SubcommentProps {
     subcomment: subcomment,
     functionArray: elipsisFunctionType[]
 }
 
 const SubComment = ({ functionArray, subcomment }: SubcommentProps) => {
+    const createdText = formatTime(subcomment.created_at)
+    const updatedText = formatTime(subcomment.updated_at)
+    const isEdited = subcomment.updated_at !== subcomment.created_at
+
     return (
         <div className={classes['subcomment--comment']}>
-            <div className={classes['subcomment--comment__elipsis']}>{subcomment.is_author && <EllipsisMenu functionArray={functionArray} item={subcomment} />}</div>
+            <div className={classes['subcomment--comment__elipsis']}>
+                {subcomment.is_author && <EllipsisMenu functionArray={functionArray} item={subcomment} />}
+            </div>
             <div className={classes['subcomment--comment__text']}>{subcomment.comment}</div>
             <div className={classes['subcomment--comment__addition']}>
                 <div className={classes['subcomment--comment__owner']}>{subcomment.comment_owner}</div>
+                <div className={classes['subcomment--comment__date']}>
+                    {isEdited ? (
+                        <Tooltip title={`Created ${createdText}`}  placement="bottom">
+                            <span>edited {updatedText}*</span>
+                        </Tooltip>
+                    ) : (
+                        <span>{createdText}</span>
+                    )}
+                </div>
             </div>
         </div>
     )

@@ -25,12 +25,12 @@ const EstateTable = ({ estates }: Props) => {
 
     return (
         <div className={classes['estates-table']}>
-            <div className={classes['estates-table--header-content']}>
+            {/* <div className={classes['estates-table--header-content']}>
                 <span className={classes['estates-table--header']}>
                     Group Listings
                 </span>
                 <button onClick={() => setOpenEstatePopup(true)}>+ new listing</button>
-            </div>
+            </div> */}
             <EstateFiltersForm />
             {estates && estates.map((estate) => {
                 return <EstateCard

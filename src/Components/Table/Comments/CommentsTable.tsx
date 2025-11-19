@@ -56,15 +56,6 @@ interface SelectedCommentViewProps {
 }
 
 const SelectedCommenView = ({ openPopup, setPopup }: SelectedCommentViewProps) => {
-  const dispatch = useDispatch()
-
-
-  const closePopup = () => {
-    setPopup(false)
-    dispatch(editComment(undefined))
-  }
-
-
   return (
     <>
       <SubComments openPopup={() => setPopup(true)} />

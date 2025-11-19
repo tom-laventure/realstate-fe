@@ -1,7 +1,7 @@
 import comment from 'Assets/Types/EstateCommentType'
 import React, { useState } from 'react'
 import classes from './Comments.module.scss'
-import { Button } from '@mui/material'
+import { Button, Tooltip } from '@mui/material'
 import EllipsisMenu, { elipsisFunctionType } from 'Components/Common/Buttons/Elipsis/Elipsis'
 import useDeleteComment from 'Store/Hooks/Comments/useDeleteComment'
 import PopupContainer from 'Components/Common/Popups/PopupContainer'
@@ -9,6 +9,7 @@ import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { editComment } from 'Store/Reducers/comments'
 import ConfirmPopup from 'Components/Common/Popups/ConfirmPopup/ConfirmPopup'
+import { formatTime } from 'Helpers/DateFormat'
 
 interface Props {
     comments?: comment[],
@@ -40,7 +41,6 @@ const Comments = ({ comments, estateId, openPopup }: Props) => {
             estateId: estateId,
             commentId: confirmPopup
         })
-
     }
 
     const openSubComment = (id?: number) => {
@@ -120,6 +120,11 @@ const commentDetails: CommentDetailsType = {
 
 
 const Comment = ({ comment, functionArray, openSubComment }: CommentsArrayProps) => {
+    const createdText = formatTime(comment.created_at)
+    const updatedText = formatTime(comment.updated_at)
+
+    const isEdited = comment.updated_at !== comment.created_at
+
     return (
         <div className={`${classes['comment']}`}>
             <div className={classes['comment--elipsis']}>
@@ -132,8 +137,19 @@ const Comment = ({ comment, functionArray, openSubComment }: CommentsArrayProps)
                 </div>
             </div>
             <div className={`${classes['comment--text']}`} >{comment.comment}</div>
-            <div className={classes['comment--addition']}>
-                {openSubComment && <Button onClick={() => openSubComment(comment.id)} className={classes['comment--reply']}>{comment.subcomment_count ? `Replies (${comment.subcomment_count})` : `Reply`}</Button>}
+            <div className={`${classes['comment--addition']} ${!openSubComment && classes['comment--addition__without-reply']}`}>
+                {isEdited ? (
+                    <Tooltip title={`Created ${createdText}`} placement="bottom">
+                        <span>edited {updatedText}*</span>
+                    </Tooltip>
+                ) : (
+                    <span>{createdText}</span>
+                )}
+                {openSubComment && (
+                    <Button onClick={() => openSubComment(comment.id)} className={classes['comment--reply']}>
+                        {comment.subcomment_count ? `Replies (${comment.subcomment_count})` : `Reply`}
+                    </Button>
+                )}
             </div>
         </div>
     )

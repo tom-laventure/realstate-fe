@@ -6,7 +6,6 @@ import usePostComments from 'Store/Hooks/Comments/usePostComment'
 import { useAppSelector } from 'Store/Hooks/useDispatch'
 import comment from 'Assets/Types/EstateCommentType'
 import { useDispatch } from 'react-redux'
-import { editComment } from 'Store/Reducers/comments'
 import useEditComments from 'Store/Hooks/Comments/useEditComment'
 
 

@@ -7,10 +7,14 @@
 }
 
 .comment {
-    @apply flex flex-col w-full rounded-lg my-2 p-5;
+    @apply flex flex-col w-full rounded-lg my-2 p-5 border-2 border-t-0;
 
     &--addition {
-        @apply flex justify-end w-full items-center;
+        @apply flex justify-between w-full items-center text-xs;
+
+        &__without-reply {
+            @apply justify-end;
+        }
     }
 
     &--buttons {
@@ -20,7 +24,7 @@
     }
 
     &--text {
-        @apply break-words;
+        @apply break-words mb-4;
     }
 
     &--owner {

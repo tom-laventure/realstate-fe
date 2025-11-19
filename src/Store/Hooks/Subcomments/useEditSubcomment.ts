@@ -1,5 +1,6 @@
 import { useMutation } from '@tanstack/react-query'
-import editSubcomment, { EditSubcommentParams } from 'Assets/API/SubComments/editSubcomment'
+import editSubcomment from 'Assets/API/SubComments/editSubcomment'
+import { EditSubcommentParams } from 'Assets/Types/EstateSubCommentType'
 import { useDispatch } from 'react-redux'
 import { upsertSubcomment, setEditSubcomment } from 'Store/Reducers/subcomments'
 
