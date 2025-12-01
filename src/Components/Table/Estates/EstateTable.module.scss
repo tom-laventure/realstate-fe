@@ -1,5 +1,5 @@
 .estates-table {
-    @apply w-full max-w-2xl;
+    @apply w-full;
 
     &--header-content {
         @apply w-full flex justify-between items-center mb-4;
@@ -12,58 +12,12 @@
     &--header {
         @apply font-semibold;
     }
-}
 
-.estate {
-    &--container {
-        @apply border rounded p-3 my-2;
-    }
-
-    &--body {
-        @apply flex;
+    &--filters {
+        @apply mb-4 px-4 border-b-2 py-4;
     }
 
     &--content {
-        @apply p-4;
-    }
-
-    &--image {
-        @apply object-cover max-h-max w-48;
-    }
-
-    &--top {
-        @apply w-full flex justify-between pb-4
-    }
-
-    &--bottom {
-        @apply flex justify-between w-full
-    }
-
-    &--header {
-        @apply font-semibold;
-    }
-
-    &--ratings-container {
-        @apply flex flex-col;
-    }
-
-    &--rating {
-        @apply flex items-center;
-
-        &__label {
-            @apply text-sm flex items-center w-20;
-        }
-
-        &__alter {
-            @apply text-sm cursor-pointer text-blue-500;
-        }
-    }
-
-    &--actions {
-        @apply flex justify-end;
-
-        button {
-            @apply flex items-center;
-        }
+        @apply w-full flex flex-col items-center;
     }
 }

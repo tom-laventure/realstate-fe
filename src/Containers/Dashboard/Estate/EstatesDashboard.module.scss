@@ -2,7 +2,7 @@
     @apply w-full flex justify-center min-h-full;
 
     &--content {
-        @apply w-full flex flex-col items-center;
+        @apply w-full max-w-3xl flex flex-col items-center border-2 rounded-lg m-5 shadow-lg;
 
         &__button {
             @apply w-full flex justify-end my-2 px-10;

@@ -1,4 +1,6 @@
 .estate-card {
+    @apply max-w-2xl;
+
     &--header {
         margin-bottom: 8px;
     }

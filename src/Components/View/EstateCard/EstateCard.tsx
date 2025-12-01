@@ -46,6 +46,7 @@ const EstateCard = ({ click, estate, groupID, disableCommentButton }: EstateCard
             }}
             aria-label={`estate-${estate.id}`}
             elevation={2}
+            className={classes['estate-card']}
         >
             <CardMedia
                 component="img"

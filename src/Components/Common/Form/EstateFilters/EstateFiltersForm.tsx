@@ -1,11 +1,16 @@
-import { FormControl, InputLabel, MenuItem, Select } from '@mui/material'
+import { FormControl, InputLabel, MenuItem, Select, IconButton, Button } from '@mui/material'
+import FilterListIcon from '@mui/icons-material/FilterList'
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import { setOrderBy } from 'Store/Reducers/estates'
 import classes from './EstateFiltersForm.module.scss'
 import { useAppSelector } from 'Store/Hooks/useDispatch'
 
-const EstateFiltersForm = () => {
+interface EstateFiltersFormProps {
+    setOpenFilters: (open: boolean) => void
+}
+
+const EstateFiltersForm = ({ setOpenFilters }: EstateFiltersFormProps) => {
     const dispatch = useDispatch()
     const orderBy = useAppSelector(state => state.estates.orderby)
 
@@ -24,13 +29,17 @@ const EstateFiltersForm = () => {
                     className={classes['estate-filters-form--select']}
                     labelId="estate-filters-form-select-label"
                 >
-                    <MenuItem value=""><em>None</em></MenuItem>
-                    <MenuItem value="user-avg">Your Highest Rated</MenuItem>
-                    <MenuItem value="avg">Highest Avg Group Rating</MenuItem>
-                    <MenuItem value="desc">Date Added Desc</MenuItem>
-                    <MenuItem value="asc">Date Added Asc</MenuItem>
+                    <MenuItem value="desc">Latest Activity</MenuItem>
+                    <MenuItem value="user-avg">Highest Rated</MenuItem>
+                    <MenuItem value="avg">Highest Group Rating</MenuItem>
                 </Select>
             </FormControl>
+            <Button
+                onClick={() => setOpenFilters(true)}
+                className={classes['estate-filters-form--button']}
+            >
+                Filter By
+            </Button>
         </form>
     )
 }
