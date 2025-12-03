@@ -7,7 +7,8 @@ export interface estateType {
     userEstates: estate[],
     selectedEstate: estate,
     orderby?: string,
-    favoritesOnly?: boolean
+    favoritesOnly?: boolean,
+    filterBy: string | undefined  // add this
 }
 
 const initialState: estateType = {
@@ -22,7 +23,8 @@ const initialState: estateType = {
         estate_comment_count: 0,
         liked: false
     },
-    favoritesOnly: false
+    favoritesOnly: false,
+    filterBy: undefined
 }
 
 const estatesSlice = createSlice({
@@ -54,6 +56,9 @@ const estatesSlice = createSlice({
         setFavoritesOnly: (state, action: PayloadAction<boolean>) => {
             state.favoritesOnly = action.payload
         },
+        setFilterBy: (state, action: PayloadAction<string | undefined>) => {  // add this
+            state.filterBy = action.payload
+        }
     }
 })
 
@@ -65,7 +70,8 @@ export const {
     setRatings,
     pushEstate,
     setOrderBy,
-    setFavoritesOnly
+    setFavoritesOnly,
+    setFilterBy
 } = estatesSlice.actions
 export { initialState as estateState }
 export default estatesSlice.reducer

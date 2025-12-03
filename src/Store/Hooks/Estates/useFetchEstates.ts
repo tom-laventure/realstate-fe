@@ -11,7 +11,7 @@ const useFetchEstates = (params: FetchEstateType) => {
     const dispatch = useDispatch()
 
     const { isLoading, isError, data, isSuccess } = useQuery({
-        queryKey: ['fetchEstates', params.id, params.order, params.favorites_only],
+        queryKey: ['fetchEstates', params.id, params.order, params.favorites_only, params.filter_by],
         enabled: !!params.id,
         staleTime: 10,
         queryFn: () => fetchEstate(params),

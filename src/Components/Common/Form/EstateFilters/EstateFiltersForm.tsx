@@ -1,7 +1,7 @@
 import { FormControl, InputLabel, MenuItem, Select, Button } from '@mui/material'
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
-import React, { useState } from 'react'
+import React from 'react'
 import { useDispatch } from 'react-redux'
 import { setOrderBy, setFavoritesOnly } from 'Store/Reducers/estates'
 import classes from './EstateFiltersForm.module.scss'
