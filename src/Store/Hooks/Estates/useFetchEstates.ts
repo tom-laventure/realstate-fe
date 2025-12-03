@@ -6,13 +6,12 @@ import { useNavigate } from "react-router-dom"
 import { setEstates } from "Store/Reducers/estates"
 import { setGroupState, setSelectedGroup } from "Store/Reducers/groups"
 
-
 const useFetchEstates = (params: FetchEstateType) => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
     const { isLoading, isError, data, isSuccess } = useQuery({
-        queryKey: ['fetchEstates', params.id, params.order],
+        queryKey: ['fetchEstates', params.id, params.order, params.favorites_only],
         enabled: !!params.id,
         staleTime: 10,
         queryFn: () => fetchEstate(params),

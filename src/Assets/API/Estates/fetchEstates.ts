@@ -7,12 +7,13 @@ interface FetchEstatesResponseType {
     group: group
 }
 
-interface FetchEstateType {
-    id?: string,
+export interface FetchEstateType {
+    id?: string
     order?: string
+    favorites_only?: boolean
 }
 
-const fetchEstates = async ({ id, order }: FetchEstateType) => instance.get<FetchEstatesResponseType>(`v1/estates?group_id=${id}&orderby=${order}`)
+const fetchEstate = (params: FetchEstateType) =>
+    instance.get<FetchEstatesResponseType>(`v1/estates?group_id=${params.id}&order=${params.order || 'desc'}&favorites_only=${params.favorites_only || false}`)
 
-export { FetchEstateType }
-export default fetchEstates
+export default fetchEstate

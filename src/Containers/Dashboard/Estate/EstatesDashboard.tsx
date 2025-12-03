@@ -12,13 +12,14 @@ const EstatesDashboard = () => {
     const dispatch = useAppDispatch()
     const estates = useAppSelector(state => state.estates.userEstates)
     const order = useAppSelector(state => state.estates.orderby)
+    const favoritesOnly = useAppSelector(state => state.estates.favoritesOnly)
 
     const { group_id } = useParams()
     const { isLoading } = useFetchEstates({
         id: group_id,
-        order: order
-    }
-    )
+        order: order,
+        favorites_only: favoritesOnly
+    })
 
     const messageRecieved = (message: message) => dispatch(pushMessage(message))
 
@@ -35,11 +36,9 @@ const EstatesDashboard = () => {
                         {/* <Messages /> */}
                         <EstateTable estates={estates} />
                     </div>
-
                 </div>
                 :
                 <div className={classes['estate-dashboard--home']}>
-
                 </div>
             }
         </div>

@@ -6,7 +6,8 @@ import estate from 'Assets/Types/EstateType'
 export interface estateType {
     userEstates: estate[],
     selectedEstate: estate,
-    orderby?: string
+    orderby?: string,
+    favoritesOnly?: boolean
 }
 
 const initialState: estateType = {
@@ -20,7 +21,8 @@ const initialState: estateType = {
         image: '',
         estate_comment_count: 0,
         liked: false
-    }
+    },
+    favoritesOnly: false
 }
 
 const estatesSlice = createSlice({
@@ -49,6 +51,9 @@ const estatesSlice = createSlice({
         setOrderBy: (state, action: PayloadAction<string>) => {
             state.orderby = action.payload
         },
+        setFavoritesOnly: (state, action: PayloadAction<boolean>) => {
+            state.favoritesOnly = action.payload
+        },
     }
 })
 
@@ -59,7 +64,8 @@ export const {
     setComments,
     setRatings,
     pushEstate,
-    setOrderBy
+    setOrderBy,
+    setFavoritesOnly
 } = estatesSlice.actions
 export { initialState as estateState }
 export default estatesSlice.reducer

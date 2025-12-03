@@ -1,12 +1,20 @@
 .estate-filters-form {
-    @apply w-full flex justify-end items-end;
+    @apply items-end justify-around sm:justify-between flex w-full;
+
+    &--left {
+        @apply items-end flex;
+    }
+
+    &--right {
+        @apply flex items-end;
+    }
 
     &--control {
         @apply w-32;
     }
 
     &--select {
-        @apply mb-1 min-w-fit;
+        @apply mb-1 min-w-fit mr-2 sm:mr-4;
     }
 
     &--label {
