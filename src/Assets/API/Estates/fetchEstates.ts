@@ -15,6 +15,6 @@ export interface FetchEstateType {
 }
 
 const fetchEstate = (params: FetchEstateType) =>
-    instance.get<FetchEstatesResponseType>(`v1/estates?group_id=${params.id}&order=${params.order || 'desc'}&favorites_only=${params.favorites_only || false}&filter_by=${params.filter_by || ''}`)
+    instance.get<FetchEstatesResponseType>(`v1/estates?group_id=${params.id}&order_by=${params.order || 'desc'}&favorites_only=${params.favorites_only || false}&filter_by=${params.filter_by || ''}`)
 
 export default fetchEstate
