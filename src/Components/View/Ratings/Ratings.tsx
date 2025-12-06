@@ -135,8 +135,8 @@ const SetRating = ({ cancelEdit, currentRating, estateId, setRatings }: SetRatin
       <div className={classes['ratings--rating-container']}>
         <Rating size="small" precision={.5} onClick={e => e.stopPropagation()} defaultValue={currentRating?.rating ? +currentRating.rating : 0} max={10} onChange={(event, value) => saveRating(value)} />
       </div>
-      <span className={classes['ratings--content__action']} onClick={cancelEdit}><CancelIcon color='inherit' fontSize='small' /></span>
-    </div>
+      <span className={classes['ratings--content__action']} onClick={e => { e.stopPropagation(); cancelEdit() }}><CancelIcon color='inherit' fontSize='small' /></span>
+    </div >
   )
 }
 

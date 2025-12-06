@@ -10,7 +10,7 @@
     }
 
     &--control {
-        @apply w-32;
+        min-width: 8rem !important;
     }
 
     &--select {
