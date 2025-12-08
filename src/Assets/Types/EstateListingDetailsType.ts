@@ -28,5 +28,6 @@ export default interface EstateListingDetails {
   price: string | null
   beds: number | null
   baths: number | null
-  sqft: number | null
+  sqft: number | null,
+  open_houses: []
 }

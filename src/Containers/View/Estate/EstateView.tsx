@@ -8,6 +8,7 @@ import { EstateNavBar } from 'Components/Navbar/EstateNavBar/EstateNavBar'
 import CardShell from 'Components/Common/Shells/CardShell'
 import EstateDescription from 'Components/View/EstateDescription/EstateDescription'
 import EstateCard from 'Components/View/EstateCard/EstateCard'
+import Calendar from 'Components/Table/Calandar/Calandar'
 
 type NavItem = 'details' | 'comments' | 'documents' | 'dates';
 type Props = {}
@@ -64,7 +65,6 @@ const EstateView = (props: Props) => {
 
                     <EstateCard estate={selectedEstate} groupID={params.group_id} click={() => { }} disableCommentButton />
 
-                    {/* controlled navbar */}
                     <EstateNavBar value={activeTab} onNavigate={handleNavigate} />
 
                     {/* conditional rendering based on activeTab */}
@@ -84,9 +84,12 @@ const EstateView = (props: Props) => {
                         )}
 
                         {activeTab === 'dates' && (
-                            <CardShell>
-                                <div>Important dates view (implement)</div>
-                            </CardShell>
+                            <Calendar
+                                events={[]}
+                                onEventClick={(event) => {
+                                    alert("Clicked event: " + event.title);
+                                }}
+                            />
                         )}
                     </CardShell>
 
