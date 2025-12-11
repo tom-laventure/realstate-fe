@@ -1,18 +1,44 @@
 
-import React, { useState } from 'react';
-import classes from './AuthenticateUser.module.scss'
-import SignIn from 'Components/Common/Form/SignIn/SignIn';
-import SignUp from 'Components/Common/Form/SignUp/SignUp';
+import React from 'react';
+import { useAuth } from "react-oidc-context";
 
-const AuthenticateUser = () => {
-    const [signIn, setSignIn] = useState(true)
+function App() {
+  const auth = useAuth();
 
+  const signOutRedirect = () => {
+    const clientId = "5vmfjt1sgo7740fce0tje35e2";
+    const logoutUri = "<logout uri>";
+    const cognitoDomain = "https://<user pool domain>";
+    window.location.href = `${cognitoDomain}/logout?client_id=${clientId}&logout_uri=${encodeURIComponent(logoutUri)}`;
+  };
 
+  if (auth.isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (auth.error) {
+    return <div>Encountering error... {auth.error.message}</div>;
+  }
+
+  if (auth.isAuthenticated) {
     return (
-        <div className={classes.container}>
-            {signIn ? <SignIn switchForm={() => setSignIn(!signIn)} /> : <SignUp switchForm={() => setSignIn(!signIn)} />}
-        </div>
+      <div>
+        <pre> Hello: {auth.user?.profile.email} </pre>
+        <pre> ID Token: {auth.user?.id_token} </pre>
+        <pre> Access Token: {auth.user?.access_token} </pre>
+        <pre> Refresh Token: {auth.user?.refresh_token} </pre>
+
+        <button onClick={() => auth.removeUser()}>Sign out</button>
+      </div>
     );
+  }
+
+  return (
+    <div>
+      <button onClick={() => auth.signinRedirect()}>Sign in</button>
+      <button onClick={() => signOutRedirect()}>Sign out</button>
+    </div>
+  );
 }
 
-export default AuthenticateUser;
+export default App;

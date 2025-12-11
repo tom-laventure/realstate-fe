@@ -9,6 +9,7 @@ import EstatesDashboard from 'Containers/Dashboard/Estate/EstatesDashboard'
 import EstateView from 'Containers/View/Estate/EstateView'
 import ErrorPage from 'Containers/ErrorPage/ErrorPage'
 import AuthenticateUser from 'Containers/Auth/AuthenticateUser/AuthenticateUser'
+import AuthCallback from 'Containers/Auth/AuthCallBack/AuthCallBack'
 
 const router = createBrowserRouter([
 	{
@@ -52,6 +53,10 @@ const router = createBrowserRouter([
 				path: "join-group/:token"
 			}
 		]
+	},
+	{
+		path: '/auth/callback',
+		element: <AuthCallback />
 	},
 	{
 		path: '*',

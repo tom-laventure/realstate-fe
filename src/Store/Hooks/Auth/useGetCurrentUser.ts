@@ -1,10 +1,11 @@
 import { useQuery } from "@tanstack/react-query"
-import getCurrentUser from "Assets/API/Auth/getCurrentUser";
-import { AxiosError } from "axios";
-import { useDispatch } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
-import { updateUser } from "Store/Reducers/account";
-import { setGroupState } from "Store/Reducers/groups";
+import { getCurrentUser, fetchAuthSession } from 'aws-amplify/auth'
+import getCurrentUserApi from "Assets/API/Auth/getCurrentUser"
+import { AxiosError } from "axios"
+import { useDispatch } from "react-redux"
+import { useNavigate } from "react-router-dom"
+import { updateUser } from "Store/Reducers/account"
+import { setGroupState } from "Store/Reducers/groups"
 
 
 const useGetCurrentUser = (accountId: number) => {
@@ -14,7 +15,24 @@ const useGetCurrentUser = (accountId: number) => {
     const { isLoading } = useQuery({
         queryKey: ['getCurrentUser'],
         enabled: !accountId,
-        queryFn: () => getCurrentUser(),
+        queryFn: async () => {
+            // First check if user is authenticated with Cognito
+            try {
+                const cognitoUser = await getCurrentUser()
+                const session = await fetchAuthSession()
+
+                if (!session.tokens?.accessToken) {
+                    throw new Error('No access token')
+                }
+
+                // Then fetch user data from your backend
+                return getCurrentUserApi()
+            } catch (error) {
+                // User not authenticated with Cognito
+                navigate('/login')
+                throw error
+            }
+        },
         onSuccess: (data) => {
             if (data) {
                 const user = data?.data
@@ -22,15 +40,17 @@ const useGetCurrentUser = (accountId: number) => {
                 dispatch(updateUser(user))
                 if (groups?.length) {
                     dispatch(setGroupState(groups))
+                } else {
+                    navigate('/')
                 }
-                else navigate('/')
             }
         },
         onError: (error: AxiosError) => {
             if (error.response?.status === 401) {
-                navigate('/login');
+                navigate('/login')
             }
         },
+        retry: false
     })
 
 
