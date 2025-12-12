@@ -1,4 +1,3 @@
-// src/config/amplify.ts
 import { Amplify } from 'aws-amplify'
 
 Amplify.configure({
@@ -6,11 +5,17 @@ Amplify.configure({
         Cognito: {
             userPoolId: process.env.REACT_APP_COGNITO_USER_POOL_ID || '',
             userPoolClientId: process.env.REACT_APP_COGNITO_CLIENT_ID || '',
-            identityPoolId: process.env.REACT_APP_COGNITO_IDENTITY_POOL_ID || '',
-            signUpVerificationMethod: 'code',
             loginWith: {
-                email: true
+                oauth: {
+                    domain: process.env.REACT_APP_COGNITO_DOMAIN || '',
+                    scopes: ['email', 'openid', 'phone'],
+                    redirectSignIn: [process.env.REACT_APP_REDIRECT_SIGN_IN || 'http://localhost:3000/'],
+                    redirectSignOut: [process.env.REACT_APP_REDIRECT_SIGN_OUT || 'http://localhost:3000/'],
+                    responseType: 'code'
+                }
             }
         }
     }
 })
+
+console.log('✅ Amplify Cognito configured')
