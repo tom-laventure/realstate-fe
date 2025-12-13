@@ -42,9 +42,6 @@ const GroupSelectedSideNav = ({ goBack }: GroupSelectedSideNavProps) => {
             <div className={classes['selected-side-nav--members']}>
                 <span className={classes['selected-side-nav--members__header']}>Group Members</span>
                 <div className={classes['selected-side-nav--members__array']}>
-                    {selectedGroup?.users.map((user, key) => {
-                        return <div className={classes['selected-side-nav--members__user']} key={key}>{user.name}</div>
-                    })}
                 </div>
                 <div onClick={() => setShowAddUserPopup(true)} className={classes['channel-navigation-button']}>+ new member</div>
             </div>

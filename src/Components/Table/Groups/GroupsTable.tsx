@@ -42,7 +42,7 @@ type groupProps = {
 
 const Group = ({ name, members = [], activeListings = 0, click }: groupProps) => {
     const memberNames = members.map((user, key) => {
-        return <div key={key}>{user.name}</div>
+        return <div key={key}>{user.first_name}</div>
     })
 
     return (

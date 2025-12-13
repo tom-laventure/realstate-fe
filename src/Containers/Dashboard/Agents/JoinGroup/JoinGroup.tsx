@@ -15,7 +15,6 @@ const JoinGroup = () => {
     const [groupID, setGroupID] = useState<string>()
     const { token } = useParams()
     const { mutate: joinGroup } = useJoinGroup({ complete: () => { } })
-    const userId = useAppSelector(state => state.account.id)
     const navigate = useNavigate()
 
 
@@ -50,7 +49,7 @@ const JoinGroup = () => {
                         You have been invited to join {groupInfo?.name}
                     </div>
                     <div className={classes['join-group--button-container']}>
-                        <Button onClick={() => joinGroup({ groupId: groupID, userId: userId })}>Join</Button>
+                        <Button onClick={() => joinGroup({ groupId: groupID })}>Join</Button>
                         <Button onClick={() => navigate('/')}>Decline</Button>
                     </div>
                 </div>

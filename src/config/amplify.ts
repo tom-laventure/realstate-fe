@@ -11,8 +11,6 @@ Amplify.configure({
                     scopes: [
                         'email',
                         'openid',
-                        'phone',
-                        'profile',
                         'aws.cognito.signin.user.admin'
                     ],
                     redirectSignIn: [process.env.REACT_APP_REDIRECT_SIGN_IN || 'http://localhost:3000/'],

@@ -15,8 +15,8 @@ const Messages = () => {
     const containerRef = useRef<HTMLDivElement | null>(null);
     const { group_id, channel_id } = useParams()
     const { isLoading } = useFetchMessages(group_id, messagePage, channel_id)
-    const { messages, accountId } = useAppSelector(state => {
-        return { messages: state.messages.messages, accountId: state.account.id }
+    const { messages } = useAppSelector(state => {
+        return { messages: state.messages.messages }
     })
 
     const scrollToBottom = () => messagesEndRef.current?.scrollIntoView({ behavior: 'auto' })
@@ -69,8 +69,8 @@ const Messages = () => {
             >
                 {isLoading ? <div className={classes['messages--loading']}>loading...</div> : <></>}
                 {
-                    messages && accountId ? messages.map((message, key) => {
-                        const owner = accountId === message.user_id
+                    messages ? messages.map((message, key) => {
+                        const owner = false
                         return <Message message={message} key={key} owner={owner} />
                     }) : <></>
                 }

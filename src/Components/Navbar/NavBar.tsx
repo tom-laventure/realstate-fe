@@ -12,9 +12,8 @@ interface NavBarProps {
 
 const Navbar = ({ disableAuth = false }: NavBarProps) => {
 	const { signOut } = useCognitoAuth()
-	const accountId = useAppSelector(state => state.account.id)
 
-	if (!disableAuth) useGetCurrentUser(accountId)
+	if (!disableAuth) useGetCurrentUser()
 
 	const handleSignOut = async () => {
 		await signOut()

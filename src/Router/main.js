@@ -10,6 +10,7 @@ import EstateView from 'Containers/View/Estate/EstateView'
 import ErrorPage from 'Containers/ErrorPage/ErrorPage'
 import AuthenticateUser from 'Containers/Auth/AuthenticateUser/AuthenticateUser'
 import AuthCallback from 'Containers/Auth/AuthCallBack/AuthCallBack'
+import ProfileCompletion from 'Containers/Auth/ProfileCompletion/ProfileCompletion'
 
 const router = createBrowserRouter([
 	{
@@ -57,6 +58,14 @@ const router = createBrowserRouter([
 	{
 		path: '/auth/callback',
 		element: <AuthCallback />
+	},
+  	{
+		path: '/auth-callback',
+		element: <AuthCallback />
+	},
+	{
+		path: '/complete-profile',
+		element: <ProfileCompletion />
 	},
 	{
 		path: '*',

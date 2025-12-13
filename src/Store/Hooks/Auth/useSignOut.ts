@@ -2,7 +2,6 @@ import { useMutation } from "@tanstack/react-query"
 import signOut from "Assets/API/Auth/SignOut";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { clearUser } from "Store/Reducers/account";
 
 
 const useSignOut = () => {
@@ -12,7 +11,6 @@ const useSignOut = () => {
         mutationFn: () => signOut(),
         onSettled: () => {
             localStorage.removeItem('authToken')
-            dispatch(clearUser())
             navigate('/login')
         }
     })

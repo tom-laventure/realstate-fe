@@ -7,26 +7,33 @@ import { updateUser } from 'Store/Reducers/account'
 import { setGroupState } from 'Store/Reducers/groups'
 import { AxiosError } from 'axios'
 
-const useGetCurrentUser = (accountId: number) => {
+interface UseGetCurrentUserProps {
+    onProfileIncomplete?: () => void
+}
+
+const useGetCurrentUser = ({ onProfileIncomplete }: UseGetCurrentUserProps = {}) => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
     const { isLoading } = useQuery({
         queryKey: ['getCurrentUser'],
-        enabled: !accountId,
         retry: false,
         queryFn: async () => {
             return getCurrentUserApi()
         },
-        onSuccess: (data) => {
-            if (!data) return
-            const user = data.data
+        onSuccess: (response) => {
+            if (!response?.data) return
+
+            const user = response.data
+            const nextStep = user.next_step
+
             dispatch(updateUser(user))
+
             if (user.groups?.length) {
                 dispatch(setGroupState(user.groups))
-            } else {
-                // navigate('/')
             }
+
+            navigate('/' + (nextStep || ''))
         },
         onError: (error: AxiosError) => {
             if (error.response?.status === 401) {
