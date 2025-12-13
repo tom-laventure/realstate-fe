@@ -2,7 +2,7 @@ import axios from 'axios'
 import { fetchAuthSession } from 'aws-amplify/auth'
 
 const api = axios.create({
-	baseURL: process.env.REACT_APP_API_URL || 'http://localhost:3000',
+	baseURL: process.env.REACT_APP_BE_ENDPOINT || 'http://localhost:3000',
 	headers: {
 		'Content-Type': 'application/json',
 		'Accept': 'application/json'
@@ -29,9 +29,9 @@ api.interceptors.request.use(async (config) => {
 api.interceptors.response.use(
 	(response) => response,
 	async (error) => {
-		if (error.response?.status === 401) {
-			window.location.href = '/login'
-		}
+		// if (error.response?.status === 401) {
+		// 	window.location.href = '/login'
+		// }
 		return Promise.reject(error)
 	}
 )
