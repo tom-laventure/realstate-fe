@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import classes from './Navbar.module.scss'
-import useSignOut from 'Store/Hooks/Auth/useSignOut'
 import { Button } from '@mui/material'
 import { useAppSelector } from 'Store/Hooks/useDispatch'
 import useGetCurrentUser from 'Store/Hooks/Auth/useGetCurrentUser'
+import { useCognitoAuth } from 'Store/Hooks/Auth/useCognitoAuth'
 import { NavLink } from 'react-router-dom'
 
 interface NavBarProps {
@@ -11,9 +11,14 @@ interface NavBarProps {
 }
 
 const Navbar = ({ disableAuth = false }: NavBarProps) => {
-	const { mutate: signout } = useSignOut()
+	const { signOut } = useCognitoAuth()
 	const accountId = useAppSelector(state => state.account.id)
+
 	if (!disableAuth) useGetCurrentUser(accountId)
+
+	const handleSignOut = async () => {
+		await signOut()
+	}
 
 	return (
 		<div className={classes['navbar']}>
@@ -22,7 +27,7 @@ const Navbar = ({ disableAuth = false }: NavBarProps) => {
 			</div>
 			<div className={classes['navbar__buttons']}>
 				<NavLink to="/">Groups</NavLink>
-				<Button onClick={() => signout()}>Sign Out</Button>
+				<Button onClick={handleSignOut}>Sign Out</Button>
 			</div>
 		</div>
 	)

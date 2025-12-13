@@ -1,11 +1,11 @@
-import { useQuery } from "@tanstack/react-query"
-import getCurrentUser from "Assets/API/Auth/getCurrentUser";
-import { AxiosError } from "axios";
-import { useDispatch } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
-import { updateUser } from "Store/Reducers/account";
-import { setGroupState } from "Store/Reducers/groups";
-
+import { useQuery } from '@tanstack/react-query'
+import { getCurrentUser } from 'aws-amplify/auth'
+import getCurrentUserApi from 'Assets/API/Auth/getCurrentUser'
+import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import { updateUser } from 'Store/Reducers/account'
+import { setGroupState } from 'Store/Reducers/groups'
+import { AxiosError } from 'axios'
 
 const useGetCurrentUser = (accountId: number) => {
     const navigate = useNavigate()
@@ -14,28 +14,28 @@ const useGetCurrentUser = (accountId: number) => {
     const { isLoading } = useQuery({
         queryKey: ['getCurrentUser'],
         enabled: !accountId,
-        queryFn: () => getCurrentUser(),
+        retry: false,
+        queryFn: async () => {
+            return getCurrentUserApi()
+        },
         onSuccess: (data) => {
-            if (data) {
-                const user = data?.data
-                const groups = user.groups
-                dispatch(updateUser(user))
-                if (groups?.length) {
-                    dispatch(setGroupState(groups))
-                }
-                else navigate('/')
+            if (!data) return
+            const user = data.data
+            dispatch(updateUser(user))
+            if (user.groups?.length) {
+                dispatch(setGroupState(user.groups))
+            } else {
+                // navigate('/')
             }
         },
         onError: (error: AxiosError) => {
             if (error.response?.status === 401) {
-                navigate('/login');
+                navigate('/login')
             }
-        },
+        }
     })
-
 
     return { isLoading }
 }
-
 
 export default useGetCurrentUser

@@ -1,18 +1,39 @@
-import axios from "axios";
+import axios from 'axios'
+import { fetchAuthSession } from 'aws-amplify/auth'
 
-const instance = axios.create({
-	baseURL: process.env.REACT_APP_BE_ENDPOINT,
-	timeout: 1000,
-	// headers: {'X-Custom-Header': ''}
-});
-
-instance.interceptors.request.use((config) => {
-	const token = localStorage.getItem('authToken')
-	if (token) config.headers['Authorization'] = token
-	return config
-}, e => {
-	return Promise.reject(e)
+const api = axios.create({
+	baseURL: process.env.REACT_APP_BE_ENDPOINT || 'http://localhost:3000',
+	headers: {
+		'Content-Type': 'application/json',
+		'Accept': 'application/json'
+	}
 })
 
+api.interceptors.request.use(async (config) => {
+	try {
+		const session = await fetchAuthSession()
+		const token = session.tokens?.accessToken?.toString()
 
-export default instance
+		if (token) {
+			config.headers.Authorization = `Bearer ${token}`
+		}
+	} catch (error) {
+		console.error('Failed to fetch auth session:', error)
+	}
+
+	return config
+}, (error) => {
+	return Promise.reject(error)
+})
+
+api.interceptors.response.use(
+	(response) => response,
+	async (error) => {
+		// if (error.response?.status === 401) {
+		// 	window.location.href = '/login'
+		// }
+		return Promise.reject(error)
+	}
+)
+
+export default api
